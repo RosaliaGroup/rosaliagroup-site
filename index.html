@@ -4,698 +4,209 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rosalia Group | Real Estate & Property Management — New Jersey</title>
-  <meta name="description" content="Rosalia Group — New Jersey's trusted real estate and property management company. Buy, sell, rent, and invest in Newark, Jersey City, East Orange, Elizabeth, and surrounding areas."/>
+  <meta name="description" content="Rosalia Group — New Jersey's premier real estate and property management company. Rent, buy, sell, and invest in Newark, Jersey City, East Orange, Elizabeth."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Familjen+Grotesk:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream: #F5F0E8;
-      --warm-white: #FAF8F4;
-      --charcoal: #1C1C1C;
-      --dark: #111111;
-      --gold: #B8963E;
-      --gold-light: #D4AF6A;
-      --muted: #6B6560;
-      --border: #E0D9CE;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --black:#0A0A0A;
+      --white:#FAFAFA;
+      --red:#E63329;
+      --red-dark:#B5251C;
+      --yellow:#F5C518;
+      --blue:#1A3CFF;
+      --gray:#F0EDE6;
+      --mid:#888;
+      --border:#222;
     }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--warm-white);
-      color: var(--charcoal);
-      overflow-x: hidden;
-    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Familjen Grotesk',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
 
     /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 48px;
-      background: rgba(250,248,244,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      transition: padding 0.3s;
-    }
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--dark);
-      letter-spacing: 0.04em;
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--gold); }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--charcoal); }
-    .nav-cta {
-      background: var(--charcoal);
-      color: white !important;
-      padding: 10px 24px;
-      letter-spacing: 0.08em !important;
-      transition: background 0.2s !important;
-    }
-    .nav-cta:hover { background: var(--gold) !important; color: white !important; }
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:var(--black);border-bottom:2px solid var(--red)}
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--white);letter-spacing:0.08em;text-decoration:none}
+    .nav-logo span{color:var(--red)}
+    .nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+    .nav-links a{font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s}
+    .nav-links a:hover{color:var(--white)}
+    .nav-cta{background:var(--red)!important;color:var(--white)!important;padding:10px 20px;letter-spacing:0.1em!important;transition:background 0.2s!important}
+    .nav-cta:hover{background:var(--red-dark)!important}
 
     /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: 80px;
-    }
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 64px 80px 80px;
-      background: var(--warm-white);
-    }
-    .hero-eyebrow {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
-    }
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 5vw, 5rem);
-      font-weight: 600;
-      line-height: 1.1;
-      color: var(--dark);
-      margin-bottom: 28px;
-    }
-    .hero-title em { font-style: italic; color: var(--gold); }
-    .hero-sub {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--muted);
-      max-width: 420px;
-      margin-bottom: 44px;
-    }
-    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--charcoal);
-      color: white;
-      padding: 14px 32px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .btn-primary:hover { background: var(--gold); transform: translateY(-1px); }
-    .btn-outline {
-      background: transparent;
-      color: var(--charcoal);
-      padding: 14px 32px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1.5px solid var(--charcoal);
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.2s;
-    }
-    .btn-outline:hover { background: var(--charcoal); color: white; }
-    .hero-stats {
-      display: flex; gap: 40px;
-      margin-top: 56px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
-    .hero-stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      font-weight: 600;
-      color: var(--dark);
-      line-height: 1;
-    }
-    .hero-stat-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-    .hero-right {
-      position: relative;
-      background: var(--charcoal);
-      overflow: hidden;
-    }
-    .hero-right::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #1C1C1C 0%, #2C2820 50%, #1a1612 100%);
-    }
-    .hero-pattern {
-      position: absolute; inset: 0;
-      opacity: 0.06;
-      background-image: repeating-linear-gradient(
-        45deg,
-        var(--gold) 0, var(--gold) 1px,
-        transparent 0, transparent 50%
-      );
-      background-size: 20px 20px;
-    }
-    .hero-img-content {
-      position: relative; z-index: 2;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 64px;
-    }
-    .hero-img-tag {
-      display: inline-block;
-      background: var(--gold);
-      color: white;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 6px 16px;
-      margin-bottom: 16px;
-    }
-    .hero-img-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      font-weight: 400;
-      color: white;
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
-    .hero-img-sub {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.55);
-    }
-    .hero-nj-map {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -60%);
-      width: 280px; height: 280px;
-      opacity: 0.12;
-    }
+    .hero{min-height:100vh;padding-top:64px;display:grid;grid-template-columns:1fr 1fr;background:var(--black)}
+    .hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 64px;position:relative;overflow:hidden}
+    .hero-left::before{content:'';position:absolute;top:-40px;right:-40px;width:300px;height:300px;background:var(--red);border-radius:50%;opacity:0.08}
+    .hero-ticker{display:flex;gap:12px;align-items:center;margin-bottom:32px}
+    .hero-ticker-dot{width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+    .hero-ticker-text{font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--red)}
+    .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,9vw,9rem);line-height:0.92;color:var(--white);margin-bottom:32px;letter-spacing:0.02em}
+    .hero-title .accent{color:var(--red);display:block}
+    .hero-title .outline{-webkit-text-stroke:2px var(--white);color:transparent;display:block}
+    .hero-sub{font-size:1rem;line-height:1.7;color:rgba(255,255,255,0.5);max-width:400px;margin-bottom:48px}
+    .hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+    .btn-red{background:var(--red);color:var(--white);padding:16px 36px;font-family:'Familjen Grotesk',sans-serif;font-size:0.82rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:background 0.2s,transform 0.15s}
+    .btn-red:hover{background:var(--red-dark);transform:translateY(-2px)}
+    .btn-ghost{background:transparent;color:var(--white);padding:16px 36px;font-family:'Familjen Grotesk',sans-serif;font-size:0.82rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;border:2px solid rgba(255,255,255,0.25);cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.2s}
+    .btn-ghost:hover{border-color:var(--white)}
+    .hero-stats{display:flex;gap:0;margin-top:64px;border-top:1px solid rgba(255,255,255,0.1);padding-top:40px}
+    .hero-stat{flex:1;padding-right:32px;border-right:1px solid rgba(255,255,255,0.1)}
+    .hero-stat:last-child{border-right:none;padding-right:0;padding-left:32px}
+    .hero-stat:not(:first-child){padding-left:32px}
+    .hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--white);line-height:1}
+    .hero-stat-label{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:4px}
+
+    .hero-right{background:var(--black);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(230,51,41,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(230,51,41,0.06) 1px,transparent 1px);background-size:60px 60px}
+    .hero-featured{position:relative;z-index:2;background:var(--red);padding:40px 48px;margin:40px}
+    .hero-featured-tag{font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:12px}
+    .hero-featured-title{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--white);line-height:1;margin-bottom:8px;letter-spacing:0.02em}
+    .hero-featured-sub{font-size:0.9rem;color:rgba(255,255,255,0.75)}
+    .hero-featured-price{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--yellow);margin-top:20px;letter-spacing:0.04em}
+    .hero-cities{position:relative;z-index:2;display:flex;gap:0;border-top:1px solid rgba(255,255,255,0.06)}
+    .hero-city{flex:1;padding:20px;border-right:1px solid rgba(255,255,255,0.06);text-align:center}
+    .hero-city:last-child{border-right:none}
+    .hero-city-name{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35)}
+    .hero-city-dot{width:4px;height:4px;background:var(--red);border-radius:50%;margin:6px auto 0}
+
+    /* MARQUEE */
+    .marquee-wrap{background:var(--red);padding:14px 0;overflow:hidden;white-space:nowrap}
+    .marquee-inner{display:inline-flex;gap:0;animation:marquee 20s linear infinite}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .marquee-item{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.08em;color:var(--white);padding:0 32px}
+    .marquee-sep{color:rgba(255,255,255,0.4)}
 
     /* SERVICES */
-    .services {
-      padding: 120px 80px;
-      background: var(--cream);
-    }
-    .section-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 64px;
-    }
-    .section-eyebrow {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 12px;
-    }
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 600;
-      color: var(--dark);
-      line-height: 1.15;
-    }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
-    .service-card {
-      background: var(--warm-white);
-      padding: 48px 40px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .service-card:hover { transform: translateY(-4px); }
-    .service-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-    .service-card:hover::after { transform: scaleX(1); }
-    .service-icon {
-      width: 48px; height: 48px;
-      margin-bottom: 28px;
-      color: var(--gold);
-    }
-    .service-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3.5rem;
-      font-weight: 400;
-      color: var(--border);
-      position: absolute;
-      top: 24px; right: 32px;
-      line-height: 1;
-    }
-    .service-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: var(--dark);
-      margin-bottom: 14px;
-      line-height: 1.2;
-    }
-    .service-desc {
-      font-size: 0.88rem;
-      line-height: 1.7;
-      color: var(--muted);
-      margin-bottom: 24px;
-    }
-    .service-link {
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
+    .services{padding:120px 80px;background:var(--white)}
+    .section-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:64px;gap:40px}
+    .section-label{font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+    .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,5rem);color:var(--black);line-height:0.95;letter-spacing:0.02em}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--black)}
+    .svc-card{background:var(--white);padding:48px 40px;position:relative;text-decoration:none;color:inherit;display:block;transition:background 0.25s}
+    .svc-card:hover{background:var(--black)}
+    .svc-card:hover .svc-title{color:var(--white)}
+    .svc-card:hover .svc-desc{color:rgba(255,255,255,0.5)}
+    .svc-card:hover .svc-arrow{color:var(--red)}
+    .svc-num{font-family:'Bebas Neue',sans-serif;font-size:5rem;color:var(--gray);line-height:1;margin-bottom:24px;letter-spacing:0.04em;transition:color 0.25s}
+    .svc-card:hover .svc-num{color:rgba(255,255,255,0.08)}
+    .svc-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--black);margin-bottom:16px;letter-spacing:0.04em;transition:color 0.25s}
+    .svc-desc{font-size:0.88rem;line-height:1.7;color:var(--mid);margin-bottom:28px;transition:color 0.25s}
+    .svc-arrow{font-size:1.4rem;color:var(--red);transition:color 0.25s}
 
     /* RENTALS */
-    .rentals {
-      padding: 120px 80px;
-      background: var(--warm-white);
-    }
-    .listings-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      margin-top: 56px;
-    }
-    .listing-card {
-      border: 1px solid var(--border);
-      overflow: hidden;
-      transition: box-shadow 0.3s;
-    }
-    .listing-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
-    .listing-img {
-      height: 220px;
-      background: var(--charcoal);
-      position: relative;
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .listing-img-pattern {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #2C2820, #1a1612);
-      opacity: 1;
-    }
-    .listing-img svg { position: relative; z-index: 1; opacity: 0.2; }
-    .listing-badge {
-      position: absolute;
-      top: 16px; left: 16px;
-      background: var(--gold);
-      color: white;
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      z-index: 2;
-    }
-    .listing-body { padding: 28px; }
-    .listing-price {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: var(--dark);
-      margin-bottom: 4px;
-    }
-    .listing-price span {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 400;
-      color: var(--muted);
-    }
-    .listing-address {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-    .listing-details {
-      display: flex; gap: 20px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-    .listing-detail { display: flex; align-items: center; gap: 6px; }
+    .rentals{padding:120px 80px;background:var(--gray)}
+    .listings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+    .listing-card{background:var(--white);overflow:hidden;transition:transform 0.25s}
+    .listing-card:hover{transform:translateY(-6px)}
+    .listing-top{height:200px;background:var(--black);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .listing-top-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(230,51,41,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(230,51,41,0.1) 1px,transparent 1px);background-size:30px 30px}
+    .listing-badge{position:absolute;top:16px;left:0;background:var(--red);color:var(--white);font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:5px 14px}
+    .listing-icon{position:relative;z-index:1;opacity:0.15}
+    .listing-body{padding:28px}
+    .listing-price{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--black);line-height:1;letter-spacing:0.04em}
+    .listing-price span{font-family:'Familjen Grotesk',sans-serif;font-size:0.78rem;font-weight:400;color:var(--mid)}
+    .listing-addr{font-size:0.85rem;color:var(--mid);margin:6px 0 18px}
+    .listing-meta{display:flex;gap:16px;padding-top:16px;border-top:1px solid var(--gray);font-size:0.78rem;color:var(--mid);font-weight:500}
+    .listing-cta{display:block;margin-top:20px;background:var(--black);color:var(--white);text-align:center;padding:12px;font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;transition:background 0.2s}
+    .listing-cta:hover{background:var(--red)}
 
-    /* IDX SECTION */
-    .idx-section {
-      padding: 120px 80px;
-      background: var(--charcoal);
-      position: relative;
-      overflow: hidden;
-    }
-    .idx-section::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(
-        45deg,
-        rgba(184,150,62,0.05) 0, rgba(184,150,62,0.05) 1px,
-        transparent 0, transparent 50%
-      );
-      background-size: 24px 24px;
-    }
-    .idx-inner {
-      position: relative; z-index: 2;
-      max-width: 640px;
-    }
-    .idx-section .section-eyebrow { color: var(--gold-light); }
-    .idx-section .section-title { color: white; }
-    .idx-sub {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.55);
-      margin: 24px 0 40px;
-      max-width: 480px;
-    }
-    .idx-search {
-      display: flex;
-      background: white;
-      border: none;
-      overflow: hidden;
-      max-width: 520px;
-    }
-    .idx-search input {
-      flex: 1;
-      padding: 16px 20px;
-      border: none;
-      outline: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      color: var(--charcoal);
-    }
-    .idx-search button {
-      background: var(--gold);
-      color: white;
-      border: none;
-      padding: 16px 28px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .idx-search button:hover { background: var(--gold-light); }
+    /* BUY/SELL */
+    .buysell{padding:120px 80px;background:var(--black);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .buysell-left .section-title{color:var(--white)}
+    .buysell-left .section-label{color:var(--yellow)}
+    .buysell-desc{font-size:1rem;line-height:1.8;color:rgba(255,255,255,0.5);margin:24px 0 40px;max-width:440px}
+    .buysell-search{display:flex;background:var(--white);overflow:hidden;max-width:480px}
+    .buysell-search input{flex:1;padding:16px 20px;border:none;outline:none;font-family:'Familjen Grotesk',sans-serif;font-size:0.9rem}
+    .buysell-search button{background:var(--red);color:var(--white);border:none;padding:16px 24px;font-family:'Familjen Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:background 0.2s}
+    .buysell-search button:hover{background:var(--red-dark)}
+    .buysell-note{margin-top:12px;font-size:0.75rem;color:rgba(255,255,255,0.25)}
+    .buysell-right{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,0.06)}
+    .buysell-stat{background:var(--black);padding:40px 32px;text-align:center}
+    .buysell-stat-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--yellow);line-height:1;letter-spacing:0.04em}
+    .buysell-stat-label{font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:8px}
 
-    /* PROPERTY MANAGEMENT */
-    .pm-section {
-      padding: 120px 80px;
-      background: var(--cream);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .pm-left .section-eyebrow { margin-bottom: 12px; }
-    .pm-left .section-title { margin-bottom: 24px; }
-    .pm-desc {
-      font-size: 0.95rem;
-      line-height: 1.8;
-      color: var(--muted);
-      margin-bottom: 40px;
-    }
-    .pm-features { list-style: none; margin-bottom: 40px; }
-    .pm-feature {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.88rem;
-      color: var(--charcoal);
-    }
-    .pm-feature-dot {
-      width: 6px; height: 6px;
-      background: var(--gold);
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .pm-right {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-    .pm-stat-box {
-      background: var(--warm-white);
-      padding: 40px 32px;
-      text-align: center;
-    }
-    .pm-stat-box:nth-child(2) { background: var(--charcoal); }
-    .pm-stat-box:nth-child(2) .pm-stat-num { color: white; }
-    .pm-stat-box:nth-child(2) .pm-stat-label { color: rgba(255,255,255,0.5); }
-    .pm-stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 600;
-      color: var(--dark);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .pm-stat-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+    /* PM */
+    .pm{padding:120px 80px;background:var(--white);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .pm-features{list-style:none;margin:32px 0 40px}
+    .pm-feature{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--gray);font-size:0.9rem;color:var(--black);font-weight:500}
+    .pm-feature-num{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--red);width:32px;flex-shrink:0;letter-spacing:0.04em}
+    .pm-visual{background:var(--black);padding:48px;position:relative;overflow:hidden}
+    .pm-visual-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(230,51,41,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(230,51,41,0.08) 1px,transparent 1px);background-size:40px 40px}
+    .pm-visual-content{position:relative;z-index:2}
+    .pm-visual-title{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--white);line-height:0.95;letter-spacing:0.04em;margin-bottom:32px}
+    .pm-visual-title span{color:var(--red)}
+    .pm-metrics{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,0.06)}
+    .pm-metric{background:var(--black);padding:24px}
+    .pm-metric-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--yellow);line-height:1}
+    .pm-metric-label{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:4px}
 
-    /* CONTACT / BOOK */
-    .contact-section {
-      padding: 120px 80px;
-      background: var(--warm-white);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-    .contact-left .section-title { margin-bottom: 20px; }
-    .contact-desc {
-      font-size: 0.95rem;
-      line-height: 1.8;
-      color: var(--muted);
-      margin-bottom: 40px;
-    }
-    .contact-info { list-style: none; }
-    .contact-info li {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.9rem;
-      color: var(--charcoal);
-    }
-    .contact-info-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      width: 64px;
-      flex-shrink: 0;
-    }
-    .contact-form { display: flex; flex-direction: column; gap: 16px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-label {
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .form-input {
-      padding: 13px 16px;
-      border: 1.5px solid var(--border);
-      background: var(--warm-white);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      color: var(--charcoal);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .form-input:focus { border-color: var(--gold); }
-    .form-select {
-      padding: 13px 16px;
-      border: 1.5px solid var(--border);
-      background: var(--warm-white);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      color: var(--charcoal);
-      outline: none;
-      appearance: none;
-      cursor: pointer;
-    }
-    .form-select:focus { border-color: var(--gold); }
-    .form-textarea {
-      padding: 13px 16px;
-      border: 1.5px solid var(--border);
-      background: var(--warm-white);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      color: var(--charcoal);
-      outline: none;
-      resize: vertical;
-      min-height: 100px;
-      transition: border-color 0.2s;
-    }
-    .form-textarea:focus { border-color: var(--gold); }
-    .form-consent {
-      display: flex; align-items: flex-start; gap: 10px;
-      font-size: 0.78rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-    .form-consent input { margin-top: 2px; flex-shrink: 0; }
-    .form-submit {
-      background: var(--charcoal);
-      color: white;
-      border: none;
-      padding: 16px 32px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s;
-      align-self: flex-start;
-    }
-    .form-submit:hover { background: var(--gold); }
-    .form-success {
-      display: none;
-      background: #f0f7f0;
-      border: 1px solid #c3dfc3;
-      padding: 16px 20px;
-      font-size: 0.88rem;
-      color: #2d6a2d;
-    }
+    /* CONTACT */
+    .contact{padding:120px 80px;background:var(--red);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .contact-left .section-title{color:var(--white)}
+    .contact-left .section-label{color:rgba(255,255,255,0.6)}
+    .contact-desc{font-size:1rem;line-height:1.8;color:rgba(255,255,255,0.7);margin:20px 0 40px}
+    .contact-info{list-style:none}
+    .contact-info li{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.15);font-size:0.9rem;color:rgba(255,255,255,0.9)}
+    .contact-info-label{font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);width:56px;flex-shrink:0}
+    .contact-form{background:var(--white);padding:48px;display:flex;flex-direction:column;gap:16px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .form-group{display:flex;flex-direction:column;gap:6px}
+    .form-label{font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid)}
+    .form-input{padding:13px 16px;border:1.5px solid var(--gray);background:var(--white);font-family:'Familjen Grotesk',sans-serif;font-size:0.9rem;color:var(--black);outline:none;transition:border-color 0.2s}
+    .form-input:focus{border-color:var(--red)}
+    .form-textarea{padding:13px 16px;border:1.5px solid var(--gray);background:var(--white);font-family:'Familjen Grotesk',sans-serif;font-size:0.9rem;color:var(--black);outline:none;resize:vertical;min-height:90px;transition:border-color 0.2s}
+    .form-textarea:focus{border-color:var(--red)}
+    .form-consent{display:flex;align-items:flex-start;gap:10px;font-size:0.78rem;color:var(--mid);line-height:1.5}
+    .form-consent input{margin-top:2px;flex-shrink:0;accent-color:var(--red)}
+    .form-submit{background:var(--red);color:var(--white);border:none;padding:16px;font-family:'Familjen Grotesk',sans-serif;font-size:0.82rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:background 0.2s}
+    .form-submit:hover{background:var(--red-dark)}
+    .form-success{display:none;background:#eaf5ea;border:1px solid #b2d9b2;padding:14px 16px;font-size:0.88rem;color:#2d6a2d}
 
     /* FOOTER */
-    footer {
-      background: var(--dark);
-      padding: 64px 80px 40px;
-    }
-    .footer-top {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 48px;
-      margin-bottom: 48px;
-      padding-bottom: 48px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .footer-brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: white;
-      margin-bottom: 16px;
-    }
-    .footer-brand span { color: var(--gold); }
-    .footer-tagline {
-      font-size: 0.85rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.4);
-      max-width: 260px;
-    }
-    .footer-col-title {
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      margin-bottom: 20px;
-    }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-links a {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: white; }
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.25);
-    }
-    .footer-bottom a { color: rgba(255,255,255,0.35); text-decoration: none; }
-    .footer-bottom a:hover { color: rgba(255,255,255,0.6); }
+    footer{background:var(--black);padding:64px 80px 40px}
+    .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--white);letter-spacing:0.08em;margin-bottom:16px}
+    .footer-logo span{color:var(--red)}
+    .footer-tagline{font-size:0.85rem;line-height:1.7;color:rgba(255,255,255,0.3);max-width:240px}
+    .footer-col-title{font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:20px}
+    .footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+    .footer-links a{font-size:0.85rem;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s}
+    .footer-links a:hover{color:var(--white)}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:0.75rem;color:rgba(255,255,255,0.2)}
+    .footer-bottom a{color:rgba(255,255,255,0.3);text-decoration:none}
+    .footer-bottom a:hover{color:rgba(255,255,255,0.6)}
 
     /* RESPONSIVE */
-    @media (max-width: 1024px) {
-      nav { padding: 16px 24px; }
-      .nav-links { gap: 20px; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-right { min-height: 400px; }
-      .hero-left { padding: 60px 40px; }
-      .services { padding: 80px 40px; }
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .rentals { padding: 80px 40px; }
-      .listings-grid { grid-template-columns: 1fr 1fr; }
-      .idx-section { padding: 80px 40px; }
-      .pm-section { grid-template-columns: 1fr; padding: 80px 40px; }
-      .contact-section { grid-template-columns: 1fr; padding: 80px 40px; }
-      footer { padding: 48px 40px 32px; }
-      .footer-top { grid-template-columns: 1fr 1fr; }
+    @media(max-width:1024px){
+      nav{padding:0 24px}
+      .hero{grid-template-columns:1fr}
+      .hero-right{min-height:360px}
+      .hero-left{padding:60px 40px}
+      .services{padding:80px 40px}
+      .services-grid{grid-template-columns:1fr 1fr}
+      .rentals{padding:80px 40px}
+      .listings-grid{grid-template-columns:1fr 1fr}
+      .buysell{grid-template-columns:1fr;padding:80px 40px}
+      .pm{grid-template-columns:1fr;padding:80px 40px}
+      .contact{grid-template-columns:1fr;padding:80px 40px}
+      footer{padding:48px 40px 32px}
+      .footer-top{grid-template-columns:1fr 1fr}
     }
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .services-grid { grid-template-columns: 1fr; }
-      .listings-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr; }
-      .hero-stats { gap: 24px; }
+    @media(max-width:640px){
+      .nav-links{display:none}
+      .services-grid{grid-template-columns:1fr}
+      .listings-grid{grid-template-columns:1fr}
+      .form-row{grid-template-columns:1fr}
+      .footer-top{grid-template-columns:1fr}
+      .hero-stats{flex-wrap:wrap}
+      .buysell-right{grid-template-columns:1fr 1fr}
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">Rosalia <span>Group</span></a>
   <ul class="nav-links">
@@ -707,285 +218,226 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <p class="hero-eyebrow">New Jersey Real Estate</p>
-    <h1 class="hero-title">Your Home<br/>in <em>New Jersey</em><br/>Starts Here</h1>
-    <p class="hero-sub">Rosalia Group connects renters, buyers, and property owners across Newark, Jersey City, East Orange, Elizabeth, and surrounding communities.</p>
-    <div class="hero-actions">
-      <a href="https://book.rosaliagroup.com" class="btn-primary">Book a Tour</a>
-      <a href="#buy-sell" class="btn-outline">Browse Listings</a>
+    <div class="hero-ticker">
+      <span class="hero-ticker-dot"></span>
+      <span class="hero-ticker-text">New Jersey Real Estate — Available Now</span>
+    </div>
+    <h1 class="hero-title">
+      <span>Your</span>
+      <span class="accent">Next</span>
+      <span class="outline">Move</span>
+    </h1>
+    <p class="hero-sub">Rosalia Group — Newark, Jersey City, East Orange, Elizabeth, and Orange NJ. Rentals, sales, and property management under one roof.</p>
+    <div class="hero-btns">
+      <a href="https://book.rosaliagroup.com" class="btn-red">Book a Tour</a>
+      <a href="#buy-sell" class="btn-ghost">Search Listings</a>
     </div>
     <div class="hero-stats">
-      <div>
+      <div class="hero-stat">
         <div class="hero-stat-num">200+</div>
         <div class="hero-stat-label">Units Managed</div>
       </div>
-      <div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">98%</div>
+        <div class="hero-stat-label">Occupancy Rate</div>
+      </div>
+      <div class="hero-stat">
         <div class="hero-stat-num">10+</div>
         <div class="hero-stat-label">Years in NJ</div>
-      </div>
-      <div>
-        <div class="hero-stat-num">5</div>
-        <div class="hero-stat-label">Cities Served</div>
       </div>
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-pattern"></div>
-    <svg class="hero-nj-map" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M100 20 L160 60 L170 120 L150 180 L120 240 L100 280 L80 240 L50 180 L30 120 L40 60 Z" stroke="white" stroke-width="1.5" fill="none"/>
-      <circle cx="100" cy="140" r="4" fill="white" opacity="0.6"/>
-      <circle cx="115" cy="110" r="3" fill="white" opacity="0.4"/>
-      <circle cx="85" cy="160" r="3" fill="white" opacity="0.4"/>
-      <circle cx="110" cy="170" r="3" fill="white" opacity="0.4"/>
-      <circle cx="90" cy="120" r="3" fill="white" opacity="0.4"/>
-    </svg>
-    <div class="hero-img-content">
-      <span class="hero-img-tag">Featured Property</span>
-      <div class="hero-img-title">Iron Pointe<br/>Jersey City, NJ</div>
-      <div class="hero-img-sub">Luxury apartments from $2,200/mo</div>
+    <div class="hero-grid"></div>
+    <div style="flex:1"></div>
+    <div class="hero-featured">
+      <div class="hero-featured-tag">Featured Property</div>
+      <div class="hero-featured-title">Iron Pointe<br/>Jersey City</div>
+      <div class="hero-featured-sub">Luxury apartments — tour available now</div>
+      <div class="hero-featured-price">From $2,200/mo</div>
+    </div>
+    <div class="hero-cities">
+      <div class="hero-city"><div class="hero-city-name">Newark</div><div class="hero-city-dot"></div></div>
+      <div class="hero-city"><div class="hero-city-name">Jersey City</div><div class="hero-city-dot"></div></div>
+      <div class="hero-city"><div class="hero-city-name">East Orange</div><div class="hero-city-dot"></div></div>
+      <div class="hero-city"><div class="hero-city-name">Elizabeth</div><div class="hero-city-dot"></div></div>
+      <div class="hero-city"><div class="hero-city-name">Orange</div><div class="hero-city-dot"></div></div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span class="marquee-item">Apartments for Rent</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">Homes for Sale</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">Property Management</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">Newark NJ</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">Jersey City NJ</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">East Orange NJ</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">Book a Tour Today</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">Apartments for Rent</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">Homes for Sale</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">Property Management</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">Newark NJ</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">Jersey City NJ</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">East Orange NJ</span><span class="marquee-item marquee-sep">—</span>
+    <span class="marquee-item">Book a Tour Today</span><span class="marquee-item marquee-sep">—</span>
+  </div>
+</div>
+
 <section class="services" id="services">
-  <div class="section-header">
+  <div class="section-top">
     <div>
-      <p class="section-eyebrow">What We Do</p>
-      <h2 class="section-title">Full-Service Real Estate<br/>in New Jersey</h2>
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title">Full-Service<br/>Real Estate</h2>
     </div>
+    <a href="#contact" class="btn-red">Get Started</a>
   </div>
   <div class="services-grid">
-    <a href="#rentals" class="service-card">
-      <span class="service-num">01</span>
-      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M8 20L24 8L40 20V42H30V30H18V42H8V20Z"/>
-      </svg>
-      <h3 class="service-title">Apartment Rentals</h3>
-      <p class="service-desc">Studio to 4-bedroom apartments across Newark, Jersey City, East Orange, and Elizabeth. Tour today and move in fast.</p>
-      <span class="service-link">View Rentals →</span>
+    <a href="#rentals" class="svc-card">
+      <div class="svc-num">01</div>
+      <h3 class="svc-title">Apartment Rentals</h3>
+      <p class="svc-desc">Studio to 4BR across Newark, Jersey City, East Orange & Elizabeth. Tour fast, move in faster.</p>
+      <span class="svc-arrow">→</span>
     </a>
-    <a href="#buy-sell" class="service-card">
-      <span class="service-num">02</span>
-      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="6" y="18" width="36" height="26" rx="1"/>
-        <path d="M16 44V32H32V44"/>
-        <path d="M2 20L24 4L46 20"/>
-        <path d="M18 18H30"/>
-      </svg>
-      <h3 class="service-title">Buy & Sell Homes</h3>
-      <p class="service-desc">Licensed realtors helping buyers and sellers throughout New Jersey. Expert guidance from search to closing.</p>
-      <span class="service-link">Search Listings →</span>
+    <a href="#buy-sell" class="svc-card">
+      <div class="svc-num">02</div>
+      <h3 class="svc-title">Buy & Sell</h3>
+      <p class="svc-desc">Licensed NJ realtors helping buyers and sellers. Search live Bright MLS listings and close with confidence.</p>
+      <span class="svc-arrow">→</span>
     </a>
-    <a href="#property-management" class="service-card">
-      <span class="service-num">03</span>
-      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-        <circle cx="24" cy="24" r="18"/>
-        <path d="M24 14V24L30 30"/>
-        <path d="M14 24H24"/>
-      </svg>
-      <h3 class="service-title">Property Management</h3>
-      <p class="service-desc">Full-service management for landlords and investors. Tenant screening, maintenance, rent collection, and reporting.</p>
-      <span class="service-link">Learn More →</span>
+    <a href="#property-management" class="svc-card">
+      <div class="svc-num">03</div>
+      <h3 class="svc-title">Property Management</h3>
+      <p class="svc-desc">Full-service for landlords and investors. Screening, rent collection, maintenance, and monthly reporting.</p>
+      <span class="svc-arrow">→</span>
     </a>
   </div>
 </section>
 
-<!-- RENTALS -->
 <section class="rentals" id="rentals">
-  <div class="section-header">
+  <div class="section-top">
     <div>
-      <p class="section-eyebrow">Available Now</p>
-      <h2 class="section-title">Featured Rentals</h2>
+      <p class="section-label">Available Now</p>
+      <h2 class="section-title">Featured<br/>Rentals</h2>
     </div>
-    <a href="https://book.rosaliagroup.com" class="btn-primary">Book a Tour</a>
+    <a href="https://book.rosaliagroup.com" class="btn-red">Book a Tour</a>
   </div>
   <div class="listings-grid">
     <div class="listing-card">
-      <div class="listing-img">
-        <div class="listing-img-pattern"></div>
+      <div class="listing-top">
+        <div class="listing-top-grid"></div>
         <span class="listing-badge">Available</span>
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
-          <rect x="10" y="30" width="60" height="40"/>
-          <path d="M5 35L40 10L75 35"/>
-          <rect x="30" y="50" width="20" height="20"/>
-        </svg>
+        <svg class="listing-icon" width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1.5"><rect x="10" y="30" width="60" height="42"/><path d="M5 33L40 8L75 33"/><rect x="30" y="52" width="20" height="20"/></svg>
       </div>
       <div class="listing-body">
         <div class="listing-price">$2,200 <span>/mo</span></div>
-        <div class="listing-address">Iron Pointe — Jersey City, NJ</div>
-        <div class="listing-details">
-          <span class="listing-detail">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8L12 2L21 8V22H15V16H9V22H3Z"/></svg>
-            1 Bed
-          </span>
-          <span class="listing-detail">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12H20M4 12C4 8 8 4 12 4C16 4 20 8 20 12M4 12V18H20V12"/></svg>
-            1 Bath
-          </span>
-          <span class="listing-detail">650 sqft</span>
-        </div>
+        <div class="listing-addr">Iron Pointe — Jersey City, NJ</div>
+        <div class="listing-meta"><span>1 Bed</span><span>1 Bath</span><span>650 sqft</span></div>
+        <a href="https://book.rosaliagroup.com" class="listing-cta">Book a Tour</a>
       </div>
     </div>
     <div class="listing-card">
-      <div class="listing-img">
-        <div class="listing-img-pattern"></div>
+      <div class="listing-top">
+        <div class="listing-top-grid"></div>
         <span class="listing-badge">Available</span>
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
-          <rect x="10" y="30" width="60" height="40"/>
-          <path d="M5 35L40 10L75 35"/>
-          <rect x="25" y="50" width="13" height="20"/>
-          <rect x="42" y="50" width="13" height="20"/>
-        </svg>
+        <svg class="listing-icon" width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1.5"><rect x="10" y="30" width="60" height="42"/><path d="M5 33L40 8L75 33"/><rect x="22" y="52" width="16" height="20"/><rect x="42" y="52" width="16" height="20"/></svg>
       </div>
       <div class="listing-body">
         <div class="listing-price">$2,800 <span>/mo</span></div>
-        <div class="listing-address">Madison Street — Newark, NJ</div>
-        <div class="listing-details">
-          <span class="listing-detail">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8L12 2L21 8V22H15V16H9V22H3Z"/></svg>
-            2 Bed
-          </span>
-          <span class="listing-detail">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12H20M4 12C4 8 8 4 12 4C16 4 20 8 20 12M4 12V18H20V12"/></svg>
-            1 Bath
-          </span>
-          <span class="listing-detail">850 sqft</span>
-        </div>
+        <div class="listing-addr">Madison Street — Newark, NJ</div>
+        <div class="listing-meta"><span>2 Bed</span><span>1 Bath</span><span>850 sqft</span></div>
+        <a href="https://book.rosaliagroup.com" class="listing-cta">Book a Tour</a>
       </div>
     </div>
     <div class="listing-card">
-      <div class="listing-img">
-        <div class="listing-img-pattern"></div>
+      <div class="listing-top">
+        <div class="listing-top-grid"></div>
         <span class="listing-badge">Available</span>
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
-          <rect x="10" y="30" width="60" height="40"/>
-          <path d="M5 35L40 10L75 35"/>
-          <rect x="20" y="50" width="12" height="20"/>
-          <rect x="34" y="50" width="12" height="20"/>
-          <rect x="48" y="50" width="12" height="20"/>
-        </svg>
+        <svg class="listing-icon" width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1.5"><rect x="10" y="30" width="60" height="42"/><path d="M5 33L40 8L75 33"/><rect x="15" y="52" width="14" height="20"/><rect x="33" y="52" width="14" height="20"/><rect x="51" y="52" width="14" height="20"/></svg>
       </div>
       <div class="listing-body">
         <div class="listing-price">$3,400 <span>/mo</span></div>
-        <div class="listing-address">Market Street — East Orange, NJ</div>
-        <div class="listing-details">
-          <span class="listing-detail">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8L12 2L21 8V22H15V16H9V22H3Z"/></svg>
-            3 Bed
-          </span>
-          <span class="listing-detail">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12H20M4 12C4 8 8 4 12 4C16 4 20 8 20 12M4 12V18H20V12"/></svg>
-            2 Bath
-          </span>
-          <span class="listing-detail">1,100 sqft</span>
-        </div>
+        <div class="listing-addr">Market Street — East Orange, NJ</div>
+        <div class="listing-meta"><span>3 Bed</span><span>2 Bath</span><span>1,100 sqft</span></div>
+        <a href="https://book.rosaliagroup.com" class="listing-cta">Book a Tour</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- IDX / BUY & SELL -->
-<section class="idx-section" id="buy-sell">
-  <div class="idx-inner">
-    <p class="section-eyebrow">Buy & Sell</p>
-    <h2 class="section-title" style="color:white;">Search New Jersey<br/>Real Estate</h2>
-    <p class="idx-sub">Browse homes for sale across New Jersey with live MLS listings powered by Bright MLS. Our licensed agents are ready to guide you from search to closing.</p>
-    <div class="idx-search">
-      <input type="text" placeholder="Search by city, zip, or address…"/>
+<section class="buysell" id="buy-sell">
+  <div class="buysell-left">
+    <p class="section-label">Buy & Sell</p>
+    <h2 class="section-title" style="color:var(--white)">Search<br/>NJ Homes</h2>
+    <p class="buysell-desc">Browse live MLS listings powered by Bright MLS. Our licensed NJ agents guide you from search to closing.</p>
+    <div class="buysell-search">
+      <input type="text" placeholder="City, zip, or address…"/>
       <button onclick="alert('IDX search coming soon — call (862) 333-1681')">Search</button>
     </div>
-    <p style="margin-top:16px; font-size:0.78rem; color:rgba(255,255,255,0.3);">Powered by Bright MLS · Live listings updated daily</p>
+    <p class="buysell-note">Powered by Bright MLS · Updated daily</p>
+  </div>
+  <div class="buysell-right">
+    <div class="buysell-stat"><div class="buysell-stat-num">500+</div><div class="buysell-stat-label">Listings</div></div>
+    <div class="buysell-stat"><div class="buysell-stat-num">NJ</div><div class="buysell-stat-label">Licensed</div></div>
+    <div class="buysell-stat"><div class="buysell-stat-num">10+</div><div class="buysell-stat-label">Years Exp.</div></div>
+    <div class="buysell-stat"><div class="buysell-stat-num">5</div><div class="buysell-stat-label">Cities</div></div>
   </div>
 </section>
 
-<!-- PROPERTY MANAGEMENT -->
-<section class="pm-section" id="property-management">
+<section class="pm" id="property-management">
   <div class="pm-left">
-    <p class="section-eyebrow">For Landlords & Investors</p>
-    <h2 class="section-title">Property Management<br/>That Works</h2>
-    <p class="pm-desc">We handle everything so you don't have to. From tenant screening to monthly reporting, Rosalia Group manages your investment with care and accountability.</p>
+    <p class="section-label">For Landlords & Investors</p>
+    <h2 class="section-title">Property<br/>Management</h2>
     <ul class="pm-features">
-      <li class="pm-feature"><span class="pm-feature-dot"></span>Tenant screening & placement</li>
-      <li class="pm-feature"><span class="pm-feature-dot"></span>Rent collection & disbursement</li>
-      <li class="pm-feature"><span class="pm-feature-dot"></span>24/7 maintenance coordination</li>
-      <li class="pm-feature"><span class="pm-feature-dot"></span>Monthly financial reporting</li>
-      <li class="pm-feature"><span class="pm-feature-dot"></span>Lease renewals & eviction support</li>
-      <li class="pm-feature"><span class="pm-feature-dot"></span>Property inspections</li>
+      <li class="pm-feature"><span class="pm-feature-num">01</span>Tenant screening & placement</li>
+      <li class="pm-feature"><span class="pm-feature-num">02</span>Rent collection & disbursement</li>
+      <li class="pm-feature"><span class="pm-feature-num">03</span>24/7 maintenance coordination</li>
+      <li class="pm-feature"><span class="pm-feature-num">04</span>Monthly financial reporting</li>
+      <li class="pm-feature"><span class="pm-feature-num">05</span>Lease renewals & eviction support</li>
+      <li class="pm-feature"><span class="pm-feature-num">06</span>Property inspections</li>
     </ul>
-    <a href="#contact" class="btn-primary">Get a Free Consultation</a>
+    <a href="#contact" class="btn-red">Free Consultation</a>
   </div>
-  <div class="pm-right">
-    <div class="pm-stat-box">
-      <div class="pm-stat-num">98%</div>
-      <div class="pm-stat-label">Occupancy Rate</div>
-    </div>
-    <div class="pm-stat-box">
-      <div class="pm-stat-num">200+</div>
-      <div class="pm-stat-label">Units Managed</div>
-    </div>
-    <div class="pm-stat-box">
-      <div class="pm-stat-num">10+</div>
-      <div class="pm-stat-label">Years Experience</div>
-    </div>
-    <div class="pm-stat-box">
-      <div class="pm-stat-num">5</div>
-      <div class="pm-stat-label">NJ Cities</div>
+  <div class="pm-visual">
+    <div class="pm-visual-grid"></div>
+    <div class="pm-visual-content">
+      <div class="pm-visual-title">We<br/>Manage<br/><span>It All</span></div>
+      <div class="pm-metrics">
+        <div class="pm-metric"><div class="pm-metric-num">98%</div><div class="pm-metric-label">Occupancy</div></div>
+        <div class="pm-metric"><div class="pm-metric-num">200+</div><div class="pm-metric-label">Units</div></div>
+        <div class="pm-metric"><div class="pm-metric-num">10+</div><div class="pm-metric-label">Years</div></div>
+        <div class="pm-metric"><div class="pm-metric-num">5</div><div class="pm-metric-label">Cities</div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact-section" id="contact">
+<section class="contact" id="contact">
   <div class="contact-left">
-    <p class="section-eyebrow">Get In Touch</p>
-    <h2 class="section-title">Let's Find Your<br/>Next Home</h2>
-    <p class="contact-desc">Whether you're looking to rent, buy, sell, or need property management services — we're here to help. Reach out and a team member will follow up promptly.</p>
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title" style="color:var(--white)">Let's Find<br/>Your Next<br/>Home</h2>
+    <p class="contact-desc">Rent, buy, sell, or need management — we're here. A team member follows up same day.</p>
     <ul class="contact-info">
-      <li>
-        <span class="contact-info-label">Phone</span>
-        <a href="tel:8623331681" style="color:inherit;text-decoration:none;">(862) 333-1681</a>
-      </li>
-      <li>
-        <span class="contact-info-label">Email</span>
-        <a href="mailto:inquiries@rosaliagroup.com" style="color:inherit;text-decoration:none;">inquiries@rosaliagroup.com</a>
-      </li>
-      <li>
-        <span class="contact-info-label">Areas</span>
-        Newark, Jersey City, East Orange, Elizabeth, Orange
-      </li>
-      <li>
-        <span class="contact-info-label">Hours</span>
-        Mon–Fri 9am–6pm · Sat–Sun 10am–5pm
-      </li>
+      <li><span class="contact-info-label">Phone</span><a href="tel:8623331681" style="color:inherit;text-decoration:none">(862) 333-1681</a></li>
+      <li><span class="contact-info-label">Email</span><a href="mailto:inquiries@rosaliagroup.com" style="color:inherit;text-decoration:none">inquiries@rosaliagroup.com</a></li>
+      <li><span class="contact-info-label">Areas</span>Newark · Jersey City · East Orange · Elizabeth · Orange</li>
+      <li><span class="contact-info-label">Hours</span>Mon–Fri 9am–6pm · Sat–Sun 10am–5pm</li>
     </ul>
   </div>
   <div>
     <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
       <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">First Name</label>
-          <input class="form-input" type="text" name="first_name" placeholder="Ana" required/>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Last Name</label>
-          <input class="form-input" type="text" name="last_name" placeholder="Haynes"/>
-        </div>
+        <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" name="first_name" placeholder="Ana" required/></div>
+        <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" name="last_name" placeholder="Haynes"/></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input class="form-input" type="email" name="email" placeholder="you@email.com" required/>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Phone</label>
-        <input class="form-input" type="tel" name="phone" placeholder="(201) 555-1234"/>
-      </div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" name="email" placeholder="you@email.com" required/></div>
+      <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" name="phone" placeholder="(201) 555-1234"/></div>
       <div class="form-group">
         <label class="form-label">I'm interested in…</label>
-        <select class="form-select form-input" name="interest">
+        <select class="form-input" name="interest" style="cursor:pointer;appearance:none">
           <option value="">Select one</option>
           <option value="rental">Renting an apartment</option>
           <option value="buy">Buying a home</option>
@@ -994,26 +446,22 @@
           <option value="other">Other</option>
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label">Message</label>
-        <textarea class="form-textarea" name="message" placeholder="Tell us what you're looking for…"></textarea>
-      </div>
+      <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" name="message" placeholder="Tell us what you're looking for…"></textarea></div>
       <div class="form-consent">
         <input type="checkbox" name="sms_consent" id="sms_consent" required/>
-        <label for="sms_consent">I agree to receive SMS messages from Rosalia Group regarding my inquiry. Msg &amp; data rates may apply. Reply STOP to opt out.</label>
+        <label for="sms_consent">I agree to receive SMS messages from Rosalia Group about my inquiry. Msg & data rates may apply. Reply STOP to opt out.</label>
       </div>
       <button type="submit" class="form-submit">Send Message</button>
-      <div class="form-success" id="formSuccess">✓ Message received! We'll be in touch shortly.</div>
+      <div class="form-success" id="formSuccess">Message received — we'll be in touch shortly!</div>
     </form>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand">Rosalia <span>Group</span></div>
-      <p class="footer-tagline">New Jersey's trusted real estate and property management company serving Newark, Jersey City, East Orange, Elizabeth, and Orange NJ.</p>
+      <div class="footer-logo">Rosalia <span>Group</span></div>
+      <p class="footer-tagline">New Jersey's trusted real estate and property management company. Newark · Jersey City · East Orange · Elizabeth · Orange.</p>
     </div>
     <div>
       <div class="footer-col-title">Services</div>
@@ -1030,7 +478,7 @@
         <li><a href="#contact">Contact Us</a></li>
         <li><a href="https://book.rosaliagroup.com">Book a Tour</a></li>
         <li><a href="/privacy">Privacy Policy</a></li>
-        <li><a href="/terms">Terms &amp; Conditions</a></li>
+        <li><a href="/terms">Terms & Conditions</a></li>
       </ul>
     </div>
     <div>
@@ -1049,45 +497,23 @@
 </footer>
 
 <script>
-function handleSubmit(e) {
+function handleSubmit(e){
   e.preventDefault();
-  const form = document.getElementById('contactForm');
-  const success = document.getElementById('formSuccess');
-  const btn = form.querySelector('.form-submit');
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
-
-  const data = Object.fromEntries(new FormData(form));
-
-  fetch('https://silver-ganache-1ee2ca.netlify.app/.netlify/functions/respondrosalia', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      action: 'reply',
-      lead: {
-        name: (data.first_name + ' ' + (data.last_name || '')).trim(),
-        email: data.email,
-        phone: data.phone,
-        message: data.message || data.interest,
-        source: 'rosaliagroup.com',
-        type: data.interest,
-      }
-    })
-  })
-  .then(() => {
-    success.style.display = 'block';
-    form.reset();
-    btn.textContent = 'Send Message';
-    btn.disabled = false;
-  })
-  .catch(() => {
-    success.style.display = 'block';
-    success.textContent = '✓ Message received!';
-    btn.textContent = 'Send Message';
-    btn.disabled = false;
+  const form=document.getElementById('contactForm');
+  const success=document.getElementById('formSuccess');
+  const btn=form.querySelector('.form-submit');
+  btn.textContent='Sending…';btn.disabled=true;
+  const data=Object.fromEntries(new FormData(form));
+  fetch('https://silver-ganache-1ee2ca.netlify.app/.netlify/functions/respondrosalia',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'reply',lead:{name:(data.first_name+' '+(data.last_name||'')).trim(),email:data.email,phone:data.phone,message:data.message||data.interest,source:'rosaliagroup.com',type:data.interest}})
+  }).then(()=>{
+    success.style.display='block';form.reset();btn.textContent='Send Message';btn.disabled=false;
+  }).catch(()=>{
+    success.style.display='block';btn.textContent='Send Message';btn.disabled=false;
   });
 }
 </script>
-
 </body>
 </html>
