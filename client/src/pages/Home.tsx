@@ -9,6 +9,7 @@ import ChatBot from "@/components/ChatBot";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/sections/HeroSection";
 import ServicesSection from "@/components/sections/ServicesSection";
+import AllServicesSection from "@/components/sections/AllServicesSection";
 import RentalsSection from "@/components/sections/RentalsSection";
 import BuySellSection from "@/components/sections/BuySellSection";
 import ManagementSection from "@/components/sections/ManagementSection";
@@ -23,6 +24,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <ServicesSection />
+        <AllServicesSection />
         <RentalsSection />
         <BuySellSection />
         <ManagementSection />

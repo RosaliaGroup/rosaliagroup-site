@@ -20,6 +20,7 @@ export default function Navbar() {
   }, []);
 
   const links = [
+    { label: "Services", href: "#all-services" },
     { label: "Rentals", href: "#rentals" },
     { label: "Buy & Sell", href: "#buy-sell" },
     { label: "Management", href: "#management" },
