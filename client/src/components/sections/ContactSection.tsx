@@ -265,11 +265,20 @@ export default function ContactSection() {
                     required
                   >
                     <option value="" disabled>Select one</option>
-                    <option value="renting">Renting an apartment</option>
-                    <option value="buying">Buying a home</option>
-                    <option value="selling">Selling a home</option>
-                    <option value="management">Property management</option>
-                    <option value="other">Other</option>
+                    <option value="rentals">Apartment Rentals</option>
+                    <option value="buying">Buying a Home</option>
+                    <option value="selling">Selling a Home</option>
+                    <option value="property-mgmt">Property Management</option>
+                    <option value="asset-mgmt">Asset Management</option>
+                    <option value="international">International Property Management</option>
+                    <option value="acquisitions">Acquisitions</option>
+                    <option value="consulting">Consulting &amp; Project Maximization</option>
+                    <option value="tenant-placement">Tenant Placement</option>
+                    <option value="relocation">Relocation Assistance</option>
+                    <option value="investment">Investment Portfolio Analysis</option>
+                    <option value="commercial">Commercial Real Estate</option>
+                    <option value="staging">Home Staging &amp; Renovation</option>
+                    <option value="other">Other / General Inquiry</option>
                   </select>
                 </div>
 
