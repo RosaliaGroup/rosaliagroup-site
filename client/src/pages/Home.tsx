@@ -1,25 +1,35 @@
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
-
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Best Practices, Design Guide and Common Pitfalls
+/*
+ * ROSALIA GROUP — Home Page
+ * Design: Urban Warmth / Warm Brutalism
+ * Assembles all sections in order
  */
-export default function Home() {
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
 
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import HeroSection from "@/components/sections/HeroSection";
+import ServicesSection from "@/components/sections/ServicesSection";
+import RentalsSection from "@/components/sections/RentalsSection";
+import BuySellSection from "@/components/sections/BuySellSection";
+import ManagementSection from "@/components/sections/ManagementSection";
+import CTABanner from "@/components/sections/CTABanner";
+import AboutSection from "@/components/sections/AboutSection";
+import ContactSection from "@/components/sections/ContactSection";
+
+export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen bg-[oklch(0.97_0.015_80)]">
+      <Navbar />
       <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
+        <HeroSection />
+        <ServicesSection />
+        <RentalsSection />
+        <BuySellSection />
+        <ManagementSection />
+        <CTABanner />
+        <AboutSection />
+        <ContactSection />
       </main>
+      <Footer />
     </div>
   );
 }

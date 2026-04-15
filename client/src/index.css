@@ -1,3 +1,10 @@
+/*
+ * ROSALIA GROUP — Design System
+ * Philosophy: "Urban Warmth" — Warm Brutalism / Organic Modernism
+ * Palette: Warm off-white, terracotta primary, olive green accent, charcoal slate
+ * Typography: Playfair Display (display) + DM Sans (body) + Space Mono (labels)
+ */
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -40,85 +47,65 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Custom brand tokens */
+  --color-terracotta: oklch(0.55 0.13 38);
+  --color-terracotta-light: oklch(0.72 0.10 38);
+  --color-terracotta-dark: oklch(0.38 0.12 38);
+  --color-olive: oklch(0.52 0.07 130);
+  --color-olive-light: oklch(0.72 0.06 130);
+  --color-parchment: oklch(0.97 0.015 80);
+  --color-parchment-dark: oklch(0.93 0.018 80);
+  --color-charcoal: oklch(0.22 0.01 65);
+  --color-charcoal-light: oklch(0.35 0.01 65);
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
+  --radius: 0.25rem;
+  --background: oklch(0.97 0.015 80);
+  --foreground: oklch(0.22 0.01 65);
+  --card: oklch(1 0.008 80);
+  --card-foreground: oklch(0.22 0.01 65);
+  --popover: oklch(1 0.008 80);
+  --popover-foreground: oklch(0.22 0.01 65);
+  --primary: oklch(0.55 0.13 38);
+  --primary-foreground: oklch(0.97 0.015 80);
+  --secondary: oklch(0.93 0.018 80);
+  --secondary-foreground: oklch(0.22 0.01 65);
+  --muted: oklch(0.93 0.018 80);
+  --muted-foreground: oklch(0.50 0.02 65);
+  --accent: oklch(0.52 0.07 130);
+  --accent-foreground: oklch(0.97 0.015 80);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
-}
-
-.dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
+  --border: oklch(0.87 0.02 80);
+  --input: oklch(0.87 0.02 80);
+  --ring: oklch(0.55 0.13 38);
+  --chart-1: oklch(0.55 0.13 38);
+  --chart-2: oklch(0.52 0.07 130);
+  --chart-3: oklch(0.65 0.10 38);
+  --chart-4: oklch(0.72 0.06 130);
+  --chart-5: oklch(0.38 0.12 38);
+  --sidebar: oklch(0.93 0.018 80);
+  --sidebar-foreground: oklch(0.22 0.01 65);
+  --sidebar-primary: oklch(0.55 0.13 38);
+  --sidebar-primary-foreground: oklch(0.97 0.015 80);
+  --sidebar-accent: oklch(0.93 0.018 80);
+  --sidebar-accent-foreground: oklch(0.22 0.01 65);
+  --sidebar-border: oklch(0.87 0.02 80);
+  --sidebar-ring: oklch(0.55 0.13 38);
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'DM Sans', sans-serif;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -131,27 +118,17 @@
   input[type="radio"]:not(:disabled) {
     @apply cursor-pointer;
   }
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+  }
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
@@ -162,16 +139,196 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1280px;
     }
+  }
+
+  /* Brand utility classes */
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-mono-label {
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+
+  .text-terracotta {
+    color: oklch(0.55 0.13 38);
+  }
+
+  .bg-terracotta {
+    background-color: oklch(0.55 0.13 38);
+  }
+
+  .text-olive {
+    color: oklch(0.52 0.07 130);
+  }
+
+  .bg-olive {
+    background-color: oklch(0.52 0.07 130);
+  }
+
+  .bg-parchment {
+    background-color: oklch(0.97 0.015 80);
+  }
+
+  .bg-parchment-dark {
+    background-color: oklch(0.93 0.018 80);
+  }
+
+  .text-charcoal {
+    color: oklch(0.22 0.01 65);
+  }
+
+  .bg-charcoal {
+    background-color: oklch(0.22 0.01 65);
+  }
+
+  /* Thin rule divider */
+  .rule-line {
+    width: 3rem;
+    height: 1px;
+    background-color: oklch(0.55 0.13 38);
+    display: block;
+  }
+
+  /* Grain texture overlay */
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Scroll reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Button styles */
+  .btn-primary {
+    background-color: oklch(0.22 0.01 65);
+    color: oklch(0.97 0.015 80);
+    padding: 0.75rem 1.75rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .btn-primary:hover {
+    background-color: oklch(0.55 0.13 38);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    color: oklch(0.22 0.01 65);
+    padding: 0.75rem 1.75rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid oklch(0.22 0.01 65);
+    transition: all 0.2s ease;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .btn-outline:hover {
+    background-color: oklch(0.22 0.01 65);
+    color: oklch(0.97 0.015 80);
+  }
+
+  .btn-outline-light {
+    background-color: transparent;
+    color: oklch(0.97 0.015 80);
+    padding: 0.75rem 1.75rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid oklch(0.97 0.015 80);
+    transition: all 0.2s ease;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .btn-outline-light:hover {
+    background-color: oklch(0.97 0.015 80);
+    color: oklch(0.22 0.01 65);
+  }
+
+  /* Property card */
+  .property-card {
+    background: oklch(1 0.008 80);
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .property-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px oklch(0.22 0.01 65 / 0.12);
+  }
+
+  /* Nav link */
+  .nav-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: oklch(0.22 0.01 65);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: oklch(0.55 0.13 38);
+    transition: width 0.25s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Section label */
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: oklch(0.55 0.13 38);
   }
 }
