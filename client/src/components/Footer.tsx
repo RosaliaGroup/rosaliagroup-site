@@ -29,7 +29,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm text-[oklch(0.65_0.01_80)] leading-relaxed mb-6">
-              New Jersey's trusted real estate and property management company. Woman-run, family-owned. SBE &amp; MWBE Certified.
+              New Jersey & New York real estate, property management, and international resort investment specialists. Woman-run, family-owned. SBE & MWBE Certified.
             </p>
             <div className="flex items-center gap-3">
               <a
@@ -71,7 +71,7 @@ export default function Footer() {
               Services
             </h4>
             <ul className="space-y-3">
-              {["Apartment Rentals", "Buy a Home", "Sell a Home", "Property Management"].map((item) => (
+              {["Apartment Rentals", "Buy a Home", "Sell a Home", "Property Management", "International Listings", "Resort Investments", "Asset Management", "Acquisitions"].map((item) => (
                 <li key={item}>
                   <a
                     href="#"
@@ -93,7 +93,7 @@ export default function Footer() {
               Service Areas
             </h4>
             <ul className="space-y-3">
-              {["Newark, NJ", "Jersey City, NJ", "East Orange, NJ", "Elizabeth, NJ", "Orange, NJ"].map((area) => (
+              {["Newark, NJ", "Jersey City, NJ", "East Orange, NJ", "Elizabeth, NJ", "Orange, NJ", "New York City, NY", "Brooklyn, NY", "International Markets"].map((area) => (
                 <li key={area}>
                   <span className="text-sm text-[oklch(0.65_0.01_80)]">{area}</span>
                 </li>

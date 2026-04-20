@@ -18,7 +18,7 @@ const services = [
     title: "Apartment Rentals",
     subtitle: "Find Your Next Home",
     description:
-      "Studio to four-bedroom apartments across Newark, Jersey City, East Orange, and Elizabeth. We match you with the right space, handle the paperwork, and get you moved in fast.",
+      "Studio to four-bedroom apartments across Newark, Jersey City, East Orange, Elizabeth, New York City, Brooklyn, and the Bronx. We match you with the right space, handle the paperwork, and get you moved in fast.",
     cta: "View Rentals",
     href: "#rentals",
     accent: "terracotta",
@@ -29,7 +29,7 @@ const services = [
     title: "Buy & Sell",
     subtitle: "Expert Guidance",
     description:
-      "Licensed NJ realtors guiding buyers and sellers from first showing to closing day. Search live Bright MLS listings and get expert negotiation support every step of the way.",
+      "Licensed NJ & NY realtors guiding buyers and sellers from first showing to closing day. Search live Bright MLS listings and get expert negotiation support every step of the way.",
     cta: "Search Listings",
     href: "#buy-sell",
     accent: "olive",
@@ -82,7 +82,7 @@ export default function ServicesSection() {
               >
                 Full-Service Real Estate
                 <br />
-                <em className="italic text-[oklch(0.55_0.13_38)]">in New Jersey</em>
+                <em className="italic text-[oklch(0.55_0.13_38)]">in NJ & NY</em>
               </h2>
             </div>
           </div>
@@ -186,7 +186,7 @@ export default function ServicesSection() {
                 <em className="italic">Certified</em>
               </h3>
               <p className="text-[oklch(0.75_0.01_80)] text-sm mt-3 leading-relaxed">
-                Proudly serving the New Jersey community with integrity, expertise, and a personal touch.
+                Proudly serving the New Jersey and New York communities with integrity, expertise, and a personal touch.
               </p>
             </div>
           </div>

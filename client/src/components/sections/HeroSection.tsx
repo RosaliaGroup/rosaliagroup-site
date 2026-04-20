@@ -15,8 +15,8 @@ const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663360032476/gux
 const stats = [
   { value: "200+", label: "Units Managed" },
   { value: "98%", label: "Occupancy Rate" },
-  { value: "10+", label: "Years in NJ" },
-  { value: "5", label: "Cities Served" },
+  { value: "10+", label: "Years Experience" },
+  { value: "2 States", label: "NJ & NY" },
 ];
 
 export default function HeroSection() {
@@ -66,7 +66,7 @@ export default function HeroSection() {
                 className="text-[oklch(0.55_0.13_38)] text-xs tracking-widest uppercase"
                 style={{ fontFamily: "'Space Mono', monospace" }}
               >
-                New Jersey Real Estate
+                New Jersey & New York Real Estate
               </span>
             </div>
 
@@ -77,13 +77,13 @@ export default function HeroSection() {
               Your Home
               <br />
               in{" "}
-              <em className="italic text-[oklch(0.72_0.10_38)]">New Jersey</em>
+              <em className="italic text-[oklch(0.72_0.10_38)]">NJ & NY</em>
               <br />
               Starts Here
             </h1>
 
             <p className="hero-animate text-[oklch(0.80_0.01_80)] text-lg leading-relaxed max-w-xl mb-8">
-              Rosalia Group connects renters, buyers, and investors across Newark, Jersey City, East Orange, Elizabeth, and Orange — with the care and expertise you deserve.
+              Rosalia Group connects renters, buyers, and investors across New Jersey and New York — with the care and expertise you deserve.
             </p>
 
             <div className="hero-animate flex flex-wrap gap-4">
@@ -140,7 +140,7 @@ export default function HeroSection() {
       <div className="relative z-10 bg-[oklch(0.22_0.01_65/0.85)] backdrop-blur-sm border-t border-white/10">
         <div className="container mx-auto px-6 lg:px-8 max-w-7xl">
           <div className="flex items-center gap-0 overflow-x-auto">
-            {["Newark", "Jersey City", "East Orange", "Elizabeth", "Orange"].map((city, i) => (
+            {["Newark", "Jersey City", "East Orange", "Elizabeth", "Orange", "New York City", "Brooklyn", "Bronx"].map((city, i) => (
               <div
                 key={city}
                 className={`flex-shrink-0 px-5 py-3.5 text-xs tracking-widest uppercase cursor-pointer transition-colors ${

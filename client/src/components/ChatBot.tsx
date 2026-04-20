@@ -41,49 +41,70 @@ interface LeadForm {
 
 /* ─── Constants ─────────────────────────────────────────────────────── */
 const SERVICES_MENU = [
-  { id: "rentals",          icon: Home,       label: "Apartment Rentals",           color: "oklch(0.55 0.13 38)" },
-  { id: "sales",            icon: TrendingUp, label: "Buy & Sell",                  color: "oklch(0.52 0.07 130)" },
-  { id: "property-mgmt",   icon: Building2,  label: "Property Management",         color: "oklch(0.40 0.06 240)" },
-  { id: "asset-mgmt",      icon: BarChart3,  label: "Asset Management",            color: "oklch(0.55 0.13 38)" },
-  { id: "international",   icon: Globe,      label: "International Management",    color: "oklch(0.52 0.07 130)" },
-  { id: "acquisitions",    icon: ShoppingBag,label: "Acquisitions",                color: "oklch(0.40 0.06 240)" },
-  { id: "consulting",      icon: Lightbulb,  label: "Consulting & Project Max",    color: "oklch(0.55 0.13 38)" },
-  { id: "tenant-placement",icon: Users,      label: "Tenant Placement",            color: "oklch(0.52 0.07 130)" },
-  { id: "relocation",      icon: MapPin,     label: "Relocation Assistance",       color: "oklch(0.40 0.06 240)" },
-  { id: "investment",      icon: PieChart,   label: "Investment Analysis",         color: "oklch(0.55 0.13 38)" },
-  { id: "commercial",      icon: Briefcase,  label: "Commercial Real Estate",      color: "oklch(0.52 0.07 130)" },
-  { id: "staging",         icon: Paintbrush, label: "Staging & Renovation",        color: "oklch(0.40 0.06 240)" },
+  { id: "rentals",          icon: Home,       label: "Apartment Rentals (NJ & NY)",  color: "oklch(0.55 0.13 38)" },
+  { id: "sales",            icon: TrendingUp, label: "Buy & Sell (NJ & NY)",         color: "oklch(0.52 0.07 130)" },
+  { id: "intl-listings",   icon: Globe,      label: "International Listings",       color: "oklch(0.40 0.12 200)" },
+  { id: "resort",          icon: MapPin,     label: "Resort Investment Properties", color: "oklch(0.40 0.12 200)" },
+  { id: "property-mgmt",   icon: Building2,  label: "Property Management",          color: "oklch(0.40 0.06 240)" },
+  { id: "intl-mgmt",       icon: Globe,      label: "International Management",     color: "oklch(0.40 0.12 200)" },
+  { id: "asset-mgmt",      icon: BarChart3,  label: "Asset Management",             color: "oklch(0.55 0.13 38)" },
+  { id: "acquisitions",    icon: ShoppingBag,label: "Acquisitions",                 color: "oklch(0.40 0.06 240)" },
+  { id: "consulting",      icon: Lightbulb,  label: "Consulting & Project Max",     color: "oklch(0.55 0.13 38)" },
+  { id: "tenant-placement",icon: Users,      label: "Tenant Placement",             color: "oklch(0.52 0.07 130)" },
+  { id: "relocation",      icon: MapPin,     label: "Relocation Assistance",        color: "oklch(0.40 0.06 240)" },
+  { id: "investment",      icon: PieChart,   label: "Investment Analysis",          color: "oklch(0.55 0.13 38)" },
+  { id: "commercial",      icon: Briefcase,  label: "Commercial Real Estate",       color: "oklch(0.52 0.07 130)" },
+  { id: "staging",         icon: Paintbrush, label: "Staging & Renovation",         color: "oklch(0.40 0.06 240)" },
 ];
 
 const SERVICE_PROMPTS: Record<string, string> = {
-  rentals:           "Tell me about your apartment rental listings and how I can find a place to rent.",
-  sales:             "I'm interested in buying or selling a home in New Jersey. What services do you offer?",
-  "property-mgmt":  "How does your property management service work for landlords?",
-  "asset-mgmt":     "Can you explain your asset management services for real estate portfolios?",
-  international:    "I'm an international investor. How do you manage properties for overseas owners?",
-  acquisitions:     "I want to acquire investment properties in New Jersey. How can Rosalia Group help?",
-  consulting:       "Tell me about your consulting services for maximizing real estate project returns.",
+  rentals:            "Tell me about your apartment rental listings in New Jersey and New York and how I can find a place to rent.",
+  sales:              "I'm interested in buying or selling a home in New Jersey or New York. What services do you offer?",
+  "intl-listings":   "I'm interested in international property listings. What countries do you cover and how does the buying or renting process work?",
+  resort:             "Tell me about resort investment properties. What destinations do you offer and how can I earn rental income from a vacation property?",
+  "property-mgmt":   "How does your property management service work for landlords in New Jersey and New York?",
+  "intl-mgmt":       "I own a property overseas and need someone to manage it remotely. How does your international property management service work?",
+  "asset-mgmt":      "Can you explain your asset management services for real estate portfolios?",
+  acquisitions:       "I want to acquire investment properties. How can Rosalia Group help with sourcing and acquisitions?",
+  consulting:         "Tell me about your consulting services for maximizing real estate project returns.",
   "tenant-placement":"I manage my own property but need help finding a qualified tenant. What do you offer?",
-  relocation:       "I'm relocating to New Jersey. What relocation assistance do you provide?",
-  investment:       "I want an analysis of my real estate investment portfolio. What does that involve?",
-  commercial:       "I'm looking for commercial real estate services — office, retail, or industrial.",
-  staging:          "I need help staging my home for sale. What staging and renovation services do you offer?",
-  general:          "What services does Rosalia Group offer?",
+  relocation:         "I'm relocating to New Jersey or New York. What relocation assistance do you provide?",
+  investment:         "I want an analysis of my real estate investment portfolio. What does that involve?",
+  commercial:         "I'm looking for commercial real estate services — office, retail, or industrial.",
+  staging:            "I need help staging my home for sale. What staging and renovation services do you offer?",
+  general:            "What services does Rosalia Group offer?",
 };
 
-const SYSTEM_PROMPT = `You are a knowledgeable and friendly real estate assistant for Rosalia Group, a New Jersey real estate and property management company led by Ana Haynes.
+const SYSTEM_PROMPT = `You are a knowledgeable and friendly real estate assistant for Rosalia Group, a New Jersey and New York real estate, property management, and international resort investment company led by Ana Haynes.
 
 COMPANY:
 - Phone: (862) 333-1681 | Email: inquiries@rosaliagroup.com
 - Ana direct: (201) 449-6850 | ana@rosaliagroup.com
 - Hours: Mon–Fri 9am–6pm, Sat–Sun 10am–5pm
-- Areas: Newark, Jersey City, East Orange, Elizabeth, Orange (NJ)
+- Domestic Areas: Newark, Jersey City, East Orange, Elizabeth, Orange (NJ) + New York City, Brooklyn, Bronx (NY)
+- International Markets: Caribbean (Dominican Republic, Puerto Rico, Jamaica, Turks & Caicos), Latin America (Mexico, Costa Rica, Panama, Colombia, Brazil), Europe (Spain, Portugal, Italy, Greece, France), Asia Pacific (Bali, Thailand, Philippines, Maldives)
 - Certifications: SBE, MWBE | Brokerage: Realty Mark Advantage | MLS: Bright MLS
-- Stats: 200+ units managed, 98% occupancy, 10+ years in NJ, 5 cities
+- Stats: 200+ units managed, 98% occupancy, 10+ years experience, NJ & NY markets
 
-SERVICES: Apartment Rentals, Buy & Sell, Property Management, Asset Management, International Property Management, Acquisitions, Consulting & Project Maximization, Tenant Placement, Relocation Assistance, Investment Portfolio Analysis, Commercial Real Estate, Home Staging & Renovation.
+SERVICES:
+1. Apartment Rentals (NJ & NY) — studio to 4BR across Newark, Jersey City, East Orange, Elizabeth, Orange, NYC, Brooklyn, Bronx
+2. Buy & Sell (NJ & NY) — licensed NJ & NY realtors, Bright MLS access
+3. International Listings — buy, sell, or rent properties in 20+ countries
+4. Resort Investment Properties — beachfront villas, resort condos, vacation rentals in top tourist destinations; rental income potential, ROI analysis, fractional ownership options
+5. Property Management — tenant screening, rent collection, 24/7 maintenance, monthly reporting
+6. International Property Management — remote management for overseas owners; tenant placement, maintenance, rental income disbursement
+7. Asset Management — portfolio optimization for real estate investors
+8. Acquisitions — off-market deal sourcing, due diligence, negotiation
+9. Consulting & Project Maximization — strategy to maximize ROI on development and investment projects
+10. Tenant Placement — screening and placement only, no full management required
+11. Relocation Assistance — concierge moves to/within NJ, NY, and internationally
+12. Investment Portfolio Analysis — detailed analysis and recommendations for real estate portfolios
+13. Commercial Real Estate — office, retail, industrial properties in NJ & NY
+14. Home Staging & Renovation — staging for sale, renovation referrals
 
 RENTALS: Iron Pointe Jersey City 1BR $2,200/mo · Madison St Newark 2BR $2,800/mo · Market St East Orange 3BR $3,400/mo.
+
+RESORTS: Caribbean beachfront villas with private pools and direct ocean access. Latin American eco-resort condos. European coastal properties. All with rental income management available.
 
 Keep answers concise (2–4 sentences). Be warm and professional. Encourage users to submit an inquiry using the "Get in Touch" button below the chat.`;
 

@@ -24,6 +24,7 @@ export default function Navbar() {
     { label: "Rentals", href: "#rentals" },
     { label: "Buy & Sell", href: "#buy-sell" },
     { label: "Management", href: "#management" },
+    { label: "International", href: "#international" },
     { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" },
   ];

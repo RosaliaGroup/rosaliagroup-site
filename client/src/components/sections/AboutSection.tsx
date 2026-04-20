@@ -75,13 +75,13 @@ export default function AboutSection() {
               </h2>
               <div className="space-y-4 text-[oklch(0.45_0.02_65)] text-sm leading-relaxed">
                 <p>
-                  Rosalia Group was founded with a simple mission: to be your trusted real estate partner in New Jersey. Led by Ana Haynes, a licensed NJ realtor and property manager, we've built our reputation on honest advice, personal attention, and exceptional results.
+                  Rosalia Group was founded with a simple mission: to be your trusted real estate partner in New Jersey, New York, and beyond. Led by Ana Haynes, a licensed NJ & NY realtor and property manager, we've built our reputation on honest advice, personal attention, and exceptional results.
                 </p>
                 <p>
                   As a woman-run, family-owned business, we understand that real estate decisions are deeply personal. Whether you're searching for your first apartment, buying your dream home, or growing your investment portfolio — we treat every client like family.
                 </p>
                 <p>
-                  We proudly serve Newark, Jersey City, East Orange, Elizabeth, and Orange, bringing local knowledge and community commitment to every transaction.
+                  We proudly serve clients across New Jersey, New York, and international markets — from local apartment rentals to resort investment properties in the Caribbean, Latin America, and Europe.
                 </p>
               </div>
             </div>
@@ -134,14 +134,14 @@ export default function AboutSection() {
                 Ana Haynes
               </h3>
               <p className="text-[oklch(0.55_0.01_80)] text-sm mb-6">
-                Licensed NJ Realtor · Realty Mark Advantage
+                Licensed NJ & NY Realtor · Realty Mark Advantage
               </p>
 
               <blockquote
                 className="text-[oklch(0.80_0.01_80)] text-base italic leading-relaxed mb-6 border-l-2 border-[oklch(0.55_0.13_38)] pl-4"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                "My mission is to be your trusted real estate partner — providing exceptional service for buying, selling, and managing homes in New Jersey."
+                "My mission is to be your trusted real estate partner — providing exceptional service for buying, selling, and managing properties in New Jersey, New York, and internationally."
               </blockquote>
 
               <div className="flex flex-col gap-2 text-sm">

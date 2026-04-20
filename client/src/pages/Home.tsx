@@ -14,6 +14,7 @@ import RentalsSection from "@/components/sections/RentalsSection";
 import BuySellSection from "@/components/sections/BuySellSection";
 import ManagementSection from "@/components/sections/ManagementSection";
 import CTABanner from "@/components/sections/CTABanner";
+import InternationalSection from "@/components/sections/InternationalSection";
 import AboutSection from "@/components/sections/AboutSection";
 import ContactSection from "@/components/sections/ContactSection";
 
@@ -28,6 +29,7 @@ export default function Home() {
         <RentalsSection />
         <BuySellSection />
         <ManagementSection />
+        <InternationalSection />
         <CTABanner />
         <AboutSection />
         <ContactSection />

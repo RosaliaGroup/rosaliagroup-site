@@ -13,10 +13,10 @@ const BUY_SELL_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663360032476
 
 const buyerBenefits = [
   "Access to live Bright MLS listings updated daily",
-  "Licensed NJ realtors with local market expertise",
+  "Licensed NJ & NY realtors with local market expertise",
   "Guidance from first showing through closing day",
   "Mortgage pre-approval assistance & referrals",
-  "Neighborhood insights across 5 NJ cities",
+  "Neighborhood insights across NJ & NY markets",
 ];
 
 const sellerBenefits = [
@@ -62,12 +62,12 @@ export default function BuySellSection() {
                 className="text-4xl lg:text-5xl font-bold text-white leading-tight mb-6"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                Search New Jersey
+                Search NJ & NY
                 <br />
                 <em className="italic text-[oklch(0.72_0.10_38)]">Real Estate</em>
               </h2>
               <p className="text-[oklch(0.65_0.01_80)] text-base leading-relaxed mb-8">
-                Browse homes for sale across New Jersey with live MLS listings powered by Bright MLS. Our licensed agents are with you from search to closing.
+                Browse homes for sale across New Jersey and New York with live MLS listings powered by Bright MLS. Our licensed agents are with you from search to closing.
               </p>
             </div>
 
@@ -147,7 +147,7 @@ export default function BuySellSection() {
                   Bright MLS Powered
                 </div>
                 <p className="text-white text-sm font-medium" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  Thousands of active listings across New Jersey — updated daily.
+                  Thousands of active listings across New Jersey and New York — updated daily.
                 </p>
               </div>
             </div>

@@ -46,8 +46,8 @@ const features = [
 
 const stats = [
   { value: "98%", label: "Occupancy Rate", sub: "Across all managed units" },
-  { value: "200+", label: "Units Managed", sub: "In 5 NJ cities" },
-  { value: "10+", label: "Years Experience", sub: "In New Jersey market" },
+  { value: "200+", label: "Units Managed", sub: "Across NJ & NY" },
+  { value: "10+", label: "Years Experience", sub: "Across NJ & NY markets" },
   { value: "24/7", label: "Maintenance", sub: "Emergency response" },
 ];
 

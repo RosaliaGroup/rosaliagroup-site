@@ -43,7 +43,7 @@ export default function CTABanner() {
               className="text-3xl lg:text-4xl font-bold text-white leading-tight"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Your next chapter in New Jersey
+              Your next chapter in NJ, NY & beyond
               <br />
               <em className="italic">begins with one call.</em>
             </h2>
