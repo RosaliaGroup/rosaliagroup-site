@@ -171,35 +171,28 @@ RESORTS: Caribbean beachfront villas, Latin American eco-resort condos, European
 Keep answers concise (2–4 sentences). Be warm and professional. Encourage users to use the "Get in Touch" button to submit an inquiry.`;
 };
 
-/* ─── Anthropic API Call ─────────────────────────────────────────────── */
-const ANTHROPIC_API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY as string;
-
+/* ─── Anthropic API Call (via backend proxy to avoid CORS) ──────────── */
 async function callClaude(
   messages: { role: "user" | "assistant"; content: string }[],
   systemPrompt: string,
   onChunk: (text: string) => void
 ): Promise<void> {
-  if (!ANTHROPIC_API_KEY) {
-    onChunk("I'm sorry, the AI assistant is not configured yet. Please contact us directly:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com\n\nWe're available Mon–Fri 9am–6pm, Sat–Sun 10am–5pm.");
+  let response: Response;
+  try {
+    response = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-3-haiku-20240307",
+        max_tokens: 512,
+        system: systemPrompt,
+        messages,
+      }),
+    });
+  } catch {
+    onChunk("I'm having trouble connecting right now. Please contact us directly:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com");
     return;
   }
-
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": ANTHROPIC_API_KEY,
-      "anthropic-version": "2023-06-01",
-      "anthropic-dangerous-direct-browser-access": "true",
-    },
-    body: JSON.stringify({
-      model: "claude-3-haiku-20240307",
-      max_tokens: 512,
-      system: systemPrompt,
-      stream: true,
-      messages,
-    }),
-  });
 
   if (!response.ok) {
     onChunk("I'm having trouble connecting right now. Please contact us directly:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com");
@@ -383,27 +376,42 @@ export default function ChatBot() {
             {/* Language Selector */}
             <div className="relative" ref={langMenuRef}>
               <button
-                onClick={() => setShowLangMenu(!showLangMenu)}
-                className="flex items-center gap-1 text-[oklch(0.65_0.01_80)] hover:text-white transition-colors px-2 py-1 border border-[oklch(0.35_0.01_65)] hover:border-[oklch(0.55_0.13_38)]"
+                onClick={(e) => { e.stopPropagation(); setShowLangMenu(prev => !prev); }}
+                className="flex items-center gap-1.5 transition-colors px-2.5 py-1.5 border"
+                style={{
+                  background: showLangMenu ? "oklch(0.55 0.13 38)" : "oklch(0.32 0.01 65)",
+                  borderColor: showLangMenu ? "oklch(0.55 0.13 38)" : "oklch(0.45 0.01 65)",
+                  color: "white",
+                }}
                 title="Change language"
               >
-                <Languages size={12} />
-                <span className="text-[10px]" style={{ fontFamily: "'Space Mono', monospace" }}>{currentLang.code.toUpperCase()}</span>
+                <Languages size={13} />
+                <span className="text-[11px] font-bold tracking-wide" style={{ fontFamily: "'Space Mono', monospace" }}>{currentLang.code.toUpperCase()}</span>
               </button>
               {showLangMenu && (
                 <div
-                  className="absolute right-0 top-8 z-50 border border-[oklch(0.35_0.01_65)] overflow-y-auto shadow-xl"
-                  style={{ background: "oklch(0.22 0.01 65)", width: "200px", maxHeight: "280px" }}
+                  className="absolute right-0 top-10 border border-[oklch(0.35_0.01_65)] overflow-y-auto shadow-2xl"
+                  style={{ background: "oklch(0.18 0.01 65)", width: "220px", maxHeight: "300px", zIndex: 9999 }}
                 >
+                  <div className="px-3 py-2 border-b border-[oklch(0.30_0.01_65)]">
+                    <span className="text-[10px] text-[oklch(0.55_0.01_65)] uppercase tracking-widest font-bold" style={{ fontFamily: "'Space Mono', monospace" }}>Select Language</span>
+                  </div>
                   {LANGUAGES.map(lang => (
                     <button
                       key={lang.code}
-                      onClick={() => { setLanguage(lang.code); setShowLangMenu(false); }}
-                      className={`w-full text-left px-3 py-2 text-xs transition-colors flex items-center justify-between ${language === lang.code ? "text-white" : "text-[oklch(0.65_0.01_80)] hover:text-white hover:bg-[oklch(0.30_0.01_65)]"}`}
-                      style={{ fontFamily: "'DM Sans', sans-serif", background: language === lang.code ? "oklch(0.55 0.13 38)" : "transparent" }}
+                      onClick={(e) => { e.stopPropagation(); setLanguage(lang.code); setShowLangMenu(false); }}
+                      className="w-full text-left px-3 py-2.5 text-xs transition-all flex items-center justify-between gap-2"
+                      style={{
+                        fontFamily: "'DM Sans', sans-serif",
+                        background: language === lang.code ? "oklch(0.55 0.13 38)" : "transparent",
+                        color: language === lang.code ? "white" : "oklch(0.72 0.01 80)",
+                        fontWeight: language === lang.code ? 700 : 400,
+                      }}
+                      onMouseEnter={e => { if (language !== lang.code) (e.currentTarget as HTMLButtonElement).style.background = "oklch(0.28 0.01 65)"; }}
+                      onMouseLeave={e => { if (language !== lang.code) (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}
                     >
-                      <span>{lang.native}</span>
-                      <span className="text-[9px] opacity-60">{lang.label}</span>
+                      <span className="font-semibold">{lang.native}</span>
+                      <span className="text-[9px] opacity-50 shrink-0">{lang.label}</span>
                     </button>
                   ))}
                 </div>
