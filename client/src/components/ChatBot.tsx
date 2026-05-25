@@ -13,6 +13,7 @@
  */
 
 import { useState, useRef, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   MessageCircle, X, Send, Bot, User, Loader2, ChevronLeft,
   Home, TrendingUp, Building2, BarChart3, Globe, ShoppingBag,
@@ -228,8 +229,14 @@ export default function ChatBot() {
   const [form, setForm]                 = useState<LeadForm>(EMPTY_FORM);
   const [formErrors, setFormErrors]     = useState<Partial<LeadForm>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [language, setLanguage]         = useState<string>(() => detectBrowserLanguage());
+  const { lang: globalLang, setLang: setGlobalLang } = useLanguage();
+  const [language, setLanguage]         = useState<string>(() => globalLang || detectBrowserLanguage());
   const [showLangMenu, setShowLangMenu] = useState(false);
+
+  // Sync chat bot language with global navbar language
+  useEffect(() => {
+    setLanguage(globalLang);
+  }, [globalLang]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef       = useRef<HTMLInputElement>(null);
@@ -412,7 +419,7 @@ export default function ChatBot() {
                   {LANGUAGES.map(lang => (
                     <button
                       key={lang.code}
-                      onClick={(e) => { e.stopPropagation(); setLanguage(lang.code); setShowLangMenu(false); }}
+                      onClick={(e) => { e.stopPropagation(); setLanguage(lang.code); setGlobalLang(lang.code as any); setShowLangMenu(false); }}
                       className="w-full text-left px-3 py-2.5 text-xs transition-all flex items-center justify-between gap-2"
                       style={{
                         fontFamily: "'DM Sans', sans-serif",

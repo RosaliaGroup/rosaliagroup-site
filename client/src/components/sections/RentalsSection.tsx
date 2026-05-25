@@ -8,6 +8,7 @@
 
 import { useEffect, useRef } from "react";
 import { Bed, Bath, Square, ArrowRight, MapPin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Each property uses a distinct image and style
 const rentals = [
@@ -65,6 +66,7 @@ const rentals = [
 ];
 
 export default function RentalsSection() {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -89,16 +91,16 @@ export default function RentalsSection() {
         {/* Header */}
         <div className="reveal flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <span className="section-label mb-3 block">Available Now</span>
+            <span className="section-label mb-3 block">{t.rentals.tag}</span>
             <h2
               className="text-4xl lg:text-5xl font-bold text-[oklch(0.22_0.01_65)]"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Featured Rentals
+              {t.rentals.heading}
             </h2>
           </div>
           <a href="#contact" className="btn-primary shrink-0">
-            Book a Tour
+            {t.rentals.bookTour}
           </a>
         </div>
 
@@ -181,15 +183,15 @@ export default function RentalsSection() {
                 <div className="flex items-center gap-4 text-xs text-[oklch(0.50_0.02_65)] mb-5" style={{ fontFamily: "'Space Mono', monospace" }}>
                   <span className="flex items-center gap-1.5">
                     <Bed size={12} />
-                    {rental.beds} Bed
+                    {rental.beds} {t.rentals.bed}
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Bath size={12} />
-                    {rental.baths} Bath
+                    {rental.baths} {t.rentals.bath}
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Square size={12} />
-                    {rental.sqft} sqft
+                    {rental.sqft} {t.rentals.sqft}
                   </span>
                 </div>
 
@@ -199,7 +201,7 @@ export default function RentalsSection() {
                   className="flex items-center justify-between w-full px-4 py-3 border border-[oklch(0.22_0.01_65)] text-xs tracking-widest uppercase text-[oklch(0.22_0.01_65)] hover:bg-[oklch(0.22_0.01_65)] hover:text-[oklch(0.97_0.015_80)] transition-all group"
                   style={{ fontFamily: "'Space Mono', monospace" }}
                 >
-                  Schedule a Tour
+                  {t.rentals.scheduleTour}
                   <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
                 </a>
               </div>
@@ -210,7 +212,7 @@ export default function RentalsSection() {
         {/* View All */}
         <div className="reveal text-center mt-10">
           <a href="#contact" className="btn-outline">
-            View All Listings
+            {t.rentals.viewAll}
           </a>
         </div>
       </div>
