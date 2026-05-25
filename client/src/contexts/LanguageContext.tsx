@@ -495,11 +495,16 @@ const EXTRA_TRANSLATIONS: Record<string, SiteTranslations> = {
     international: { tag: "Pandaigdigang Abot", heading1: "Internasyonal", heading2: "na mga Ari-arian", sub: "Bumili, magbenta, at mamuhunan sa mga ari-arian sa Caribbean, Latin America, Europe, at higit pa.", exploreBtn: "I-explore ang mga Internasyonal na Listahan", inquireBtn: "Magtanong Ngayon", resortTag: "Pamumuhunan sa Resort", resortHeading: "Mga Luxury Resort na Ari-arian", resortSub: "Mamuhunan sa mga world-class na resort na ari-arian at hayaan ang Rosalia Group na pamahalaan ang mga ito.", learnMore: "Matuto Nang Higit Pa" },
     cta: { heading: "Handa na Bang Magsimula?", sub: "Nagpapaupa, bumibili, nagbebenta, o namumuhunan — nandito kami para tumulong sa NJ, NY, at internasyonal.", btn1: "Mag-iskedyul ng Libreng Konsultasyon", btn2: "Tumawag Ngayon" },
     about: { tag: "Ang Aming Kwento", heading1: "Makilala", heading2: "si Ana Haynes", sub: "Kumpanya ng real estate na pinamumunuan ng babae at pag-aari ng pamilya na naglilingkod sa NJ at NY.", testimonialsHeading: "Ano ang Sinasabi ng Aming mga Kliyente", founderTitle: "Tagapagtatag at Nangungunang Ahente" },
-    contact: { tag: "Makipag-ugnayan", heading1: "Simulan Natin", heading2: "ang Pag-uusap", sub: "Handa na bang hanapin ang iyong susunod na hakbang?", formName: "Pangalan", formEmail: "Email", formPhone: "Telepono", formService: "Serbisyo ng Interes", formMessage: "Mensahe", formSms: "Sumasang-ayon ako na makatanggap ng mga text message", formSubmit: "Ipadala ang Kahilingan", formSuccess: "Salamat! Makikipag-ugnayan kami sa iyo sa lalong madaling panahon.", infoTitle: "Impormasyon sa Pakikipag-ugnayan", hoursTitle: "Oras ng Opisina", hours1: "Lunes–Biyernes: 9am–7pm EST", hours2: "Sabado: 10am–5pm EST", hours3: "Linggo: Sa Appointment" },
+    contact: { tag: "Makipag-ugnayan", heading1: "Simulan Natin", heading2: "ang Pag-uusap", sub: "Handa na bang hanapin ang iyong susunod na hakbang?", firstName: "Pangalan", lastName: "Apelyido", email: "Email", phone: "Telepono", service: "Serbisyo ng Interes", message: "Mensahe", smsConsent: "Sumasang-ayon ako na makatanggap ng mga text message mula sa Rosalia Group.", sendBtn: "Ipadala ang Kahilingan", selectService: "Pumili ng isa" },
     footer: { desc: "Mga espesyalista sa real estate, pamamahala ng ari-arian, at internasyonal na pamumuhunan sa resort sa NJ at NY. Pinamumunuan ng babae, pag-aari ng pamilya. Sertipikadong SBE at MWBE.", services: "Mga Serbisyo", areas: "Mga Lugar na Pinaglilingkuran", contact: "Makipag-ugnayan", rights: "Lahat ng karapatan ay nakalaan.", privacy: "Patakaran sa Privacy", terms: "Mga Tuntunin", sbe: "Sertipikadong SBE at MWBE" },
     nav: { home: "Tahanan", services: "Mga Serbisyo", rentals: "Mga Renta", buySell: "Bilhin at Ibenta", management: "Pamamahala", international: "Internasyonal", about: "Tungkol Sa Amin", contact: "Makipag-ugnayan", bookTour: "Mag-book ng Tour", language: "Wika" }
   },
 };
+
+// ── Translation lookup ──────────────────────────────────────────────────────
+function getTranslation(lang: LangCode): SiteTranslations {
+  return (TRANSLATIONS as Record<string, SiteTranslations>)[lang] ?? EN;
+}
 
 // ── Context ───────────────────────────────────────────────────────────────────
 interface LanguageContextType {
