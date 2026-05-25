@@ -183,7 +183,7 @@ async function callClaude(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-3-haiku-20240307",
+        model: "claude-haiku-4-5",
         max_tokens: 512,
         system: systemPrompt,
         messages,

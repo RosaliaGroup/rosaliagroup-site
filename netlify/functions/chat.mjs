@@ -46,7 +46,7 @@ export default async function handler(req) {
     });
   }
 
-  const { messages, system, model = "claude-3-haiku-20240307", max_tokens = 512 } = body;
+  const { messages, system, model = "claude-haiku-4-5", max_tokens = 512 } = body;
 
   // Forward to Anthropic with streaming
   const anthropicResponse = await fetch("https://api.anthropic.com/v1/messages", {

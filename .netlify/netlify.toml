@@ -1,18 +1,18 @@
+functionsDirectory = "/home/ubuntu/rosalia-group/netlify/functions"
+functionsDirectoryOrigin = "config-v1"
+redirectsOrigin = "config"
 plugins = []
 headers = []
-redirects = []
-
-[functions]
-
-[functions."*"]
 
 [build]
-publish = "/home/ubuntu/rosalia-group/dist"
-publishOrigin = "ui"
-commandOrigin = "ui"
-command = "pnpm run build"
+publish = "/home/ubuntu/rosalia-group/dist/public"
+publishOrigin = "config"
+commandOrigin = "config"
+command = "pnpm install && pnpm run build"
+functions = "/home/ubuntu/rosalia-group/netlify/functions"
 
 [build.environment]
+NODE_VERSION = "22"
 
 [build.processing]
 
@@ -25,3 +25,31 @@ command = "pnpm run build"
 [build.processing.js]
 
 [build.services]
+
+[functions]
+
+[functions."*"]
+
+[[redirects]]
+from = "/api/*"
+to = "/.netlify/functions/:splat"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
