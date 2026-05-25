@@ -4,23 +4,25 @@
  * - Full-viewport cinematic background with NJ skyline
  * - Asymmetric layout: large display text left, stat card right
  * - Staggered entrance animations
- * - Dark overlay for text legibility
+ * - i18n: reads from global LanguageContext
  */
 
 import { useEffect, useRef } from "react";
 import { ArrowDown } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663360032476/guxaFoxGN7JgksYjUwZfPH/hero-nj-skyline-MatPo4oVRgYqtAuM5BrK42.webp";
 
-const stats = [
-  { value: "200+", label: "Units Managed" },
-  { value: "98%", label: "Occupancy Rate" },
-  { value: "10+", label: "Years Experience" },
-  { value: "2 States", label: "NJ & NY" },
-];
-
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
+
+  const stats = [
+    { value: t.hero.stat1, label: t.hero.stat1label },
+    { value: t.hero.stat2, label: t.hero.stat2label },
+    { value: t.hero.stat3, label: t.hero.stat3label },
+    { value: t.hero.stat4, label: t.hero.stat4label },
+  ];
 
   useEffect(() => {
     const el = heroRef.current;
@@ -66,7 +68,7 @@ export default function HeroSection() {
                 className="text-[oklch(0.55_0.13_38)] text-xs tracking-widest uppercase"
                 style={{ fontFamily: "'Space Mono', monospace" }}
               >
-                New Jersey & New York Real Estate
+                {t.hero.tag}
               </span>
             </div>
 
@@ -74,33 +76,31 @@ export default function HeroSection() {
               className="hero-animate text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.0] mb-6"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Your Home
+              {t.hero.headline1}
               <br />
-              in{" "}
+              {t.hero.headline2}{" "}
               <em className="italic text-[oklch(0.72_0.10_38)]">NJ & NY</em>
               <br />
-              Starts Here
+              {t.hero.headline3}
             </h1>
 
             <p className="hero-animate text-[oklch(0.80_0.01_80)] text-lg leading-relaxed max-w-xl mb-8">
-              Rosalia Group connects renters, buyers, and investors across New Jersey and New York — with the care and expertise you deserve.
+              {t.hero.sub}
             </p>
 
             <div className="hero-animate flex flex-wrap gap-4">
               <a href="#contact" className="btn-outline-light">
-                Book a Tour
+                {t.hero.bookTour}
               </a>
               <a href="#rentals" className="btn-outline-light">
-                Browse Listings
+                {t.hero.browse}
               </a>
             </div>
           </div>
 
           {/* Right: Stats Card */}
           <div className="hero-animate lg:col-span-5 lg:pl-8">
-            <div
-              className="bg-[oklch(0.97_0.015_80/0.08)] backdrop-blur-sm border border-white/10 p-6 lg:p-8"
-            >
+            <div className="bg-[oklch(0.97_0.015_80/0.08)] backdrop-blur-sm border border-white/10 p-6 lg:p-8">
               <div className="grid grid-cols-2 gap-6">
                 {stats.map((stat) => (
                   <div key={stat.label} className="border-l-2 border-[oklch(0.55_0.13_38)] pl-4">

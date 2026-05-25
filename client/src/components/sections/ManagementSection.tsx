@@ -8,6 +8,7 @@
 
 import { useEffect, useRef } from "react";
 import { Users, DollarSign, Wrench, BarChart3, FileText, Eye, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const MGMT_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663360032476/guxaFoxGN7JgksYjUwZfPH/hero-property-management-g3Ji6BMJhFWRVkmDNQ8odn.webp";
 
@@ -53,6 +54,7 @@ const stats = [
 
 export default function ManagementSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -75,22 +77,22 @@ export default function ManagementSection() {
       <div className="container mx-auto px-6 lg:px-8 max-w-7xl">
         {/* Header */}
         <div className="reveal mb-14">
-          <span className="section-label mb-4 block">For Landlords &amp; Investors</span>
+          <span className="section-label mb-4 block">{t.management.tag}</span>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
             <h2
               className="text-4xl lg:text-5xl xl:text-6xl font-bold text-[oklch(0.22_0.01_65)] leading-tight"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Property Management
+              {t.management.heading1}
               <br />
-              <em className="italic text-[oklch(0.55_0.13_38)]">That Works</em>
+              <em className="italic text-[oklch(0.55_0.13_38)]">{t.management.heading2}</em>
             </h2>
             <div>
               <p className="text-[oklch(0.50_0.02_65)] text-base leading-relaxed mb-6">
-                We handle everything so you don't have to. From tenant placement to monthly reporting, Rosalia Group protects your investment and maximizes your returns.
+                {t.management.sub}
               </p>
               <a href="#contact" className="btn-primary">
-                Free Consultation
+                {t.management.getStarted}
               </a>
             </div>
           </div>

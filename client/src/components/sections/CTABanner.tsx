@@ -7,9 +7,11 @@
 
 import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function CTABanner() {
   const ref = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,15 +39,13 @@ export default function CTABanner() {
               className="text-xs text-[oklch(0.85_0.06_38)] tracking-widest uppercase mb-3"
               style={{ fontFamily: "'Space Mono', monospace" }}
             >
-              Ready to Get Started?
+              {t.cta.heading}
             </div>
             <h2
               className="text-3xl lg:text-4xl font-bold text-white leading-tight"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Your next chapter in NJ, NY & beyond
-              <br />
-              <em className="italic">begins with one call.</em>
+              {t.cta.sub}
             </h2>
           </div>
 
@@ -56,7 +56,7 @@ export default function CTABanner() {
               className="flex items-center gap-2 bg-white text-[oklch(0.22_0.01_65)] px-6 py-3.5 text-xs tracking-widest uppercase hover:bg-[oklch(0.93_0.018_80)] transition-colors"
               style={{ fontFamily: "'Space Mono', monospace" }}
             >
-              Call Now
+              {t.cta.btn2}
               <ArrowRight size={12} />
             </a>
             <a
@@ -64,7 +64,7 @@ export default function CTABanner() {
               className="flex items-center gap-2 border border-white text-white px-6 py-3.5 text-xs tracking-widest uppercase hover:bg-white hover:text-[oklch(0.22_0.01_65)] transition-colors"
               style={{ fontFamily: "'Space Mono', monospace" }}
             >
-              Send a Message
+              {t.cta.btn1}
               <ArrowRight size={12} />
             </a>
           </div>

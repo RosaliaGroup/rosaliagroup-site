@@ -8,9 +8,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ContactSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -54,17 +56,17 @@ export default function ContactSection() {
       <div className="container mx-auto px-6 lg:px-8 max-w-7xl">
         {/* Header */}
         <div className="reveal mb-12">
-          <span className="section-label text-[oklch(0.55_0.13_38)] mb-4 block">Get in Touch</span>
+          <span className="section-label text-[oklch(0.55_0.13_38)] mb-4 block">{t.contact.tag}</span>
           <h2
             className="text-4xl lg:text-5xl font-bold text-white leading-tight"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Let's Find Your
+            {t.contact.heading1}
             <br />
-            <em className="italic text-[oklch(0.72_0.10_38)]">Next Home</em>
+            <em className="italic text-[oklch(0.72_0.10_38)]">{t.contact.heading2}</em>
           </h2>
           <p className="text-[oklch(0.65_0.01_80)] text-base mt-4 max-w-xl">
-            Whether you're looking to rent, buy, sell, or need property management — we're here. A team member will follow up the same day.
+            {t.contact.sub}
           </p>
         </div>
 

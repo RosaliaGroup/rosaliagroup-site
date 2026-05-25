@@ -6,9 +6,11 @@
  */
 
 import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="bg-[oklch(0.22_0.01_65)] text-[oklch(0.85_0.01_80)]">
@@ -68,7 +70,7 @@ export default function Footer() {
               className="text-[oklch(0.97_0.015_80)] text-xs tracking-widest uppercase mb-5"
               style={{ fontFamily: "'Space Mono', monospace" }}
             >
-              Services
+              {t.footer.services}
             </h4>
             <ul className="space-y-3">
               {["Apartment Rentals", "Buy a Home", "Sell a Home", "Property Management", "International Listings", "Resort Investments", "Asset Management", "Acquisitions"].map((item) => (
@@ -90,7 +92,7 @@ export default function Footer() {
               className="text-[oklch(0.97_0.015_80)] text-xs tracking-widest uppercase mb-5"
               style={{ fontFamily: "'Space Mono', monospace" }}
             >
-              Service Areas
+              {t.footer.areas}
             </h4>
             <ul className="space-y-3">
               {["Newark, NJ", "Jersey City, NJ", "East Orange, NJ", "Elizabeth, NJ", "Orange, NJ", "New York City, NY", "Brooklyn, NY", "International Markets"].map((area) => (
@@ -107,7 +109,7 @@ export default function Footer() {
               className="text-[oklch(0.97_0.015_80)] text-xs tracking-widest uppercase mb-5"
               style={{ fontFamily: "'Space Mono', monospace" }}
             >
-              Contact
+              {t.footer.contact}
             </h4>
             <ul className="space-y-4">
               <li>
@@ -149,7 +151,7 @@ export default function Footer() {
       <div className="border-t border-[oklch(0.32_0.01_65)]">
         <div className="container mx-auto px-6 lg:px-8 max-w-7xl py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-[oklch(0.45_0.01_80)]" style={{ fontFamily: "'Space Mono', monospace" }}>
-            © {currentYear} Rosalia Group. All rights reserved.
+            © {currentYear} Rosalia Group. {t.footer.rights}
           </p>
           <div className="flex items-center gap-5">
             <a href="#" className="text-xs text-[oklch(0.45_0.01_80)] hover:text-[oklch(0.55_0.13_38)] transition-colors" style={{ fontFamily: "'Space Mono', monospace" }}>

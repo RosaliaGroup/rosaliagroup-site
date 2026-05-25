@@ -8,6 +8,7 @@
 
 import { useEffect, useRef } from "react";
 import { Award, Star } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const testimonials = [
   {
@@ -39,6 +40,7 @@ const certifications = [
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -64,14 +66,14 @@ export default function AboutSection() {
           {/* Left: Story */}
           <div className="lg:col-span-6">
             <div className="reveal">
-              <span className="section-label mb-4 block">Our Story</span>
+              <span className="section-label mb-4 block">{t.about.tag}</span>
               <h2
                 className="text-4xl lg:text-5xl font-bold text-[oklch(0.22_0.01_65)] leading-tight mb-6"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                A Woman-Run,
+                {t.about.heading1}
                 <br />
-                <em className="italic text-[oklch(0.55_0.13_38)]">Family Business</em>
+                <em className="italic text-[oklch(0.55_0.13_38)]">{t.about.heading2}</em>
               </h2>
               <div className="space-y-4 text-[oklch(0.45_0.02_65)] text-sm leading-relaxed">
                 <p>
@@ -125,7 +127,7 @@ export default function AboutSection() {
                 className="text-xs text-[oklch(0.55_0.13_38)] tracking-widest uppercase mb-2"
                 style={{ fontFamily: "'Space Mono', monospace" }}
               >
-                Founder &amp; Lead Agent
+                {t.about.founderTitle}
               </div>
               <h3
                 className="text-2xl font-bold text-white mb-1"

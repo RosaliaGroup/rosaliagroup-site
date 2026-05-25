@@ -105,7 +105,7 @@ export type SiteTranslations = {
   // About
   about: {
     tag: string; heading1: string; heading2: string; sub: string;
-    testimonialsHeading: string;
+    testimonialsHeading: string; founderTitle: string;
   };
   // Contact
   contact: {
@@ -204,7 +204,7 @@ const EN: SiteTranslations = {
     tag: "Our Story",
     heading1: "Meet", heading2: "Ana Haynes",
     sub: "Woman-run, family-owned real estate firm serving NJ & NY with integrity and expertise.",
-    testimonialsHeading: "What Our Clients Say",
+    testimonialsHeading: "What Our Clients Say", founderTitle: "Founder &amp; Lead Agent",
   },
   contact: {
     tag: "Get in Touch",
@@ -238,7 +238,7 @@ const TRANSLATIONS: Record<string, SiteTranslations> = {
     management: { tag: "Propiedad Sin Preocupaciones", heading1: "Gestión de Propiedades", heading2: "Que Trabaja Para Ti", sub: "Nos encargamos de todo — para que tú no tengas que hacerlo.", getStarted: "Comenzar" },
     international: { tag: "Alcance Global", heading1: "Propiedades", heading2: "Internacionales", sub: "Compra, vende e invierte en propiedades en el Caribe, América Latina, Europa y más.", exploreBtn: "Explorar Propiedades Internacionales", inquireBtn: "Consultar Ahora", resortTag: "Inversión en Resort", resortHeading: "Propiedades de Resort de Lujo", resortSub: "Invierte en propiedades de resort de clase mundial y deja que Rosalia Group las gestione.", learnMore: "Más Información" },
     cta: { heading: "¿Listo Para Empezar?", sub: "Ya sea que alquile, compre, venda o invierta — estamos aquí para ayudarle en NJ, NY e internacionalmente.", btn1: "Programar Consulta Gratuita", btn2: "Llamar Ahora" },
-    about: { tag: "Nuestra Historia", heading1: "Conoce a", heading2: "Ana Haynes", sub: "Empresa inmobiliaria dirigida por mujeres y de propiedad familiar que sirve a NJ y NY.", testimonialsHeading: "Lo Que Dicen Nuestros Clientes" },
+    about: { tag: "Nuestra Historia", heading1: "Conoce a", heading2: "Ana Haynes", sub: "Empresa inmobiliaria dirigida por mujeres y de propiedad familiar que sirve a NJ y NY.", testimonialsHeading: "Lo Que Dicen Nuestros Clientes", founderTitle: "Fundadora y Agente Principal" },
     contact: { tag: "Contáctenos", heading1: "Iniciemos una", heading2: "Conversación", sub: "¿Listo para encontrar tu próximo hogar, vender tu propiedad o explorar oportunidades de inversión?", firstName: "Nombre", lastName: "Apellido", email: "Correo Electrónico", phone: "Número de Teléfono", service: "Me Interesa…", message: "Mensaje", smsConsent: "Acepto recibir mensajes SMS de Rosalia Group. Se pueden aplicar tarifas de mensajes y datos. Responda STOP para cancelar.", sendBtn: "Enviar Mensaje", selectService: "Seleccionar uno" },
     footer: { desc: "Especialistas en bienes raíces, gestión de propiedades e inversión en resorts internacionales en NJ y NY. Empresa familiar dirigida por mujeres. Certificado SBE y MWBE.", services: "Servicios", areas: "Áreas de Servicio", contact: "Contacto", rights: "Todos los derechos reservados.", privacy: "Política de Privacidad", terms: "Términos", sbe: "Certificado SBE y MWBE" },
   },
@@ -252,7 +252,7 @@ const TRANSLATIONS: Record<string, SiteTranslations> = {
     management: { tag: "Propriedade Sem Preocupações", heading1: "Gestão de Imóveis", heading2: "Que Trabalha Para Você", sub: "Cuidamos de tudo — para que você não precise.", getStarted: "Começar" },
     international: { tag: "Alcance Global", heading1: "Imóveis", heading2: "Internacionais", sub: "Compre, venda e invista em imóveis no Caribe, América Latina, Europa e além.", exploreBtn: "Explorar Imóveis Internacionais", inquireBtn: "Consultar Agora", resortTag: "Investimento em Resort", resortHeading: "Imóveis de Resort de Luxo", resortSub: "Invista em imóveis de resort de classe mundial e deixe a Rosalia Group gerenciá-los.", learnMore: "Saiba Mais" },
     cta: { heading: "Pronto Para Começar?", sub: "Seja para alugar, comprar, vender ou investir — estamos aqui para ajudar em NJ, NY e internacionalmente.", btn1: "Agendar Consulta Gratuita", btn2: "Ligar Agora" },
-    about: { tag: "Nossa História", heading1: "Conheça", heading2: "Ana Haynes", sub: "Empresa imobiliária dirigida por mulheres e de propriedade familiar servindo NJ e NY.", testimonialsHeading: "O Que Nossos Clientes Dizem" },
+    about: { tag: "Nossa História", heading1: "Conheça", heading2: "Ana Haynes", sub: "Empresa imobiliária dirigida por mulheres e de propriedade familiar servindo NJ e NY.", testimonialsHeading: "O Que Nossos Clientes Dizem", founderTitle: "Founder & Lead Agent" },
     contact: { tag: "Entre em Contato", heading1: "Vamos Iniciar uma", heading2: "Conversa", sub: "Pronto para encontrar seu próximo lar, vender seu imóvel ou explorar oportunidades de investimento?", firstName: "Nome", lastName: "Sobrenome", email: "Endereço de E-mail", phone: "Número de Telefone", service: "Tenho Interesse em…", message: "Mensagem", smsConsent: "Concordo em receber mensagens SMS da Rosalia Group. Taxas de mensagens e dados podem ser aplicadas. Responda STOP para cancelar.", sendBtn: "Enviar Mensagem", selectService: "Selecionar um" },
     footer: { desc: "Especialistas em imóveis, gestão de propriedades e investimento em resorts internacionais em NJ e NY. Empresa familiar dirigida por mulheres. Certificado SBE e MWBE.", services: "Serviços", areas: "Áreas de Serviço", contact: "Contato", rights: "Todos os direitos reservados.", privacy: "Política de Privacidade", terms: "Termos", sbe: "Certificado SBE e MWBE" },
   },
@@ -266,7 +266,7 @@ const TRANSLATIONS: Record<string, SiteTranslations> = {
     management: { tag: "Propriété Sans Souci", heading1: "Gestion Immobilière", heading2: "Qui Travaille Pour Vous", sub: "Nous gérons tout — pour que vous n'ayez pas à le faire.", getStarted: "Commencer" },
     international: { tag: "Portée Mondiale", heading1: "Propriétés", heading2: "Internationales", sub: "Achetez, vendez et investissez dans des propriétés aux Caraïbes, en Amérique latine, en Europe et au-delà.", exploreBtn: "Explorer les Propriétés Internationales", inquireBtn: "Renseignez-vous Maintenant", resortTag: "Investissement en Resort", resortHeading: "Propriétés de Resort de Luxe", resortSub: "Investissez dans des propriétés de resort de classe mondiale et laissez Rosalia Group les gérer.", learnMore: "En Savoir Plus" },
     cta: { heading: "Prêt à Commencer?", sub: "Que vous louiez, achetiez, vendiez ou investissiez — nous sommes là pour vous aider au NJ, NY et à l'international.", btn1: "Planifier une Consultation Gratuite", btn2: "Appeler Maintenant" },
-    about: { tag: "Notre Histoire", heading1: "Rencontrez", heading2: "Ana Haynes", sub: "Cabinet immobilier dirigé par des femmes et familial au service du NJ et NY.", testimonialsHeading: "Ce Que Disent Nos Clients" },
+    about: { tag: "Notre Histoire", heading1: "Rencontrez", heading2: "Ana Haynes", sub: "Cabinet immobilier dirigé par des femmes et familial au service du NJ et NY.", testimonialsHeading: "Ce Que Disent Nos Clients", founderTitle: "Founder & Lead Agent" },
     contact: { tag: "Nous Contacter", heading1: "Commençons une", heading2: "Conversation", sub: "Prêt à trouver votre prochain logement, vendre votre propriété ou explorer des opportunités d'investissement?", firstName: "Prénom", lastName: "Nom de Famille", email: "Adresse E-mail", phone: "Numéro de Téléphone", service: "Je Suis Intéressé par…", message: "Message", smsConsent: "J'accepte de recevoir des SMS de Rosalia Group. Des frais de message et de données peuvent s'appliquer. Répondez STOP pour vous désabonner.", sendBtn: "Envoyer le Message", selectService: "Sélectionner un" },
     footer: { desc: "Spécialistes en immobilier, gestion de propriétés et investissement en resorts internationaux au NJ et NY. Entreprise familiale dirigée par des femmes. Certifié SBE et MWBE.", services: "Services", areas: "Zones de Service", contact: "Contact", rights: "Tous droits réservés.", privacy: "Politique de Confidentialité", terms: "Conditions", sbe: "Certifié SBE et MWBE" },
   },
@@ -280,7 +280,7 @@ const TRANSLATIONS: Record<string, SiteTranslations> = {
     management: { tag: "ملكية بلا قلق", heading1: "إدارة العقارات", heading2: "التي تعمل لصالحك", sub: "نتولى كل شيء — حتى لا تضطر إلى ذلك.", getStarted: "ابدأ الآن" },
     international: { tag: "وصول عالمي", heading1: "عقارات", heading2: "دولية", sub: "اشترِ وبع واستثمر في عقارات في منطقة الكاريبي وأمريكا اللاتينية وأوروبا وما وراءها.", exploreBtn: "استكشف العقارات الدولية", inquireBtn: "استفسر الآن", resortTag: "استثمار في المنتجعات", resortHeading: "عقارات منتجعات فاخرة", resortSub: "استثمر في عقارات منتجعات عالمية المستوى ودع مجموعة روزاليا تديرها.", learnMore: "اعرف المزيد" },
     cta: { heading: "مستعد للبدء؟", sub: "سواء كنت تستأجر أو تشتري أو تبيع أو تستثمر — نحن هنا للمساعدة في NJ و NY ودولياً.", btn1: "جدولة استشارة مجانية", btn2: "اتصل الآن" },
-    about: { tag: "قصتنا", heading1: "تعرف على", heading2: "آنا هاينز", sub: "شركة عقارية تديرها امرأة ومملوكة عائلياً تخدم NJ و NY.", testimonialsHeading: "ما يقوله عملاؤنا" },
+    about: { tag: "قصتنا", heading1: "تعرف على", heading2: "آنا هاينز", sub: "شركة عقارية تديرها امرأة ومملوكة عائلياً تخدم NJ و NY.", testimonialsHeading: "ما يقوله عملاؤنا", founderTitle: "Founder & Lead Agent" },
     contact: { tag: "تواصل معنا", heading1: "لنبدأ", heading2: "محادثة", sub: "مستعد للعثور على منزلك القادم أو بيع عقارك أو استكشاف فرص الاستثمار؟", firstName: "الاسم الأول", lastName: "اسم العائلة", email: "عنوان البريد الإلكتروني", phone: "رقم الهاتف", service: "أنا مهتم بـ…", message: "الرسالة", smsConsent: "أوافق على تلقي رسائل SMS من مجموعة روزاليا. قد تُطبق رسوم الرسائل والبيانات. رد STOP للإلغاء.", sendBtn: "إرسال الرسالة", selectService: "اختر واحداً" },
     footer: { desc: "متخصصون في العقارات وإدارة الممتلكات والاستثمار في المنتجعات الدولية في NJ و NY. شركة عائلية تديرها امرأة. معتمد SBE و MWBE.", services: "الخدمات", areas: "مناطق الخدمة", contact: "اتصل بنا", rights: "جميع الحقوق محفوظة.", privacy: "سياسة الخصوصية", terms: "الشروط", sbe: "معتمد SBE و MWBE" },
   },
@@ -294,7 +294,7 @@ const TRANSLATIONS: Record<string, SiteTranslations> = {
     management: { tag: "无忧物业", heading1: "物业管理", heading2: "为您服务", sub: "我们处理一切 — 让您无需操心。", getStarted: "开始" },
     international: { tag: "全球覆盖", heading1: "国际", heading2: "房产", sub: "在加勒比海、拉丁美洲、欧洲及更多地区购买、出售和投资房产。", exploreBtn: "探索国际房源", inquireBtn: "立即咨询", resortTag: "度假村投资", resortHeading: "豪华度假村房产", resortSub: "投资世界级度假村房产，让 Rosalia Group 为您管理以获得最大回报。", learnMore: "了解更多" },
     cta: { heading: "准备好开始了吗？", sub: "无论您是租房、买房、卖房还是投资 — 我们在 NJ、NY 和国际上都能为您提供帮助。", btn1: "安排免费咨询", btn2: "立即致电" },
-    about: { tag: "我们的故事", heading1: "认识", heading2: "Ana Haynes", sub: "女性经营、家族拥有的房地产公司，服务于 NJ 和 NY。", testimonialsHeading: "客户评价" },
+    about: { tag: "我们的故事", heading1: "认识", heading2: "Ana Haynes", sub: "女性经营、家族拥有的房地产公司，服务于 NJ 和 NY。", testimonialsHeading: "客户评价", founderTitle: "Founder & Lead Agent" },
     contact: { tag: "联系我们", heading1: "开始一次", heading2: "对话", sub: "准备好找到您的下一个家、出售您的房产或探索投资机会了吗？", firstName: "名字", lastName: "姓氏", email: "电子邮件地址", phone: "电话号码", service: "我感兴趣的是…", message: "留言", smsConsent: "我同意接收来自 Rosalia Group 的短信。可能收取消息和数据费用。回复 STOP 取消订阅。", sendBtn: "发送消息", selectService: "请选择" },
     footer: { desc: "NJ 和 NY 房地产、物业管理和国际度假村投资专家。女性经营、家族拥有。SBE 和 MWBE 认证。", services: "服务", areas: "服务区域", contact: "联系我们", rights: "版权所有。", privacy: "隐私政策", terms: "条款", sbe: "SBE 和 MWBE 认证" },
   },
