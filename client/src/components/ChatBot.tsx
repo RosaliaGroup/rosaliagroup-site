@@ -1,10 +1,11 @@
-/*
- * ROSALIA GROUP — Live Chat Bot (v4)
+/**
+ * ROSALIA GROUP — Live Chat Bot (v5)
  * Design: Urban Warmth / Warm Brutalism
  *
  * Features:
- *   - Anthropic Claude API (VITE_ANTHROPIC_API_KEY)
- *   - 20-language selector (auto-detected from browser)
+ *   - Anthropic Claude API via /api/chat backend proxy
+ *   - 22-language selector (auto-detected from browser)
+ *   - ALL UI strings, service labels, preset questions translate with language
  *   - Service selection menu with 14 options
  *   - Preset question buttons per service (no typing required)
  *   - Inline lead capture form (First, Last, Email, Phone, Message, SMS consent)
@@ -18,6 +19,7 @@ import {
   Lightbulb, Users, MapPin, PieChart, Briefcase, Paintbrush,
   Phone, Mail, Clock, Languages,
 } from "lucide-react";
+import { getTranslation } from "@/lib/chatTranslations";
 
 /* ─── Types ─────────────────────────────────────────────────────────── */
 interface Message {
@@ -46,28 +48,28 @@ interface Language {
 
 /* ─── Languages ─────────────────────────────────────────────────────── */
 const LANGUAGES: Language[] = [
-  { code: "en",    label: "English",            native: "English" },
-  { code: "es",    label: "Spanish",            native: "Español" },
-  { code: "pt",    label: "Portuguese",         native: "Português" },
-  { code: "fr",    label: "French",             native: "Français" },
-  { code: "it",    label: "Italian",            native: "Italiano" },
-  { code: "de",    label: "German",             native: "Deutsch" },
-  { code: "nl",    label: "Dutch",              native: "Nederlands" },
-  { code: "pl",    label: "Polish",             native: "Polski" },
-  { code: "ru",    label: "Russian",            native: "Русский" },
-  { code: "uk",    label: "Ukrainian",          native: "Українська" },
-  { code: "ar",    label: "Arabic",             native: "العربية" },
-  { code: "zh",    label: "Chinese (Simplified)",native: "中文(简体)" },
+  { code: "en",    label: "English",              native: "English" },
+  { code: "es",    label: "Spanish",              native: "Español" },
+  { code: "pt",    label: "Portuguese",           native: "Português" },
+  { code: "fr",    label: "French",               native: "Français" },
+  { code: "it",    label: "Italian",              native: "Italiano" },
+  { code: "de",    label: "German",               native: "Deutsch" },
+  { code: "nl",    label: "Dutch",                native: "Nederlands" },
+  { code: "pl",    label: "Polish",               native: "Polski" },
+  { code: "ru",    label: "Russian",              native: "Русский" },
+  { code: "uk",    label: "Ukrainian",            native: "Українська" },
+  { code: "ar",    label: "Arabic",               native: "العربية" },
+  { code: "zh",    label: "Chinese (Simplified)", native: "中文(简体)" },
   { code: "zh-TW", label: "Chinese (Traditional)",native: "中文(繁體)" },
-  { code: "ja",    label: "Japanese",           native: "日本語" },
-  { code: "ko",    label: "Korean",             native: "한국어" },
-  { code: "hi",    label: "Hindi",              native: "हिन्दी" },
-  { code: "bn",    label: "Bengali",            native: "বাংলা" },
-  { code: "tr",    label: "Turkish",            native: "Türkçe" },
-  { code: "vi",    label: "Vietnamese",         native: "Tiếng Việt" },
-  { code: "tl",    label: "Filipino (Tagalog)", native: "Filipino" },
-  { code: "ht",    label: "Haitian Creole",     native: "Kreyòl Ayisyen" },
-  { code: "sw",    label: "Swahili",            native: "Kiswahili" },
+  { code: "ja",    label: "Japanese",             native: "日本語" },
+  { code: "ko",    label: "Korean",               native: "한국어" },
+  { code: "hi",    label: "Hindi",                native: "हिन्दी" },
+  { code: "bn",    label: "Bengali",              native: "বাংলা" },
+  { code: "tr",    label: "Turkish",              native: "Türkçe" },
+  { code: "vi",    label: "Vietnamese",           native: "Tiếng Việt" },
+  { code: "tl",    label: "Filipino (Tagalog)",   native: "Filipino" },
+  { code: "ht",    label: "Haitian Creole",       native: "Kreyòl Ayisyen" },
+  { code: "sw",    label: "Swahili",              native: "Kiswahili" },
 ];
 
 function detectBrowserLanguage(): string {
@@ -77,59 +79,48 @@ function detectBrowserLanguage(): string {
   return match ? match.code : "en";
 }
 
-/* ─── Services ──────────────────────────────────────────────────────── */
-const SERVICES_MENU = [
-  { id: "rentals",           icon: Home,        label: "Apartment Rentals (NJ & NY)",  color: "oklch(0.55 0.13 38)" },
-  { id: "sales",             icon: TrendingUp,  label: "Buy & Sell (NJ & NY)",         color: "oklch(0.52 0.07 130)" },
-  { id: "intl-listings",    icon: Globe,       label: "International Listings",       color: "oklch(0.40 0.12 200)" },
-  { id: "resort",           icon: MapPin,      label: "Resort Investment Properties", color: "oklch(0.40 0.12 200)" },
-  { id: "property-mgmt",    icon: Building2,   label: "Property Management",          color: "oklch(0.40 0.06 240)" },
-  { id: "intl-mgmt",        icon: Globe,       label: "International Management",     color: "oklch(0.40 0.12 200)" },
-  { id: "asset-mgmt",       icon: BarChart3,   label: "Asset Management",             color: "oklch(0.55 0.13 38)" },
-  { id: "acquisitions",     icon: ShoppingBag, label: "Acquisitions",                 color: "oklch(0.40 0.06 240)" },
-  { id: "consulting",       icon: Lightbulb,   label: "Consulting & Project Max",     color: "oklch(0.55 0.13 38)" },
-  { id: "tenant-placement", icon: Users,       label: "Tenant Placement",             color: "oklch(0.52 0.07 130)" },
-  { id: "relocation",       icon: MapPin,      label: "Relocation Assistance",        color: "oklch(0.40 0.06 240)" },
-  { id: "investment",       icon: PieChart,    label: "Investment Analysis",          color: "oklch(0.55 0.13 38)" },
-  { id: "commercial",       icon: Briefcase,   label: "Commercial Real Estate",       color: "oklch(0.52 0.07 130)" },
-  { id: "staging",          icon: Paintbrush,  label: "Staging & Renovation",         color: "oklch(0.40 0.06 240)" },
-];
+/* ─── Service IDs (stable, language-independent) ────────────────────── */
+const SERVICE_IDS = [
+  "rentals", "sales", "intlListings", "resort", "propertyMgmt",
+  "intlMgmt", "assetMgmt", "acquisitions", "consulting",
+  "tenantPlacement", "relocation", "investment", "commercial", "staging",
+] as const;
 
-/* Preset questions per service */
-const PRESET_QUESTIONS: Record<string, string[]> = {
-  rentals:           ["What apartments are available in Newark?", "What apartments are available in Jersey City?", "What is the average rent in NJ & NY?", "How do I apply for a rental?"],
-  sales:             ["How do I start the home buying process?", "What areas do you cover for sales?", "Can you help me sell my home?", "What is my home worth?"],
-  "intl-listings":   ["What countries do you have listings in?", "How do I buy property internationally?", "Can I rent out an international property?", "What are the fees for international purchases?"],
-  resort:            ["What resort destinations do you offer?", "How much can I earn renting a resort villa?", "What is fractional ownership?", "How do I get started with resort investment?"],
-  "property-mgmt":   ["What does property management include?", "How much do you charge for management?", "How do you screen tenants?", "How do I get monthly reports?"],
-  "intl-mgmt":       ["Can you manage my overseas property?", "How do you handle rent collection abroad?", "What countries do you manage in?", "How do you handle maintenance internationally?"],
-  "asset-mgmt":      ["What is asset management for real estate?", "How do you maximize portfolio returns?", "Can you manage a mixed portfolio?", "What reporting do you provide?"],
-  acquisitions:      ["How do you find off-market deals?", "What markets do you source in?", "What is the acquisition process?", "Do you help with due diligence?"],
-  consulting:        ["How can you maximize my project ROI?", "What types of projects do you consult on?", "Do you help with development projects?", "How do I schedule a consultation?"],
-  "tenant-placement":["How do you screen tenants?", "How long does placement take?", "What is the placement fee?", "Do you verify income and credit?"],
-  relocation:        ["Can you help me relocate to NJ or NY?", "Do you assist with international relocations?", "What does your relocation service include?", "How quickly can I be placed?"],
-  investment:        ["Can you analyze my portfolio?", "What metrics do you use for analysis?", "How do I improve my portfolio yield?", "Do you recommend specific markets?"],
-  commercial:        ["What commercial properties do you handle?", "Do you lease office space in NJ & NY?", "Can you help me find retail space?", "What are commercial lease terms like?"],
-  staging:           ["How does home staging increase sale price?", "What does staging cost?", "Do you offer renovation referrals?", "How long does staging take?"],
-  general:           ["What services does Rosalia Group offer?", "What areas do you serve?", "How do I contact Ana Haynes?", "Are you SBE/MWBE certified?"],
+type ServiceId = typeof SERVICE_IDS[number];
+
+const SERVICE_ICONS: Record<ServiceId, React.ElementType> = {
+  rentals: Home, sales: TrendingUp, intlListings: Globe, resort: MapPin,
+  propertyMgmt: Building2, intlMgmt: Globe, assetMgmt: BarChart3,
+  acquisitions: ShoppingBag, consulting: Lightbulb, tenantPlacement: Users,
+  relocation: MapPin, investment: PieChart, commercial: Briefcase, staging: Paintbrush,
 };
 
-const SERVICE_PROMPTS: Record<string, string> = {
-  rentals:            "Tell me about your apartment rental listings in New Jersey and New York.",
-  sales:              "I'm interested in buying or selling a home in New Jersey or New York.",
-  "intl-listings":    "I'm interested in international property listings. What countries do you cover?",
-  resort:             "Tell me about resort investment properties and how I can earn rental income.",
-  "property-mgmt":    "How does your property management service work for landlords?",
-  "intl-mgmt":        "I own a property overseas. How does your international property management work?",
-  "asset-mgmt":       "Can you explain your asset management services for real estate portfolios?",
-  acquisitions:       "I want to acquire investment properties. How can Rosalia Group help?",
-  consulting:         "Tell me about your consulting services for maximizing real estate project returns.",
-  "tenant-placement": "I need help finding a qualified tenant. What does your placement service include?",
-  relocation:         "I'm relocating to New Jersey or New York. What relocation assistance do you provide?",
-  investment:         "I want an analysis of my real estate investment portfolio.",
-  commercial:         "I'm looking for commercial real estate services — office, retail, or industrial.",
-  staging:            "I need help staging my home for sale. What staging and renovation services do you offer?",
-  general:            "What services does Rosalia Group offer?",
+const SERVICE_COLORS: Record<ServiceId, string> = {
+  rentals: "oklch(0.55 0.13 38)", sales: "oklch(0.52 0.07 130)",
+  intlListings: "oklch(0.40 0.12 200)", resort: "oklch(0.40 0.12 200)",
+  propertyMgmt: "oklch(0.40 0.06 240)", intlMgmt: "oklch(0.40 0.12 200)",
+  assetMgmt: "oklch(0.55 0.13 38)", acquisitions: "oklch(0.40 0.06 240)",
+  consulting: "oklch(0.55 0.13 38)", tenantPlacement: "oklch(0.52 0.07 130)",
+  relocation: "oklch(0.40 0.06 240)", investment: "oklch(0.55 0.13 38)",
+  commercial: "oklch(0.52 0.07 130)", staging: "oklch(0.40 0.06 240)",
+};
+
+/* English service prompts to kick off AI conversation (always English for Claude) */
+const SERVICE_PROMPTS: Record<ServiceId, string> = {
+  rentals:          "Tell me about your apartment rental listings in New Jersey and New York.",
+  sales:            "I'm interested in buying or selling a home in New Jersey or New York.",
+  intlListings:     "I'm interested in international property listings. What countries do you cover?",
+  resort:           "Tell me about resort investment properties and how I can earn rental income.",
+  propertyMgmt:     "How does your property management service work for landlords?",
+  intlMgmt:         "I own a property overseas. How does your international property management work?",
+  assetMgmt:        "Can you explain your asset management services for real estate portfolios?",
+  acquisitions:     "I want to acquire investment properties. How can Rosalia Group help?",
+  consulting:       "Tell me about your consulting services for maximizing real estate project returns.",
+  tenantPlacement:  "I need help finding a qualified tenant. What does your placement service include?",
+  relocation:       "I'm relocating to New Jersey or New York. What relocation assistance do you provide?",
+  investment:       "I want an analysis of my real estate investment portfolio.",
+  commercial:       "I'm looking for commercial real estate services — office, retail, or industrial.",
+  staging:          "I need help staging my home for sale. What staging and renovation services do you offer?",
 };
 
 /* ─── System Prompt ─────────────────────────────────────────────────── */
@@ -229,7 +220,7 @@ const EMPTY_FORM: LeadForm = {
 export default function ChatBot() {
   const [isOpen, setIsOpen]             = useState(false);
   const [view, setView]                 = useState<ChatView>("menu");
-  const [selectedService, setSelected]  = useState<string | null>(null);
+  const [selectedService, setSelected]  = useState<ServiceId | null>(null);
   const [messages, setMessages]         = useState<Message[]>([]);
   const [input, setInput]               = useState("");
   const [isLoading, setIsLoading]       = useState(false);
@@ -243,6 +234,9 @@ export default function ChatBot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef       = useRef<HTMLInputElement>(null);
   const langMenuRef    = useRef<HTMLDivElement>(null);
+
+  // Derive translated strings reactively from language
+  const t = getTranslation(language);
 
   useEffect(() => {
     if (isOpen) setHasUnread(false);
@@ -266,10 +260,26 @@ export default function ChatBot() {
 
   const currentLang = LANGUAGES.find(l => l.code === language) || LANGUAGES[0];
 
-  async function startService(serviceId: string) {
+  // Build translated service menu from translation keys
+  const servicesMenu = SERVICE_IDS.map(id => ({
+    id,
+    icon: SERVICE_ICONS[id],
+    label: t.services[id],
+    color: SERVICE_COLORS[id],
+  }));
+
+  // Get translated presets for current service
+  const presets: string[] = selectedService
+    ? (t.presets[selectedService] ?? t.presets.general)
+    : t.presets.general;
+
+  // Translated service label for header
+  const serviceLabel = selectedService ? t.services[selectedService] : t.howCanWeHelp;
+
+  async function startService(serviceId: ServiceId) {
     setSelected(serviceId);
     setView("chat");
-    const prompt = SERVICE_PROMPTS[serviceId] || SERVICE_PROMPTS.general;
+    const prompt = SERVICE_PROMPTS[serviceId];
     const userMsg: Message = { id: Date.now().toString(), role: "user", content: prompt, timestamp: new Date() };
     setMessages([userMsg]);
     await sendToAI([{ role: "user", content: prompt }]);
@@ -329,9 +339,6 @@ export default function ChatBot() {
     setFormErrors({});
   }
 
-  const serviceLabel = SERVICES_MENU.find(s => s.id === selectedService)?.label ?? "General Inquiry";
-  const presets = PRESET_QUESTIONS[selectedService ?? "general"] ?? PRESET_QUESTIONS.general;
-
   /* ── Render ── */
   return (
     <>
@@ -368,7 +375,13 @@ export default function ChatBot() {
               <div>
                 <div className="text-white text-xs font-semibold" style={{ fontFamily: "'Playfair Display', serif" }}>Rosalia Assistant</div>
                 <div className="text-[oklch(0.55_0.01_80)] text-[10px]" style={{ fontFamily: "'Space Mono', monospace" }}>
-                  {view === "chat" ? serviceLabel : view === "form" ? "Submit Inquiry" : view === "confirm" ? "Confirmed" : "How can we help?"}
+                  {view === "chat"
+                    ? serviceLabel
+                    : view === "form"
+                    ? t.submitInquiryTitle
+                    : view === "confirm"
+                    ? t.confirmed
+                    : t.howCanWeHelp}
                 </div>
               </div>
             </div>
@@ -383,7 +396,7 @@ export default function ChatBot() {
                   borderColor: showLangMenu ? "oklch(0.55 0.13 38)" : "oklch(0.45 0.01 65)",
                   color: "white",
                 }}
-                title="Change language"
+                title={t.selectLanguage}
               >
                 <Languages size={13} />
                 <span className="text-[11px] font-bold tracking-wide" style={{ fontFamily: "'Space Mono', monospace" }}>{currentLang.code.toUpperCase()}</span>
@@ -394,7 +407,7 @@ export default function ChatBot() {
                   style={{ background: "oklch(0.18 0.01 65)", width: "220px", maxHeight: "300px", zIndex: 9999 }}
                 >
                   <div className="px-3 py-2 border-b border-[oklch(0.30_0.01_65)]">
-                    <span className="text-[10px] text-[oklch(0.55_0.01_65)] uppercase tracking-widest font-bold" style={{ fontFamily: "'Space Mono', monospace" }}>Select Language</span>
+                    <span className="text-[10px] text-[oklch(0.55_0.01_65)] uppercase tracking-widest font-bold" style={{ fontFamily: "'Space Mono', monospace" }}>{t.selectLanguage}</span>
                   </div>
                   {LANGUAGES.map(lang => (
                     <button
@@ -424,11 +437,11 @@ export default function ChatBot() {
             <div className="flex-1 overflow-y-auto">
               <div className="px-4 py-3 border-b border-[oklch(0.87_0.02_80)]">
                 <p className="text-xs text-[oklch(0.45_0.01_65)] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                  Welcome! Select a service to get started or submit an inquiry directly.
+                  {t.welcome}
                 </p>
               </div>
               <div className="p-3 grid grid-cols-1 gap-1">
-                {SERVICES_MENU.map(service => {
+                {servicesMenu.map(service => {
                   const Icon = service.icon;
                   return (
                     <button
@@ -452,7 +465,7 @@ export default function ChatBot() {
                   className="w-full py-2.5 text-xs text-white font-semibold transition-opacity hover:opacity-90"
                   style={{ background: "oklch(0.55 0.13 38)", fontFamily: "'Space Mono', monospace", letterSpacing: "0.08em" }}
                 >
-                  SUBMIT AN INQUIRY
+                  {t.submitInquiry}
                 </button>
               </div>
             </div>
@@ -486,7 +499,7 @@ export default function ChatBot() {
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* Preset Questions */}
+              {/* Preset Questions — translated */}
               {!isLoading && messages.length > 0 && messages[messages.length - 1].role === "assistant" && (
                 <div className="px-3 py-2 border-t border-[oklch(0.87_0.02_80)] flex flex-wrap gap-1">
                   {presets.map(q => (
@@ -509,7 +522,7 @@ export default function ChatBot() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={e => e.key === "Enter" && !e.shiftKey && handleSend()}
-                  placeholder="Type a message..."
+                  placeholder={t.typeMessage}
                   disabled={isLoading}
                   className="flex-1 text-xs px-3 py-2 border border-[oklch(0.87_0.02_80)] outline-none focus:border-[oklch(0.55_0.13_38)] bg-white text-[oklch(0.35_0.01_65)] placeholder:text-[oklch(0.70_0.01_65)]"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
@@ -524,14 +537,14 @@ export default function ChatBot() {
                 </button>
               </div>
 
-              {/* Get in Touch CTA */}
+              {/* Get in Touch CTA — translated */}
               <div className="px-3 pb-3">
                 <button
                   onClick={() => setView("form")}
                   className="w-full py-2 text-[10px] text-white font-semibold tracking-widest uppercase transition-opacity hover:opacity-90"
                   style={{ background: "oklch(0.22 0.01 65)", fontFamily: "'Space Mono', monospace" }}
                 >
-                  Get in Touch →
+                  {t.getInTouch}
                 </button>
               </div>
             </>
@@ -541,13 +554,13 @@ export default function ChatBot() {
           {view === "form" && (
             <form onSubmit={handleFormSubmit} className="flex-1 overflow-y-auto p-4 space-y-3">
               <p className="text-xs text-[oklch(0.45_0.01_65)] leading-relaxed mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                Fill out the form below and Ana's team will be in touch within 24 hours.
+                {t.fillForm}
               </p>
               {[
-                { key: "firstName", label: "First Name", type: "text", placeholder: "Ana" },
-                { key: "lastName",  label: "Last Name",  type: "text", placeholder: "Haynes" },
-                { key: "email",     label: "Email",      type: "email", placeholder: "ana@example.com" },
-                { key: "phone",     label: "Phone",      type: "tel",   placeholder: "(201) 555-0100" },
+                { key: "firstName", label: t.firstName, type: "text",  placeholder: "Ana" },
+                { key: "lastName",  label: t.lastName,  type: "text",  placeholder: "Haynes" },
+                { key: "email",     label: t.email,     type: "email", placeholder: "ana@example.com" },
+                { key: "phone",     label: t.phone,     type: "tel",   placeholder: "(201) 555-0100" },
               ].map(field => (
                 <div key={field.key}>
                   <label className="block text-[10px] text-[oklch(0.45_0.01_65)] mb-1 uppercase tracking-wide" style={{ fontFamily: "'Space Mono', monospace" }}>
@@ -567,9 +580,9 @@ export default function ChatBot() {
                 </div>
               ))}
               <div>
-                <label className="block text-[10px] text-[oklch(0.45_0.01_65)] mb-1 uppercase tracking-wide" style={{ fontFamily: "'Space Mono', monospace" }}>Message</label>
+                <label className="block text-[10px] text-[oklch(0.45_0.01_65)] mb-1 uppercase tracking-wide" style={{ fontFamily: "'Space Mono', monospace" }}>{t.message}</label>
                 <textarea
-                  placeholder="Tell us about your real estate needs..."
+                  placeholder={t.messagePlaceholder}
                   value={form.message}
                   onChange={e => setForm(prev => ({ ...prev, message: e.target.value }))}
                   rows={3}
@@ -585,7 +598,7 @@ export default function ChatBot() {
                   className="mt-0.5 shrink-0"
                 />
                 <span className="text-[10px] text-[oklch(0.55_0.01_65)] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                  I consent to receive SMS messages from Rosalia Group. Message & data rates may apply.
+                  {t.smsConsent}
                 </span>
               </label>
               <button
@@ -594,7 +607,7 @@ export default function ChatBot() {
                 className="w-full py-2.5 text-xs text-white font-semibold tracking-widest uppercase transition-opacity hover:opacity-90 disabled:opacity-60 flex items-center justify-center gap-2"
                 style={{ background: "oklch(0.55 0.13 38)", fontFamily: "'Space Mono', monospace" }}
               >
-                {isSubmitting ? <><Loader2 size={12} className="animate-spin" /> Sending...</> : "SEND INQUIRY"}
+                {isSubmitting ? <><Loader2 size={12} className="animate-spin" /> Sending...</> : t.sendInquiry}
               </button>
             </form>
           )}
@@ -607,10 +620,10 @@ export default function ChatBot() {
               </div>
               <div>
                 <h3 className="text-base font-bold text-[oklch(0.22_0.01_65)] mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  Inquiry Received!
+                  {t.inquiryReceived}
                 </h3>
                 <p className="text-xs text-[oklch(0.50_0.01_65)] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                  Thank you, {form.firstName}. Ana's team will be in touch within 24 hours.
+                  {t.thankYou}, {form.firstName}. {t.teamInTouch}
                 </p>
               </div>
               <div className="w-full space-y-2 text-xs text-[oklch(0.45_0.01_65)]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
@@ -623,7 +636,7 @@ export default function ChatBot() {
                 className="text-[10px] text-[oklch(0.55_0.13_38)] underline underline-offset-2 mt-2"
                 style={{ fontFamily: "'Space Mono', monospace" }}
               >
-                Start over
+                {t.startOver}
               </button>
             </div>
           )}
