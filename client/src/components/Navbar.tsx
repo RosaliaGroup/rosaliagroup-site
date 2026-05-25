@@ -4,14 +4,19 @@
  * - Space Mono labels, thin underline hover effect
  * - Sticky with blur on scroll
  * - Mobile hamburger menu
+ * - Global language selector (22 languages)
  */
 
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Menu, X, Globe, ChevronDown } from "lucide-react";
+import { useLanguage, LANGUAGES, LangCode } from "@/contexts/LanguageContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+  const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -19,15 +24,28 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close lang dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
   const links = [
-    { label: "Services", href: "#all-services" },
-    { label: "Rentals", href: "#rentals" },
-    { label: "Buy & Sell", href: "#buy-sell" },
-    { label: "Management", href: "#management" },
-    { label: "International", href: "#international" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: t.nav.services, href: "#all-services" },
+    { label: t.nav.rentals, href: "#rentals" },
+    { label: t.nav.buySell, href: "#buy-sell" },
+    { label: t.nav.management, href: "#management" },
+    { label: t.nav.international, href: "#international" },
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.contact, href: "#contact" },
   ];
+
+  const currentLang = LANGUAGES.find((l) => l.code === lang) || LANGUAGES[0];
 
   return (
     <header
@@ -57,20 +75,63 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8">
             {links.map((link) => (
-              <a key={link.label} href={link.href} className="nav-link">
+              <a key={link.href} href={link.href} className="nav-link">
                 {link.label}
               </a>
             ))}
           </nav>
 
-          {/* CTA + Mobile Toggle */}
-          <div className="flex items-center gap-4">
+          {/* Right side: Language + CTA + Mobile Toggle */}
+          <div className="flex items-center gap-3">
+            {/* Language Selector */}
+            <div ref={langRef} className="relative">
+              <button
+                onClick={() => setLangOpen(!langOpen)}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-sm border transition-all duration-200 text-xs font-bold tracking-widest ${
+                  langOpen
+                    ? "bg-[oklch(0.55_0.13_38)] text-white border-[oklch(0.55_0.13_38)]"
+                    : "border-[oklch(0.80_0.02_80)] text-[oklch(0.35_0.02_65)] hover:border-[oklch(0.55_0.13_38)] hover:text-[oklch(0.55_0.13_38)] bg-transparent"
+                }`}
+                style={{ fontFamily: "'Space Mono', monospace" }}
+                aria-label="Select language"
+              >
+                <Globe size={13} />
+                <span>{currentLang.flag} {currentLang.code.toUpperCase().replace("-TW","")}</span>
+                <ChevronDown size={11} className={`transition-transform duration-200 ${langOpen ? "rotate-180" : ""}`} />
+              </button>
+
+              {/* Dropdown */}
+              {langOpen && (
+                <div className="absolute right-0 top-full mt-2 w-56 bg-[oklch(0.97_0.015_80)] border border-[oklch(0.87_0.02_80)] shadow-xl rounded-sm overflow-hidden z-[200]">
+                  <div className="max-h-80 overflow-y-auto">
+                    {LANGUAGES.map((l) => (
+                      <button
+                        key={l.code}
+                        onClick={() => { setLang(l.code as LangCode); setLangOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm transition-colors duration-150 ${
+                          lang === l.code
+                            ? "bg-[oklch(0.55_0.13_38)] text-white font-semibold"
+                            : "text-[oklch(0.30_0.02_65)] hover:bg-[oklch(0.93_0.02_80)]"
+                        }`}
+                      >
+                        <span className="text-base">{l.flag}</span>
+                        <span style={{ fontFamily: "'DM Sans', sans-serif" }}>{l.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Book a Tour CTA */}
             <a
               href="#contact"
               className="hidden lg:inline-block btn-primary text-xs py-2.5 px-5"
             >
-              Book a Tour
+              {t.nav.bookTour}
             </a>
+
+            {/* Mobile Toggle */}
             <button
               className="lg:hidden p-2 text-[oklch(0.22_0.01_65)]"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -88,7 +149,7 @@ export default function Navbar() {
           <nav className="flex flex-col gap-4">
             {links.map((link) => (
               <a
-                key={link.label}
+                key={link.href}
                 href={link.href}
                 className="nav-link text-sm py-1"
                 onClick={() => setMenuOpen(false)}
@@ -101,7 +162,7 @@ export default function Navbar() {
               className="btn-primary text-center mt-2"
               onClick={() => setMenuOpen(false)}
             >
-              Book a Tour
+              {t.nav.bookTour}
             </a>
           </nav>
         </div>
