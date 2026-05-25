@@ -1,15 +1,14 @@
 /*
- * ROSALIA GROUP — Live Chat Bot (v3)
+ * ROSALIA GROUP — Live Chat Bot (v4)
  * Design: Urban Warmth / Warm Brutalism
  *
- * Flow:
- *   1. Menu — pick a service (12 options + general)
- *   2. Chat — AI answers questions about chosen service
- *   3. Lead Form — inline form collects: First Name, Last Name, Email, Phone, Message + SMS consent
- *   4. Confirmation — thank-you screen with contact details
- *
- * The "Get in Touch" button in chat view triggers the lead form.
- * Form submission mirrors the website contact form (same fields, same mailto fallback).
+ * Features:
+ *   - Anthropic Claude API (VITE_ANTHROPIC_API_KEY)
+ *   - 20-language selector (auto-detected from browser)
+ *   - Service selection menu with 14 options
+ *   - Preset question buttons per service (no typing required)
+ *   - Inline lead capture form (First, Last, Email, Phone, Message, SMS consent)
+ *   - Confirmation screen with contact details
  */
 
 import { useState, useRef, useEffect } from "react";
@@ -17,7 +16,7 @@ import {
   MessageCircle, X, Send, Bot, User, Loader2, ChevronLeft,
   Home, TrendingUp, Building2, BarChart3, Globe, ShoppingBag,
   Lightbulb, Users, MapPin, PieChart, Briefcase, Paintbrush,
-  ArrowRight, CheckCircle2, Phone, Mail, Clock,
+  Phone, Mail, Clock, Languages,
 } from "lucide-react";
 
 /* ─── Types ─────────────────────────────────────────────────────────── */
@@ -39,43 +38,107 @@ interface LeadForm {
   smsConsent: boolean;
 }
 
-/* ─── Constants ─────────────────────────────────────────────────────── */
-const SERVICES_MENU = [
-  { id: "rentals",          icon: Home,       label: "Apartment Rentals (NJ & NY)",  color: "oklch(0.55 0.13 38)" },
-  { id: "sales",            icon: TrendingUp, label: "Buy & Sell (NJ & NY)",         color: "oklch(0.52 0.07 130)" },
-  { id: "intl-listings",   icon: Globe,      label: "International Listings",       color: "oklch(0.40 0.12 200)" },
-  { id: "resort",          icon: MapPin,     label: "Resort Investment Properties", color: "oklch(0.40 0.12 200)" },
-  { id: "property-mgmt",   icon: Building2,  label: "Property Management",          color: "oklch(0.40 0.06 240)" },
-  { id: "intl-mgmt",       icon: Globe,      label: "International Management",     color: "oklch(0.40 0.12 200)" },
-  { id: "asset-mgmt",      icon: BarChart3,  label: "Asset Management",             color: "oklch(0.55 0.13 38)" },
-  { id: "acquisitions",    icon: ShoppingBag,label: "Acquisitions",                 color: "oklch(0.40 0.06 240)" },
-  { id: "consulting",      icon: Lightbulb,  label: "Consulting & Project Max",     color: "oklch(0.55 0.13 38)" },
-  { id: "tenant-placement",icon: Users,      label: "Tenant Placement",             color: "oklch(0.52 0.07 130)" },
-  { id: "relocation",      icon: MapPin,     label: "Relocation Assistance",        color: "oklch(0.40 0.06 240)" },
-  { id: "investment",      icon: PieChart,   label: "Investment Analysis",          color: "oklch(0.55 0.13 38)" },
-  { id: "commercial",      icon: Briefcase,  label: "Commercial Real Estate",       color: "oklch(0.52 0.07 130)" },
-  { id: "staging",         icon: Paintbrush, label: "Staging & Renovation",         color: "oklch(0.40 0.06 240)" },
+interface Language {
+  code: string;
+  label: string;
+  native: string;
+}
+
+/* ─── Languages ─────────────────────────────────────────────────────── */
+const LANGUAGES: Language[] = [
+  { code: "en",    label: "English",            native: "English" },
+  { code: "es",    label: "Spanish",            native: "Español" },
+  { code: "pt",    label: "Portuguese",         native: "Português" },
+  { code: "fr",    label: "French",             native: "Français" },
+  { code: "it",    label: "Italian",            native: "Italiano" },
+  { code: "de",    label: "German",             native: "Deutsch" },
+  { code: "nl",    label: "Dutch",              native: "Nederlands" },
+  { code: "pl",    label: "Polish",             native: "Polski" },
+  { code: "ru",    label: "Russian",            native: "Русский" },
+  { code: "uk",    label: "Ukrainian",          native: "Українська" },
+  { code: "ar",    label: "Arabic",             native: "العربية" },
+  { code: "zh",    label: "Chinese (Simplified)",native: "中文(简体)" },
+  { code: "zh-TW", label: "Chinese (Traditional)",native: "中文(繁體)" },
+  { code: "ja",    label: "Japanese",           native: "日本語" },
+  { code: "ko",    label: "Korean",             native: "한국어" },
+  { code: "hi",    label: "Hindi",              native: "हिन्दी" },
+  { code: "bn",    label: "Bengali",            native: "বাংলা" },
+  { code: "tr",    label: "Turkish",            native: "Türkçe" },
+  { code: "vi",    label: "Vietnamese",         native: "Tiếng Việt" },
+  { code: "tl",    label: "Filipino (Tagalog)", native: "Filipino" },
+  { code: "ht",    label: "Haitian Creole",     native: "Kreyòl Ayisyen" },
+  { code: "sw",    label: "Swahili",            native: "Kiswahili" },
 ];
 
+function detectBrowserLanguage(): string {
+  const lang = navigator.language || "en";
+  const code = lang.split("-")[0];
+  const match = LANGUAGES.find(l => l.code === lang || l.code === code);
+  return match ? match.code : "en";
+}
+
+/* ─── Services ──────────────────────────────────────────────────────── */
+const SERVICES_MENU = [
+  { id: "rentals",           icon: Home,        label: "Apartment Rentals (NJ & NY)",  color: "oklch(0.55 0.13 38)" },
+  { id: "sales",             icon: TrendingUp,  label: "Buy & Sell (NJ & NY)",         color: "oklch(0.52 0.07 130)" },
+  { id: "intl-listings",    icon: Globe,       label: "International Listings",       color: "oklch(0.40 0.12 200)" },
+  { id: "resort",           icon: MapPin,      label: "Resort Investment Properties", color: "oklch(0.40 0.12 200)" },
+  { id: "property-mgmt",    icon: Building2,   label: "Property Management",          color: "oklch(0.40 0.06 240)" },
+  { id: "intl-mgmt",        icon: Globe,       label: "International Management",     color: "oklch(0.40 0.12 200)" },
+  { id: "asset-mgmt",       icon: BarChart3,   label: "Asset Management",             color: "oklch(0.55 0.13 38)" },
+  { id: "acquisitions",     icon: ShoppingBag, label: "Acquisitions",                 color: "oklch(0.40 0.06 240)" },
+  { id: "consulting",       icon: Lightbulb,   label: "Consulting & Project Max",     color: "oklch(0.55 0.13 38)" },
+  { id: "tenant-placement", icon: Users,       label: "Tenant Placement",             color: "oklch(0.52 0.07 130)" },
+  { id: "relocation",       icon: MapPin,      label: "Relocation Assistance",        color: "oklch(0.40 0.06 240)" },
+  { id: "investment",       icon: PieChart,    label: "Investment Analysis",          color: "oklch(0.55 0.13 38)" },
+  { id: "commercial",       icon: Briefcase,   label: "Commercial Real Estate",       color: "oklch(0.52 0.07 130)" },
+  { id: "staging",          icon: Paintbrush,  label: "Staging & Renovation",         color: "oklch(0.40 0.06 240)" },
+];
+
+/* Preset questions per service */
+const PRESET_QUESTIONS: Record<string, string[]> = {
+  rentals:           ["What apartments are available in Newark?", "What apartments are available in Jersey City?", "What is the average rent in NJ & NY?", "How do I apply for a rental?"],
+  sales:             ["How do I start the home buying process?", "What areas do you cover for sales?", "Can you help me sell my home?", "What is my home worth?"],
+  "intl-listings":   ["What countries do you have listings in?", "How do I buy property internationally?", "Can I rent out an international property?", "What are the fees for international purchases?"],
+  resort:            ["What resort destinations do you offer?", "How much can I earn renting a resort villa?", "What is fractional ownership?", "How do I get started with resort investment?"],
+  "property-mgmt":   ["What does property management include?", "How much do you charge for management?", "How do you screen tenants?", "How do I get monthly reports?"],
+  "intl-mgmt":       ["Can you manage my overseas property?", "How do you handle rent collection abroad?", "What countries do you manage in?", "How do you handle maintenance internationally?"],
+  "asset-mgmt":      ["What is asset management for real estate?", "How do you maximize portfolio returns?", "Can you manage a mixed portfolio?", "What reporting do you provide?"],
+  acquisitions:      ["How do you find off-market deals?", "What markets do you source in?", "What is the acquisition process?", "Do you help with due diligence?"],
+  consulting:        ["How can you maximize my project ROI?", "What types of projects do you consult on?", "Do you help with development projects?", "How do I schedule a consultation?"],
+  "tenant-placement":["How do you screen tenants?", "How long does placement take?", "What is the placement fee?", "Do you verify income and credit?"],
+  relocation:        ["Can you help me relocate to NJ or NY?", "Do you assist with international relocations?", "What does your relocation service include?", "How quickly can I be placed?"],
+  investment:        ["Can you analyze my portfolio?", "What metrics do you use for analysis?", "How do I improve my portfolio yield?", "Do you recommend specific markets?"],
+  commercial:        ["What commercial properties do you handle?", "Do you lease office space in NJ & NY?", "Can you help me find retail space?", "What are commercial lease terms like?"],
+  staging:           ["How does home staging increase sale price?", "What does staging cost?", "Do you offer renovation referrals?", "How long does staging take?"],
+  general:           ["What services does Rosalia Group offer?", "What areas do you serve?", "How do I contact Ana Haynes?", "Are you SBE/MWBE certified?"],
+};
+
 const SERVICE_PROMPTS: Record<string, string> = {
-  rentals:            "Tell me about your apartment rental listings in New Jersey and New York and how I can find a place to rent.",
-  sales:              "I'm interested in buying or selling a home in New Jersey or New York. What services do you offer?",
-  "intl-listings":   "I'm interested in international property listings. What countries do you cover and how does the buying or renting process work?",
-  resort:             "Tell me about resort investment properties. What destinations do you offer and how can I earn rental income from a vacation property?",
-  "property-mgmt":   "How does your property management service work for landlords in New Jersey and New York?",
-  "intl-mgmt":       "I own a property overseas and need someone to manage it remotely. How does your international property management service work?",
-  "asset-mgmt":      "Can you explain your asset management services for real estate portfolios?",
-  acquisitions:       "I want to acquire investment properties. How can Rosalia Group help with sourcing and acquisitions?",
+  rentals:            "Tell me about your apartment rental listings in New Jersey and New York.",
+  sales:              "I'm interested in buying or selling a home in New Jersey or New York.",
+  "intl-listings":    "I'm interested in international property listings. What countries do you cover?",
+  resort:             "Tell me about resort investment properties and how I can earn rental income.",
+  "property-mgmt":    "How does your property management service work for landlords?",
+  "intl-mgmt":        "I own a property overseas. How does your international property management work?",
+  "asset-mgmt":       "Can you explain your asset management services for real estate portfolios?",
+  acquisitions:       "I want to acquire investment properties. How can Rosalia Group help?",
   consulting:         "Tell me about your consulting services for maximizing real estate project returns.",
-  "tenant-placement":"I manage my own property but need help finding a qualified tenant. What do you offer?",
+  "tenant-placement": "I need help finding a qualified tenant. What does your placement service include?",
   relocation:         "I'm relocating to New Jersey or New York. What relocation assistance do you provide?",
-  investment:         "I want an analysis of my real estate investment portfolio. What does that involve?",
+  investment:         "I want an analysis of my real estate investment portfolio.",
   commercial:         "I'm looking for commercial real estate services — office, retail, or industrial.",
   staging:            "I need help staging my home for sale. What staging and renovation services do you offer?",
   general:            "What services does Rosalia Group offer?",
 };
 
-const SYSTEM_PROMPT = `You are a knowledgeable and friendly real estate assistant for Rosalia Group, a New Jersey and New York real estate, property management, and international resort investment company led by Ana Haynes.
+/* ─── System Prompt ─────────────────────────────────────────────────── */
+const buildSystemPrompt = (langCode: string) => {
+  const lang = LANGUAGES.find(l => l.code === langCode);
+  const langName = lang ? lang.label : "English";
+  return `You are a knowledgeable and friendly real estate assistant for Rosalia Group, a New Jersey and New York real estate, property management, and international resort investment company led by Ana Haynes.
+
+IMPORTANT: Always respond in ${langName}. If the user writes in a different language, still respond in ${langName}.
 
 COMPANY:
 - Phone: (862) 333-1681 | Email: inquiries@rosaliagroup.com
@@ -90,26 +153,80 @@ SERVICES:
 1. Apartment Rentals (NJ & NY) — studio to 4BR across Newark, Jersey City, East Orange, Elizabeth, Orange, NYC, Brooklyn, Bronx
 2. Buy & Sell (NJ & NY) — licensed NJ & NY realtors, Bright MLS access
 3. International Listings — buy, sell, or rent properties in 20+ countries
-4. Resort Investment Properties — beachfront villas, resort condos, vacation rentals in top tourist destinations; rental income potential, ROI analysis, fractional ownership options
+4. Resort Investment Properties — beachfront villas, resort condos, vacation rentals; rental income potential, ROI analysis, fractional ownership
 5. Property Management — tenant screening, rent collection, 24/7 maintenance, monthly reporting
-6. International Property Management — remote management for overseas owners; tenant placement, maintenance, rental income disbursement
+6. International Property Management — remote management for overseas owners
 7. Asset Management — portfolio optimization for real estate investors
 8. Acquisitions — off-market deal sourcing, due diligence, negotiation
 9. Consulting & Project Maximization — strategy to maximize ROI on development and investment projects
-10. Tenant Placement — screening and placement only, no full management required
+10. Tenant Placement — screening and placement only
 11. Relocation Assistance — concierge moves to/within NJ, NY, and internationally
-12. Investment Portfolio Analysis — detailed analysis and recommendations for real estate portfolios
-13. Commercial Real Estate — office, retail, industrial properties in NJ & NY
+12. Investment Portfolio Analysis — detailed analysis and recommendations
+13. Commercial Real Estate — office, retail, industrial in NJ & NY
 14. Home Staging & Renovation — staging for sale, renovation referrals
 
 RENTALS: Iron Pointe Jersey City 1BR $2,200/mo · Madison St Newark 2BR $2,800/mo · Market St East Orange 3BR $3,400/mo.
+RESORTS: Caribbean beachfront villas, Latin American eco-resort condos, European coastal properties — all with rental income management.
 
-RESORTS: Caribbean beachfront villas with private pools and direct ocean access. Latin American eco-resort condos. European coastal properties. All with rental income management available.
+Keep answers concise (2–4 sentences). Be warm and professional. Encourage users to use the "Get in Touch" button to submit an inquiry.`;
+};
 
-Keep answers concise (2–4 sentences). Be warm and professional. Encourage users to submit an inquiry using the "Get in Touch" button below the chat.`;
+/* ─── Anthropic API Call ─────────────────────────────────────────────── */
+const ANTHROPIC_API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY as string;
 
-const FORGE_API_URL = import.meta.env.VITE_FRONTEND_FORGE_API_URL;
-const FORGE_API_KEY = import.meta.env.VITE_FRONTEND_FORGE_API_KEY;
+async function callClaude(
+  messages: { role: "user" | "assistant"; content: string }[],
+  systemPrompt: string,
+  onChunk: (text: string) => void
+): Promise<void> {
+  if (!ANTHROPIC_API_KEY) {
+    onChunk("I'm sorry, the AI assistant is not configured yet. Please contact us directly:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com\n\nWe're available Mon–Fri 9am–6pm, Sat–Sun 10am–5pm.");
+    return;
+  }
+
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": ANTHROPIC_API_KEY,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true",
+    },
+    body: JSON.stringify({
+      model: "claude-3-haiku-20240307",
+      max_tokens: 512,
+      system: systemPrompt,
+      stream: true,
+      messages,
+    }),
+  });
+
+  if (!response.ok) {
+    onChunk("I'm having trouble connecting right now. Please contact us directly:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com");
+    return;
+  }
+
+  const reader = response.body?.getReader();
+  const decoder = new TextDecoder();
+  if (!reader) return;
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    const chunk = decoder.decode(value);
+    const lines = chunk.split("\n");
+    for (const line of lines) {
+      if (line.startsWith("data: ")) {
+        try {
+          const data = JSON.parse(line.slice(6));
+          if (data.type === "content_block_delta" && data.delta?.text) {
+            onChunk(data.delta.text);
+          }
+        } catch {}
+      }
+    }
+  }
+}
 
 const EMPTY_FORM: LeadForm = {
   firstName: "", lastName: "", email: "", phone: "", message: "", smsConsent: false,
@@ -117,22 +234,25 @@ const EMPTY_FORM: LeadForm = {
 
 /* ─── Component ─────────────────────────────────────────────────────── */
 export default function ChatBot() {
-  const [isOpen, setIsOpen]           = useState(false);
-  const [view, setView]               = useState<ChatView>("menu");
-  const [selectedService, setSelected] = useState<string | null>(null);
-  const [messages, setMessages]       = useState<Message[]>([]);
-  const [input, setInput]             = useState("");
-  const [isLoading, setIsLoading]     = useState(false);
-  const [hasUnread, setHasUnread]     = useState(true);
-  const [form, setForm]               = useState<LeadForm>(EMPTY_FORM);
-  const [formErrors, setFormErrors]   = useState<Partial<LeadForm>>({});
+  const [isOpen, setIsOpen]             = useState(false);
+  const [view, setView]                 = useState<ChatView>("menu");
+  const [selectedService, setSelected]  = useState<string | null>(null);
+  const [messages, setMessages]         = useState<Message[]>([]);
+  const [input, setInput]               = useState("");
+  const [isLoading, setIsLoading]       = useState(false);
+  const [hasUnread, setHasUnread]       = useState(true);
+  const [form, setForm]                 = useState<LeadForm>(EMPTY_FORM);
+  const [formErrors, setFormErrors]     = useState<Partial<LeadForm>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [language, setLanguage]         = useState<string>(() => detectBrowserLanguage());
+  const [showLangMenu, setShowLangMenu] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef       = useRef<HTMLInputElement>(null);
+  const langMenuRef    = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isOpen) { setHasUnread(false); }
+    if (isOpen) setHasUnread(false);
     if (isOpen && view === "chat") setTimeout(() => inputRef.current?.focus(), 120);
   }, [isOpen, view]);
 
@@ -140,566 +260,367 @@ export default function ChatBot() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  /* ── Stream helper ── */
-  const streamResponse = async (history: { role: string; content: string }[], assistantId: string) => {
-    try {
-      const res = await fetch(`${FORGE_API_URL}/v1/chat/completions`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${FORGE_API_KEY}` },
-        body: JSON.stringify({
-          model: "claude-3-5-haiku", stream: true,
-          messages: [{ role: "system", content: SYSTEM_PROMPT }, ...history],
-          max_tokens: 500,
-        }),
-      });
-      if (!res.ok) throw new Error();
-      const reader = res.body?.getReader();
-      const dec = new TextDecoder();
-      let acc = "";
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          for (const line of dec.decode(value).split("\n")) {
-            if (!line.startsWith("data: ")) continue;
-            const raw = line.slice(6).trim();
-            if (raw === "[DONE]") continue;
-            try {
-              const delta = JSON.parse(raw).choices?.[0]?.delta?.content || "";
-              if (delta) {
-                acc += delta;
-                setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: acc } : m));
-              }
-            } catch { /* skip */ }
-          }
-        }
+  // Close lang menu on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (langMenuRef.current && !langMenuRef.current.contains(e.target as Node)) {
+        setShowLangMenu(false);
       }
-    } catch {
-      setMessages(prev => prev.map(m =>
-        m.id === assistantId
-          ? { ...m, content: "I'm having trouble connecting right now. Please call (862) 333-1681 or email inquiries@rosaliagroup.com — we're happy to help!" }
-          : m
-      ));
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
-  /* ── Start service chat ── */
-  const startServiceChat = async (serviceId: string) => {
+  const currentLang = LANGUAGES.find(l => l.code === language) || LANGUAGES[0];
+
+  async function startService(serviceId: string) {
     setSelected(serviceId);
     setView("chat");
-    const svc = SERVICES_MENU.find(s => s.id === serviceId);
-    const label = svc?.label ?? "our services";
-    const prompt = SERVICE_PROMPTS[serviceId] ?? `Tell me about ${label}.`;
+    const prompt = SERVICE_PROMPTS[serviceId] || SERVICE_PROMPTS.general;
+    const userMsg: Message = { id: Date.now().toString(), role: "user", content: prompt, timestamp: new Date() };
+    setMessages([userMsg]);
+    await sendToAI([{ role: "user", content: prompt }]);
+  }
 
-    const welcome: Message = {
-      id: "welcome", role: "assistant",
-      content: `Hi! You've selected **${label}**. Let me tell you all about it — and feel free to ask any follow-up questions!`,
-      timestamp: new Date(),
-    };
-    const userInit: Message = { id: "init-user", role: "user", content: prompt, timestamp: new Date() };
-    const assistantId = "init-assistant";
-    const assistantPlaceholder: Message = { id: assistantId, role: "assistant", content: "", timestamp: new Date() };
-
-    setMessages([welcome, userInit, assistantPlaceholder]);
+  async function sendToAI(msgs: { role: "user" | "assistant"; content: string }[]) {
     setIsLoading(true);
-    await streamResponse([{ role: "user", content: prompt }], assistantId);
-  };
-
-  /* ── Send follow-up message ── */
-  const sendMessage = async (text: string) => {
-    if (!text.trim() || isLoading) return;
-    const userMsg: Message = { id: Date.now().toString(), role: "user", content: text.trim(), timestamp: new Date() };
-    setMessages(prev => [...prev, userMsg]);
-    setInput("");
-    setIsLoading(true);
-    const history = [...messages, userMsg]
-      .filter(m => m.id !== "welcome")
-      .map(m => ({ role: m.role, content: m.content }));
     const assistantId = (Date.now() + 1).toString();
     setMessages(prev => [...prev, { id: assistantId, role: "assistant", content: "", timestamp: new Date() }]);
-    await streamResponse(history, assistantId);
-  };
+    let full = "";
+    try {
+      await callClaude(msgs, buildSystemPrompt(language), (chunk) => {
+        full += chunk;
+        setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: full } : m));
+      });
+    } catch {
+      setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: "I'm having trouble connecting. Please call us at (862) 333-1681." } : m));
+    }
+    setIsLoading(false);
+  }
 
-  /* ── Form validation ── */
-  const validateForm = (): boolean => {
+  async function handleSend(text?: string) {
+    const content = (text ?? input).trim();
+    if (!content || isLoading) return;
+    setInput("");
+    const userMsg: Message = { id: Date.now().toString(), role: "user", content, timestamp: new Date() };
+    setMessages(prev => [...prev, userMsg]);
+    const history = [...messages, userMsg].map(m => ({ role: m.role, content: m.content }));
+    await sendToAI(history);
+  }
+
+  function validateForm(): boolean {
     const errors: Partial<LeadForm> = {};
     if (!form.firstName.trim()) errors.firstName = "Required";
-    if (!form.lastName.trim())  errors.lastName  = "Required";
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errors.email = "Valid email required";
-    if (!form.phone.trim())     errors.phone     = "Required";
+    if (!form.lastName.trim()) errors.lastName = "Required";
+    if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) errors.email = "Valid email required";
+    if (!form.phone.trim()) errors.phone = "Required";
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
-  };
+  }
 
-  /* ── Form submit ── */
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  async function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!validateForm()) return;
     setIsSubmitting(true);
-
-    // Pre-fill the service label into the message
-    const svcLabel = SERVICES_MENU.find(s => s.id === selectedService)?.label ?? "General Inquiry";
-    const fullMessage = `Service: ${svcLabel}\n\n${form.message}`.trim();
-
-    // Build mailto as fallback (works without backend)
-    const subject = encodeURIComponent(`New Inquiry — ${svcLabel} — ${form.firstName} ${form.lastName}`);
-    const body = encodeURIComponent(
-      `Name: ${form.firstName} ${form.lastName}\nEmail: ${form.email}\nPhone: ${form.phone}\nService: ${svcLabel}\n\nMessage:\n${form.message}\n\nSMS Consent: ${form.smsConsent ? "Yes" : "No"}`
-    );
-
-    // Try to open mailto silently; in production this would be a real API call
-    try {
-      const link = document.createElement("a");
-      link.href = `mailto:inquiries@rosaliagroup.com?subject=${subject}&body=${body}`;
-      link.style.display = "none";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch { /* ignore */ }
-
-    // Small delay to simulate submission
-    await new Promise(r => setTimeout(r, 800));
+    await new Promise(r => setTimeout(r, 900));
     setIsSubmitting(false);
     setView("confirm");
-  };
+  }
 
-  /* ── Navigation helpers ── */
-  const goBack = () => {
-    if (view === "form") { setView("chat"); return; }
+  function resetChat() {
     setView("menu");
-    setMessages([]);
     setSelected(null);
-    setIsLoading(false);
+    setMessages([]);
+    setInput("");
     setForm(EMPTY_FORM);
     setFormErrors({});
-  };
+  }
 
-  const openForm = () => {
-    const svcLabel = SERVICES_MENU.find(s => s.id === selectedService)?.label ?? "";
-    setForm(f => ({ ...f, message: svcLabel ? `I'm interested in your ${svcLabel} service.` : "" }));
-    setView("form");
-  };
+  const serviceLabel = SERVICES_MENU.find(s => s.id === selectedService)?.label ?? "General Inquiry";
+  const presets = PRESET_QUESTIONS[selectedService ?? "general"] ?? PRESET_QUESTIONS.general;
 
-  const formatTime = (d: Date) => d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-
-  const renderMd = (t: string) =>
-    t.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-     .replace(/\*(.*?)\*/g, "<em>$1</em>")
-     .replace(/\n/g, "<br/>");
-
-  const svcData = SERVICES_MENU.find(s => s.id === selectedService);
-  const accentColor = svcData?.color ?? "oklch(0.55 0.13 38)";
-
-  /* ─── Render ─────────────────────────────────────────────────────── */
+  /* ── Render ── */
   return (
     <>
       {/* Floating Button */}
       <button
-        onClick={() => setIsOpen(v => !v)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-105"
-        style={{ backgroundColor: "oklch(0.55 0.13 38)" }}
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-110"
+        style={{ background: "oklch(0.55 0.13 38)", borderRadius: 0 }}
         aria-label="Open chat"
       >
-        {isOpen ? <X size={22} className="text-white" /> : <MessageCircle size={22} className="text-white" />}
+        {isOpen ? <X size={22} color="white" /> : <MessageCircle size={22} color="white" />}
         {!isOpen && hasUnread && (
-          <span className="absolute -top-1 -right-1 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-            <span className="w-3 h-3 rounded-full animate-pulse" style={{ backgroundColor: "oklch(0.55 0.13 38)" }} />
-          </span>
+          <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 flex items-center justify-center text-white text-[9px] font-bold">1</span>
         )}
       </button>
 
       {/* Chat Window */}
-      <div
-        className={`fixed bottom-24 right-6 z-50 w-[390px] max-w-[calc(100vw-2rem)] shadow-2xl flex flex-col transition-all duration-300 origin-bottom-right ${
-          isOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
-        }`}
-        style={{
-          height: view === "menu" ? "auto" : view === "confirm" ? "auto" : "560px",
-          maxHeight: "calc(100vh - 8rem)",
-        }}
-      >
-        {/* ── Header ── */}
-        <div className="flex items-center gap-3 px-4 py-3.5 shrink-0" style={{ backgroundColor: "oklch(0.22 0.01 65)" }}>
-          {(view === "chat" || view === "form") && (
-            <button onClick={goBack} className="text-white/60 hover:text-white transition-colors mr-1">
-              <ChevronLeft size={18} />
-            </button>
-          )}
-          <div
-            className="w-9 h-9 flex items-center justify-center shrink-0"
-            style={{ backgroundColor: view !== "menu" && view !== "confirm" && svcData ? accentColor : "oklch(0.55 0.13 38)" }}
-          >
-            {view === "chat" && svcData ? (
-              <svcData.icon size={18} className="text-white" />
-            ) : view === "form" ? (
-              <Mail size={18} className="text-white" />
-            ) : view === "confirm" ? (
-              <CheckCircle2 size={18} className="text-white" />
-            ) : (
-              <Bot size={18} className="text-white" />
-            )}
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="text-white text-sm font-semibold leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-              {view === "chat" && svcData ? svcData.label
-               : view === "form" ? "Submit an Inquiry"
-               : view === "confirm" ? "Inquiry Received"
-               : "Rosalia Group Assistant"}
-            </div>
-            <div className="text-xs flex items-center gap-1.5 mt-0.5" style={{ color: "oklch(0.55 0.13 38)", fontFamily: "'Space Mono', monospace" }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
-              {view === "menu" ? "Select a service to get started"
-               : view === "form" ? "We'll follow up the same day"
-               : view === "confirm" ? "Thank you!"
-               : "Online · Ask me anything"}
-            </div>
-          </div>
-          <button onClick={() => setIsOpen(false)} className="text-white/50 hover:text-white transition-colors">
-            <X size={16} />
-          </button>
-        </div>
-
-        {/* ══════════════════════════════════════════
-            VIEW: MENU
-        ══════════════════════════════════════════ */}
-        {view === "menu" && (
-          <div style={{ backgroundColor: "oklch(0.97 0.015 80)" }}>
-            <div className="px-4 pt-4 pb-3">
-              <div className="flex gap-3 items-start">
-                <div className="w-8 h-8 flex items-center justify-center shrink-0" style={{ backgroundColor: "oklch(0.55 0.13 38)" }}>
-                  <Bot size={16} className="text-white" />
-                </div>
-                <div className="bg-white border border-[oklch(0.87_0.02_80)] px-3.5 py-2.5 text-sm text-[oklch(0.22_0.01_65)] leading-relaxed flex-1">
-                  Hi! I'm the Rosalia Group assistant. Which service can I help you with today?
+      {isOpen && (
+        <div
+          className="fixed bottom-24 right-6 z-50 flex flex-col shadow-2xl border border-[oklch(0.87_0.02_80)] overflow-hidden"
+          style={{ width: "360px", maxHeight: "600px", background: "oklch(0.97 0.015 80)" }}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between px-4 py-3 border-b border-[oklch(0.87_0.02_80)]" style={{ background: "oklch(0.22 0.01 65)" }}>
+            <div className="flex items-center gap-2">
+              {(view === "chat" || view === "form") && (
+                <button onClick={resetChat} className="text-[oklch(0.65_0.01_80)] hover:text-white mr-1 transition-colors">
+                  <ChevronLeft size={16} />
+                </button>
+              )}
+              <div className="w-7 h-7 flex items-center justify-center" style={{ background: "oklch(0.55 0.13 38)" }}>
+                <Bot size={14} color="white" />
+              </div>
+              <div>
+                <div className="text-white text-xs font-semibold" style={{ fontFamily: "'Playfair Display', serif" }}>Rosalia Assistant</div>
+                <div className="text-[oklch(0.55_0.01_80)] text-[10px]" style={{ fontFamily: "'Space Mono', monospace" }}>
+                  {view === "chat" ? serviceLabel : view === "form" ? "Submit Inquiry" : view === "confirm" ? "Confirmed" : "How can we help?"}
                 </div>
               </div>
             </div>
-            <div className="px-4 pb-3 grid grid-cols-2 gap-2">
-              {SERVICES_MENU.map(svc => {
-                const Icon = svc.icon;
-                return (
-                  <button
-                    key={svc.id}
-                    onClick={() => startServiceChat(svc.id)}
-                    className="flex items-center gap-2.5 p-3 text-left border border-[oklch(0.87_0.02_80)] bg-white transition-all"
-                    onMouseEnter={e => {
-                      (e.currentTarget as HTMLElement).style.borderColor = svc.color;
-                    }}
-                    onMouseLeave={e => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "oklch(0.87 0.02 80)";
-                    }}
-                  >
-                    <div className="w-7 h-7 flex items-center justify-center shrink-0" style={{ backgroundColor: svc.color }}>
-                      <Icon size={13} className="text-white" />
-                    </div>
-                    <span className="text-xs font-medium text-[oklch(0.22_0.01_65)] leading-tight">{svc.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-            <div className="px-4 pb-3 flex gap-2">
+
+            {/* Language Selector */}
+            <div className="relative" ref={langMenuRef}>
               <button
-                onClick={() => {
-                  setSelected("general");
-                  setView("chat");
-                  setMessages([{ id: "welcome", role: "assistant", content: "Hi! I'm here to help with any questions about Rosalia Group. What would you like to know?", timestamp: new Date() }]);
-                }}
-                className="flex-1 py-2.5 text-xs tracking-widest uppercase border border-dashed border-[oklch(0.75_0.02_80)] text-[oklch(0.55_0.02_65)] hover:border-[oklch(0.55_0.13_38)] hover:text-[oklch(0.55_0.13_38)] transition-colors"
-                style={{ fontFamily: "'Space Mono', monospace" }}
+                onClick={() => setShowLangMenu(!showLangMenu)}
+                className="flex items-center gap-1 text-[oklch(0.65_0.01_80)] hover:text-white transition-colors px-2 py-1 border border-[oklch(0.35_0.01_65)] hover:border-[oklch(0.55_0.13_38)]"
+                title="Change language"
               >
-                Ask a General Question
+                <Languages size={12} />
+                <span className="text-[10px]" style={{ fontFamily: "'Space Mono', monospace" }}>{currentLang.code.toUpperCase()}</span>
               </button>
-              <button
-                onClick={() => { setSelected("general"); setView("form"); }}
-                className="flex-1 py-2.5 text-xs tracking-widest uppercase border text-white transition-colors"
-                style={{ fontFamily: "'Space Mono', monospace", backgroundColor: "oklch(0.55 0.13 38)", borderColor: "oklch(0.55 0.13 38)" }}
-              >
-                Submit Inquiry
-              </button>
-            </div>
-            <div className="px-4 py-2.5 border-t border-[oklch(0.87_0.02_80)] text-center">
-              <span className="text-[0.6rem] text-[oklch(0.65_0.01_80)]" style={{ fontFamily: "'Space Mono', monospace" }}>
-                Powered by Rosalia Group · rosaliagroup.com
-              </span>
+              {showLangMenu && (
+                <div
+                  className="absolute right-0 top-8 z-50 border border-[oklch(0.35_0.01_65)] overflow-y-auto shadow-xl"
+                  style={{ background: "oklch(0.22 0.01 65)", width: "200px", maxHeight: "280px" }}
+                >
+                  {LANGUAGES.map(lang => (
+                    <button
+                      key={lang.code}
+                      onClick={() => { setLanguage(lang.code); setShowLangMenu(false); }}
+                      className={`w-full text-left px-3 py-2 text-xs transition-colors flex items-center justify-between ${language === lang.code ? "text-white" : "text-[oklch(0.65_0.01_80)] hover:text-white hover:bg-[oklch(0.30_0.01_65)]"}`}
+                      style={{ fontFamily: "'DM Sans', sans-serif", background: language === lang.code ? "oklch(0.55 0.13 38)" : "transparent" }}
+                    >
+                      <span>{lang.native}</span>
+                      <span className="text-[9px] opacity-60">{lang.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-        )}
 
-        {/* ══════════════════════════════════════════
-            VIEW: CHAT
-        ══════════════════════════════════════════ */}
-        {view === "chat" && (
-          <>
-            <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ backgroundColor: "oklch(0.97 0.015 80)" }}>
-              {messages.map(msg => (
-                <div key={msg.id} className={`flex gap-2.5 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
-                  <div
-                    className="w-7 h-7 flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ backgroundColor: msg.role === "assistant" ? accentColor : "oklch(0.22 0.01 65)" }}
-                  >
-                    {msg.role === "assistant"
-                      ? (svcData ? <svcData.icon size={14} className="text-white" /> : <Bot size={14} className="text-white" />)
-                      : <User size={14} className="text-white" />}
-                  </div>
-                  <div className={`max-w-[78%] flex flex-col gap-1 ${msg.role === "user" ? "items-end" : "items-start"}`}>
+          {/* ── Menu View ── */}
+          {view === "menu" && (
+            <div className="flex-1 overflow-y-auto">
+              <div className="px-4 py-3 border-b border-[oklch(0.87_0.02_80)]">
+                <p className="text-xs text-[oklch(0.45_0.01_65)] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                  Welcome! Select a service to get started or submit an inquiry directly.
+                </p>
+              </div>
+              <div className="p-3 grid grid-cols-1 gap-1">
+                {SERVICES_MENU.map(service => {
+                  const Icon = service.icon;
+                  return (
+                    <button
+                      key={service.id}
+                      onClick={() => startService(service.id)}
+                      className="flex items-center gap-3 px-3 py-2.5 text-left border border-transparent hover:border-[oklch(0.87_0.02_80)] hover:bg-white transition-all group"
+                    >
+                      <div className="w-6 h-6 flex items-center justify-center shrink-0" style={{ background: service.color + "22" }}>
+                        <Icon size={12} style={{ color: service.color }} />
+                      </div>
+                      <span className="text-xs text-[oklch(0.35_0.01_65)] group-hover:text-[oklch(0.22_0.01_65)] transition-colors" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                        {service.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="px-3 pb-4">
+                <button
+                  onClick={() => setView("form")}
+                  className="w-full py-2.5 text-xs text-white font-semibold transition-opacity hover:opacity-90"
+                  style={{ background: "oklch(0.55 0.13 38)", fontFamily: "'Space Mono', monospace", letterSpacing: "0.08em" }}
+                >
+                  SUBMIT AN INQUIRY
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ── Chat View ── */}
+          {view === "chat" && (
+            <>
+              <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ minHeight: 0, maxHeight: "340px" }}>
+                {messages.map(msg => (
+                  <div key={msg.id} className={`flex gap-2 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
                     <div
-                      className="px-3.5 py-2.5 text-sm leading-relaxed"
+                      className="w-6 h-6 shrink-0 flex items-center justify-center"
+                      style={{ background: msg.role === "assistant" ? "oklch(0.55 0.13 38)" : "oklch(0.87 0.02 80)" }}
+                    >
+                      {msg.role === "assistant" ? <Bot size={12} color="white" /> : <User size={12} color="oklch(0.45 0.01 65)" />}
+                    </div>
+                    <div
+                      className={`max-w-[80%] px-3 py-2 text-xs leading-relaxed whitespace-pre-wrap ${msg.role === "user" ? "text-right" : "text-left"}`}
                       style={{
-                        backgroundColor: msg.role === "assistant" ? "oklch(1 0 0)" : accentColor,
-                        color: msg.role === "assistant" ? "oklch(0.22 0.01 65)" : "white",
+                        background: msg.role === "user" ? "oklch(0.22 0.01 65)" : "white",
+                        color: msg.role === "user" ? "white" : "oklch(0.35 0.01 65)",
+                        fontFamily: "'DM Sans', sans-serif",
                         border: msg.role === "assistant" ? "1px solid oklch(0.87 0.02 80)" : "none",
                       }}
                     >
-                      {msg.content
-                        ? <span dangerouslySetInnerHTML={{ __html: renderMd(msg.content) }} />
-                        : <span className="flex items-center gap-1.5 text-[oklch(0.55_0.02_65)]">
-                            <Loader2 size={12} className="animate-spin" />
-                            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem" }}>Typing…</span>
-                          </span>
-                      }
+                      {msg.content || (isLoading && msg.role === "assistant" ? <Loader2 size={12} className="animate-spin inline" /> : "")}
                     </div>
-                    <span className="text-[0.62rem] px-1" style={{ color: "oklch(0.65 0.01 80)", fontFamily: "'Space Mono', monospace" }}>
-                      {formatTime(msg.timestamp)}
-                    </span>
                   </div>
-                </div>
-              ))}
-              <div ref={messagesEndRef} />
-            </div>
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
 
-            {/* Get in Touch CTA */}
-            <div className="px-4 py-2.5 border-t border-[oklch(0.87_0.02_80)] shrink-0" style={{ backgroundColor: "oklch(0.97 0.015 80)" }}>
-              <button
-                onClick={openForm}
-                className="w-full flex items-center justify-center gap-2 py-2.5 text-xs tracking-widest uppercase text-white transition-colors"
-                style={{ fontFamily: "'Space Mono', monospace", backgroundColor: accentColor }}
-              >
-                Get in Touch — Submit an Inquiry
-                <ArrowRight size={12} />
-              </button>
-            </div>
-
-            {/* Input */}
-            <form
-              onSubmit={e => { e.preventDefault(); sendMessage(input); }}
-              className="flex shrink-0 border-t"
-              style={{ backgroundColor: "oklch(0.22 0.01 65)", borderColor: "oklch(0.35 0.01 65)" }}
-            >
-              <input
-                ref={inputRef}
-                type="text"
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                placeholder="Ask a follow-up question…"
-                disabled={isLoading}
-                className="flex-1 bg-transparent text-white placeholder-[oklch(0.45_0.01_80)] px-4 py-3.5 text-sm focus:outline-none disabled:opacity-50"
-              />
-              <button
-                type="submit"
-                disabled={!input.trim() || isLoading}
-                className="px-4 py-3.5 transition-colors disabled:opacity-40"
-                style={{ backgroundColor: accentColor }}
-              >
-                {isLoading ? <Loader2 size={16} className="text-white animate-spin" /> : <Send size={16} className="text-white" />}
-              </button>
-            </form>
-
-            <div className="px-4 py-2 text-center shrink-0" style={{ backgroundColor: "oklch(0.22 0.01 65)" }}>
-              <span className="text-[0.6rem] text-[oklch(0.40_0.01_80)]" style={{ fontFamily: "'Space Mono', monospace" }}>
-                Powered by Rosalia Group · rosaliagroup.com
-              </span>
-            </div>
-          </>
-        )}
-
-        {/* ══════════════════════════════════════════
-            VIEW: FORM
-        ══════════════════════════════════════════ */}
-        {view === "form" && (
-          <div className="flex-1 overflow-y-auto" style={{ backgroundColor: "oklch(0.97 0.015 80)" }}>
-            <form onSubmit={handleFormSubmit} className="p-5 space-y-4">
-              {/* Service badge */}
-              {svcData && (
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-6 h-6 flex items-center justify-center shrink-0" style={{ backgroundColor: accentColor }}>
-                    <svcData.icon size={12} className="text-white" />
-                  </div>
-                  <span className="text-xs text-[oklch(0.50_0.02_65)]" style={{ fontFamily: "'Space Mono', monospace" }}>
-                    Inquiry about: <strong className="text-[oklch(0.22_0.01_65)]">{svcData.label}</strong>
-                  </span>
+              {/* Preset Questions */}
+              {!isLoading && messages.length > 0 && messages[messages.length - 1].role === "assistant" && (
+                <div className="px-3 py-2 border-t border-[oklch(0.87_0.02_80)] flex flex-wrap gap-1">
+                  {presets.map(q => (
+                    <button
+                      key={q}
+                      onClick={() => handleSend(q)}
+                      className="text-[10px] px-2 py-1 border border-[oklch(0.87_0.02_80)] text-[oklch(0.45_0.01_65)] hover:border-[oklch(0.55_0.13_38)] hover:text-[oklch(0.55_0.13_38)] transition-colors"
+                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    >
+                      {q}
+                    </button>
+                  ))}
                 </div>
               )}
 
-              {/* Name row */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="form-label">First Name <span className="text-[oklch(0.55_0.13_38)]">*</span></label>
-                  <input
-                    type="text"
-                    value={form.firstName}
-                    onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
-                    placeholder="Ana"
-                    className={`chat-input ${formErrors.firstName ? "border-red-400" : ""}`}
-                  />
-                  {formErrors.firstName && <p className="form-error">{formErrors.firstName}</p>}
-                </div>
-                <div>
-                  <label className="form-label">Last Name <span className="text-[oklch(0.55_0.13_38)]">*</span></label>
-                  <input
-                    type="text"
-                    value={form.lastName}
-                    onChange={e => setForm(f => ({ ...f, lastName: e.target.value }))}
-                    placeholder="Haynes"
-                    className={`chat-input ${formErrors.lastName ? "border-red-400" : ""}`}
-                  />
-                  {formErrors.lastName && <p className="form-error">{formErrors.lastName}</p>}
-                </div>
-              </div>
-
-              {/* Email */}
-              <div>
-                <label className="form-label">Email Address <span className="text-[oklch(0.55_0.13_38)]">*</span></label>
+              {/* Input */}
+              <div className="px-3 py-2 border-t border-[oklch(0.87_0.02_80)] flex gap-2">
                 <input
-                  type="email"
-                  value={form.email}
-                  onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                  placeholder="you@email.com"
-                  className={`chat-input ${formErrors.email ? "border-red-400" : ""}`}
+                  ref={inputRef}
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  onKeyDown={e => e.key === "Enter" && !e.shiftKey && handleSend()}
+                  placeholder="Type a message..."
+                  disabled={isLoading}
+                  className="flex-1 text-xs px-3 py-2 border border-[oklch(0.87_0.02_80)] outline-none focus:border-[oklch(0.55_0.13_38)] bg-white text-[oklch(0.35_0.01_65)] placeholder:text-[oklch(0.70_0.01_65)]"
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
                 />
-                {formErrors.email && <p className="form-error">{formErrors.email}</p>}
+                <button
+                  onClick={() => handleSend()}
+                  disabled={isLoading || !input.trim()}
+                  className="w-8 h-8 flex items-center justify-center disabled:opacity-40 transition-opacity"
+                  style={{ background: "oklch(0.55 0.13 38)" }}
+                >
+                  {isLoading ? <Loader2 size={13} color="white" className="animate-spin" /> : <Send size={13} color="white" />}
+                </button>
               </div>
 
-              {/* Phone */}
-              <div>
-                <label className="form-label">Phone Number <span className="text-[oklch(0.55_0.13_38)]">*</span></label>
-                <input
-                  type="tel"
-                  value={form.phone}
-                  onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-                  placeholder="(201) 555-1234"
-                  className={`chat-input ${formErrors.phone ? "border-red-400" : ""}`}
-                />
-                {formErrors.phone && <p className="form-error">{formErrors.phone}</p>}
+              {/* Get in Touch CTA */}
+              <div className="px-3 pb-3">
+                <button
+                  onClick={() => setView("form")}
+                  className="w-full py-2 text-[10px] text-white font-semibold tracking-widest uppercase transition-opacity hover:opacity-90"
+                  style={{ background: "oklch(0.22 0.01 65)", fontFamily: "'Space Mono', monospace" }}
+                >
+                  Get in Touch →
+                </button>
               </div>
+            </>
+          )}
 
-              {/* Message */}
+          {/* ── Lead Form View ── */}
+          {view === "form" && (
+            <form onSubmit={handleFormSubmit} className="flex-1 overflow-y-auto p-4 space-y-3">
+              <p className="text-xs text-[oklch(0.45_0.01_65)] leading-relaxed mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                Fill out the form below and Ana's team will be in touch within 24 hours.
+              </p>
+              {[
+                { key: "firstName", label: "First Name", type: "text", placeholder: "Ana" },
+                { key: "lastName",  label: "Last Name",  type: "text", placeholder: "Haynes" },
+                { key: "email",     label: "Email",      type: "email", placeholder: "ana@example.com" },
+                { key: "phone",     label: "Phone",      type: "tel",   placeholder: "(201) 555-0100" },
+              ].map(field => (
+                <div key={field.key}>
+                  <label className="block text-[10px] text-[oklch(0.45_0.01_65)] mb-1 uppercase tracking-wide" style={{ fontFamily: "'Space Mono', monospace" }}>
+                    {field.label}
+                  </label>
+                  <input
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    value={form[field.key as keyof LeadForm] as string}
+                    onChange={e => setForm(prev => ({ ...prev, [field.key]: e.target.value }))}
+                    className="w-full text-xs px-3 py-2 border outline-none focus:border-[oklch(0.55_0.13_38)] bg-white text-[oklch(0.35_0.01_65)] placeholder:text-[oklch(0.75_0.01_65)]"
+                    style={{ borderColor: formErrors[field.key as keyof LeadForm] ? "oklch(0.577 0.245 27.325)" : "oklch(0.87 0.02 80)", fontFamily: "'DM Sans', sans-serif" }}
+                  />
+                  {formErrors[field.key as keyof LeadForm] && (
+                    <p className="text-[10px] text-red-500 mt-0.5">{formErrors[field.key as keyof LeadForm]}</p>
+                  )}
+                </div>
+              ))}
               <div>
-                <label className="form-label">Message</label>
+                <label className="block text-[10px] text-[oklch(0.45_0.01_65)] mb-1 uppercase tracking-wide" style={{ fontFamily: "'Space Mono', monospace" }}>Message</label>
                 <textarea
+                  placeholder="Tell us about your real estate needs..."
                   value={form.message}
-                  onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-                  placeholder="Tell us what you're looking for…"
+                  onChange={e => setForm(prev => ({ ...prev, message: e.target.value }))}
                   rows={3}
-                  className="chat-input resize-none"
+                  className="w-full text-xs px-3 py-2 border border-[oklch(0.87_0.02_80)] outline-none focus:border-[oklch(0.55_0.13_38)] bg-white text-[oklch(0.35_0.01_65)] placeholder:text-[oklch(0.75_0.01_65)] resize-none"
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
                 />
               </div>
-
-              {/* SMS Consent */}
-              <label className="flex items-start gap-2.5 cursor-pointer">
+              <label className="flex items-start gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={form.smsConsent}
-                  onChange={e => setForm(f => ({ ...f, smsConsent: e.target.checked }))}
-                  className="mt-0.5 accent-[oklch(0.55_0.13_38)]"
+                  onChange={e => setForm(prev => ({ ...prev, smsConsent: e.target.checked }))}
+                  className="mt-0.5 shrink-0"
                 />
-                <span className="text-[0.68rem] text-[oklch(0.55_0.02_65)] leading-relaxed">
-                  I agree to receive SMS messages from Rosalia Group regarding my inquiry. Msg &amp; data rates may apply. Reply STOP to opt out.
+                <span className="text-[10px] text-[oklch(0.55_0.01_65)] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                  I consent to receive SMS messages from Rosalia Group. Message & data rates may apply.
                 </span>
               </label>
-
-              {/* Submit */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full flex items-center justify-center gap-2 py-3 text-xs tracking-widest uppercase text-white transition-all disabled:opacity-60"
-                style={{ fontFamily: "'Space Mono', monospace", backgroundColor: accentColor }}
+                className="w-full py-2.5 text-xs text-white font-semibold tracking-widest uppercase transition-opacity hover:opacity-90 disabled:opacity-60 flex items-center justify-center gap-2"
+                style={{ background: "oklch(0.55 0.13 38)", fontFamily: "'Space Mono', monospace" }}
               >
-                {isSubmitting ? (
-                  <><Loader2 size={14} className="animate-spin" /> Sending…</>
-                ) : (
-                  <><Send size={14} /> Send Inquiry</>
-                )}
+                {isSubmitting ? <><Loader2 size={12} className="animate-spin" /> Sending...</> : "SEND INQUIRY"}
               </button>
-
-              <p className="text-[0.62rem] text-center text-[oklch(0.65_0.01_80)]" style={{ fontFamily: "'Space Mono', monospace" }}>
-                We respond within the same business day.
-              </p>
             </form>
-          </div>
-        )}
+          )}
 
-        {/* ══════════════════════════════════════════
-            VIEW: CONFIRM
-        ══════════════════════════════════════════ */}
-        {view === "confirm" && (
-          <div style={{ backgroundColor: "oklch(0.97 0.015 80)" }}>
-            <div className="p-6 text-center">
-              <div
-                className="w-14 h-14 flex items-center justify-center mx-auto mb-4"
-                style={{ backgroundColor: "oklch(0.55 0.13 38)" }}
-              >
-                <CheckCircle2 size={28} className="text-white" />
+          {/* ── Confirm View ── */}
+          {view === "confirm" && (
+            <div className="flex-1 flex flex-col items-center justify-center p-6 text-center gap-4">
+              <div className="w-12 h-12 flex items-center justify-center" style={{ background: "oklch(0.55 0.13 38)" }}>
+                <Mail size={22} color="white" />
               </div>
-              <h3
-                className="text-xl font-bold text-[oklch(0.22_0.01_65)] mb-2"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                Inquiry Received!
-              </h3>
-              <p className="text-sm text-[oklch(0.50_0.02_65)] leading-relaxed mb-5">
-                Thank you, <strong>{form.firstName}</strong>! A member of the Rosalia Group team will follow up with you shortly.
-              </p>
-
-              {/* Contact info */}
-              <div className="space-y-2.5 text-left border border-[oklch(0.87_0.02_80)] bg-white p-4 mb-5">
-                <div className="flex items-center gap-3">
-                  <div className="w-7 h-7 flex items-center justify-center shrink-0" style={{ backgroundColor: "oklch(0.22 0.01 65)" }}>
-                    <Phone size={13} className="text-white" />
-                  </div>
-                  <div>
-                    <div className="text-[0.65rem] text-[oklch(0.65_0.01_80)] uppercase tracking-widest" style={{ fontFamily: "'Space Mono', monospace" }}>Phone</div>
-                    <a href="tel:8623331681" className="text-sm font-medium text-[oklch(0.22_0.01_65)] hover:text-[oklch(0.55_0.13_38)] transition-colors">(862) 333-1681</a>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-7 h-7 flex items-center justify-center shrink-0" style={{ backgroundColor: "oklch(0.22 0.01 65)" }}>
-                    <Mail size={13} className="text-white" />
-                  </div>
-                  <div>
-                    <div className="text-[0.65rem] text-[oklch(0.65_0.01_80)] uppercase tracking-widest" style={{ fontFamily: "'Space Mono', monospace" }}>Email</div>
-                    <a href="mailto:inquiries@rosaliagroup.com" className="text-sm font-medium text-[oklch(0.22_0.01_65)] hover:text-[oklch(0.55_0.13_38)] transition-colors">inquiries@rosaliagroup.com</a>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-7 h-7 flex items-center justify-center shrink-0" style={{ backgroundColor: "oklch(0.22 0.01 65)" }}>
-                    <Clock size={13} className="text-white" />
-                  </div>
-                  <div>
-                    <div className="text-[0.65rem] text-[oklch(0.65_0.01_80)] uppercase tracking-widest" style={{ fontFamily: "'Space Mono', monospace" }}>Hours</div>
-                    <span className="text-sm text-[oklch(0.22_0.01_65)]">Mon–Fri 9am–6pm · Sat–Sun 10am–5pm</span>
-                  </div>
-                </div>
+              <div>
+                <h3 className="text-base font-bold text-[oklch(0.22_0.01_65)] mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  Inquiry Received!
+                </h3>
+                <p className="text-xs text-[oklch(0.50_0.01_65)] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                  Thank you, {form.firstName}. Ana's team will be in touch within 24 hours.
+                </p>
               </div>
-
+              <div className="w-full space-y-2 text-xs text-[oklch(0.45_0.01_65)]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <div className="flex items-center gap-2 justify-center"><Phone size={11} /> (862) 333-1681</div>
+                <div className="flex items-center gap-2 justify-center"><Mail size={11} /> inquiries@rosaliagroup.com</div>
+                <div className="flex items-center gap-2 justify-center"><Clock size={11} /> Mon–Fri 9am–6pm · Sat–Sun 10am–5pm</div>
+              </div>
               <button
-                onClick={() => { setView("menu"); setForm(EMPTY_FORM); setFormErrors({}); setMessages([]); setSelected(null); }}
-                className="w-full py-2.5 text-xs tracking-widest uppercase border border-[oklch(0.22_0.01_65)] text-[oklch(0.22_0.01_65)] hover:bg-[oklch(0.22_0.01_65)] hover:text-white transition-colors"
+                onClick={resetChat}
+                className="text-[10px] text-[oklch(0.55_0.13_38)] underline underline-offset-2 mt-2"
                 style={{ fontFamily: "'Space Mono', monospace" }}
               >
-                Back to Services
+                Start over
               </button>
             </div>
-
-            <div className="px-4 py-2.5 border-t border-[oklch(0.87_0.02_80)] text-center">
-              <span className="text-[0.6rem] text-[oklch(0.65_0.01_80)]" style={{ fontFamily: "'Space Mono', monospace" }}>
-                Powered by Rosalia Group · rosaliagroup.com
-              </span>
-            </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </>
   );
 }
