@@ -280,6 +280,7 @@ export const bn: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "একটি অপ্রত্যাশিত ত্রুটি ঘটেছে।",
+      scrollToExplore: "অন্বেষণ করতে স্ক্রোল করুন",
     },
     legalUi: {
       lastUpdated: "সর্বশেষ হালনাগাদ",

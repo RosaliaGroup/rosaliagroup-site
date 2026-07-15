@@ -280,6 +280,7 @@ export const ru: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "Произошла непредвиденная ошибка.",
+      scrollToExplore: "Прокрутите, чтобы узнать больше",
     },
     legalUi: {
       lastUpdated: "Последнее обновление",

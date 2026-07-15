@@ -280,6 +280,7 @@ export const de: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "Ein unerwarteter Fehler ist aufgetreten.",
+      scrollToExplore: "Zum Erkunden scrollen",
     },
     legalUi: {
       lastUpdated: "Zuletzt aktualisiert",

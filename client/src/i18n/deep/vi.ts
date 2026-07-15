@@ -280,6 +280,7 @@ export const vi: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "Đã xảy ra lỗi không mong muốn.",
+      scrollToExplore: "Cuộn để khám phá",
     },
     legalUi: {
       lastUpdated: "Cập nhật lần cuối",

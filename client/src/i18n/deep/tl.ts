@@ -280,6 +280,7 @@ export const tl: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "May naganap na hindi inaasahang error.",
+      scrollToExplore: "Mag-scroll para matuklasan",
     },
     legalUi: {
       lastUpdated: "Huling na-update",

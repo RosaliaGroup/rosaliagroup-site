@@ -280,6 +280,7 @@ export const hi: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "एक अप्रत्याशित त्रुटि हुई।",
+      scrollToExplore: "अन्वेषण के लिए स्क्रॉल करें",
     },
     legalUi: {
       lastUpdated: "अंतिम बार अपडेट किया गया",

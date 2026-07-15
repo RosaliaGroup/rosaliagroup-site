@@ -280,6 +280,7 @@ export const uk: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "Сталася непередбачена помилка.",
+      scrollToExplore: "Прокрутіть, щоб дослідити",
     },
     legalUi: {
       lastUpdated: "Останнє оновлення",

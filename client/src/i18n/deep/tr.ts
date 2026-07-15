@@ -280,6 +280,7 @@ export const tr: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "Beklenmeyen bir hata oluştu.",
+      scrollToExplore: "Keşfetmek için kaydırın",
     },
     legalUi: {
       lastUpdated: "Son güncelleme",

@@ -109,7 +109,7 @@ export interface ExtraContent {
     scheduleConsult: string;
   };
   notFound: { code: string; title: string; body1: string; body2: string; goHome: string };
-  common: { unexpectedError: string };
+  common: { unexpectedError: string; scrollToExplore: string };
   legalUi: {
     lastUpdated: string;
     /** Shown on legal pages whose detailed body is not yet translated. */
@@ -396,6 +396,7 @@ export const EXTRA_EN: ExtraContent = {
   },
   common: {
     unexpectedError: "An unexpected error occurred.",
+    scrollToExplore: "Scroll to explore",
   },
   legalUi: {
     lastUpdated: "Last updated",

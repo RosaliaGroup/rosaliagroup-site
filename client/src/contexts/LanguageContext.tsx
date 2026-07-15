@@ -514,12 +514,23 @@ export type Translations = SiteTranslations & DeepContent;
 const EN_FULL: Translations = { ...EN, ...DEEP_EN };
 
 /**
+ * Core dictionary was historically split across two objects; `EXTRA_TRANSLATIONS`
+ * (zh-TW, ja, ko, it, de, nl, pl, ru, uk, hi, bn, tr, vi, tl) was defined but
+ * never wired into the lookup, so those 14 languages silently fell back to
+ * English for the whole interface. Merge both so every language resolves.
+ */
+const CORE_TRANSLATIONS: Record<string, DeepPartial<Translations>> = {
+  ...TRANSLATIONS,
+  ...EXTRA_TRANSLATIONS,
+};
+
+/**
  * Resolve the complete dictionary for a language: English base ← core override
- * (inline `TRANSLATIONS`) ← deep/locale override (`DEEP`). Any key a language
- * has not translated transparently falls back to English.
+ * (`CORE_TRANSLATIONS`) ← deep/locale override (`DEEP`). Any key a language has
+ * not translated transparently falls back to English.
  */
 function getTranslation(lang: LangCode): Translations {
-  const withCore = deepMerge(EN_FULL, TRANSLATIONS[lang]);
+  const withCore = deepMerge(EN_FULL, CORE_TRANSLATIONS[lang]);
   return deepMerge(withCore, DEEP[lang]);
 }
 

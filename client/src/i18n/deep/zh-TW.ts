@@ -280,6 +280,7 @@ export const zhTW: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "發生非預期的錯誤。",
+      scrollToExplore: "滾動以探索",
     },
     legalUi: {
       lastUpdated: "最後更新",

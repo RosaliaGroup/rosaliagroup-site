@@ -280,6 +280,7 @@ export const ko: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "예기치 않은 오류가 발생했습니다.",
+      scrollToExplore: "스크롤하여 탐색",
     },
     legalUi: {
       lastUpdated: "마지막 업데이트",

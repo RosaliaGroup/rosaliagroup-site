@@ -280,6 +280,7 @@ export const ja: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "予期しないエラーが発生しました。",
+      scrollToExplore: "スクロールして探索",
     },
     legalUi: {
       lastUpdated: "最終更新",

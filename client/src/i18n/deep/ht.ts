@@ -424,6 +424,7 @@ export const ht: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "Yon erè inatandi te rive.",
+      scrollToExplore: "Woulo pou eksplore",
     },
     legalUi: {
       lastUpdated: "Dènye mizajou",

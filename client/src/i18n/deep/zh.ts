@@ -281,6 +281,7 @@ export const zh: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "发生了意外错误。",
+      scrollToExplore: "滚动以探索",
     },
     legalUi: {
       lastUpdated: "最后更新",

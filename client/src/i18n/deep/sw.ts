@@ -423,6 +423,7 @@ export const sw: DeepPartial<Translations> = {
     },
     common: {
       unexpectedError: "Hitilafu isiyotarajiwa imetokea.",
+      scrollToExplore: "Sogeza ili kuchunguza",
     },
     legalUi: {
       lastUpdated: "Ilisasishwa mwisho",
