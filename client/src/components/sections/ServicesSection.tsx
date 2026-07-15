@@ -81,7 +81,7 @@ export default function ServicesSection() {
           <img src={INTERIOR_IMAGE} alt="Luxury apartment interior" className="w-full h-full object-cover" />
           <div className="absolute inset-0 flex items-center" style={{ background: "linear-gradient(to right, oklch(0.22 0.01 65 / 0.85) 0%, oklch(0.22 0.01 65 / 0.3) 60%, transparent 100%)" }}>
             <div className="px-10 lg:px-16 max-w-lg">
-              <span className="section-label text-[oklch(0.55_0.13_38)] mb-3 block">Woman-Run · Family Business</span>
+              <span className="section-label text-[oklch(0.55_0.13_38)] mb-3 block">{t.extra.services.womanRun}</span>
               <h3 className="text-3xl lg:text-4xl font-bold text-white leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
                 {t.services.certBadge}
               </h3>

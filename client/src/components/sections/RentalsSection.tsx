@@ -21,12 +21,11 @@ const rentals = [
     beds: 1,
     baths: 1,
     sqft: 650,
-    status: "Available",
-    tag: "Featured",
+    tagKey: "featured" as const,
     image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
     style: {
       accent: "oklch(0.55 0.13 38)",
-      label: "Modern High-Rise",
+      styleKey: "modernHighRise" as const,
     },
   },
   {
@@ -38,12 +37,11 @@ const rentals = [
     beds: 2,
     baths: 1,
     sqft: 850,
-    status: "Available",
-    tag: "New Listing",
+    tagKey: "newListing" as const,
     image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
     style: {
       accent: "oklch(0.52 0.07 130)",
-      label: "Classic Brownstone",
+      styleKey: "classicBrownstone" as const,
     },
   },
   {
@@ -55,12 +53,11 @@ const rentals = [
     beds: 3,
     baths: 2,
     sqft: 1100,
-    status: "Available",
-    tag: "Spacious",
+    tagKey: "spacious" as const,
     image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80",
     style: {
       accent: "oklch(0.72 0.10 38)",
-      label: "Urban Townhouse",
+      styleKey: "urbanTownhouse" as const,
     },
   },
 ];
@@ -128,7 +125,7 @@ export default function RentalsSection() {
                       backgroundColor: rental.style.accent,
                     }}
                   >
-                    {rental.tag}
+                    {t.extra.rentals.tags[rental.tagKey]}
                   </span>
                 </div>
                 {/* Status */}
@@ -137,7 +134,7 @@ export default function RentalsSection() {
                     className="px-3 py-1 text-xs text-white tracking-widest uppercase bg-[oklch(0.22_0.01_65/0.8)]"
                     style={{ fontFamily: "'Space Mono', monospace" }}
                   >
-                    {rental.status}
+                    {t.extra.rentals.statusAvailable}
                   </span>
                 </div>
                 {/* Style Label */}
@@ -146,7 +143,7 @@ export default function RentalsSection() {
                     className="text-xs text-white/80 tracking-widest uppercase"
                     style={{ fontFamily: "'Space Mono', monospace" }}
                   >
-                    {rental.style.label}
+                    {t.extra.rentals.styleLabels[rental.style.styleKey]}
                   </span>
                 </div>
               </div>

@@ -21,6 +21,7 @@ import {
   Phone, Mail, Clock, Languages,
 } from "lucide-react";
 import { getTranslation } from "@/lib/chatTranslations";
+import SmsConsent from "@/components/SmsConsent";
 
 /* ─── Types ─────────────────────────────────────────────────────────── */
 interface Message {
@@ -597,17 +598,15 @@ export default function ChatBot() {
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 />
               </div>
-              <label className="flex items-start gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={form.smsConsent}
-                  onChange={e => setForm(prev => ({ ...prev, smsConsent: e.target.checked }))}
-                  className="mt-0.5 shrink-0"
-                />
-                <span className="text-[10px] text-[oklch(0.55_0.01_65)] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                  {t.smsConsent}
-                </span>
-              </label>
+              {/* SMS Consent — A2P 10DLC compliant (shared wording) */}
+              <SmsConsent
+                id="chatbot_sms_consent"
+                checked={form.smsConsent}
+                onChange={value => setForm(prev => ({ ...prev, smsConsent: value }))}
+                textClassName="text-[10px] leading-relaxed text-[oklch(0.50_0.01_65)]"
+                linkClassName="text-[oklch(0.55_0.13_38)] underline underline-offset-2 hover:text-[oklch(0.35_0.01_65)] transition-colors"
+                checkboxClassName="accent-[oklch(0.55_0.13_38)]"
+              />
               <button
                 type="submit"
                 disabled={isSubmitting}

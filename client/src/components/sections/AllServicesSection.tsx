@@ -33,6 +33,7 @@ import {
   ArrowRight,
   ChevronDown,
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const ALL_SERVICES = [
   {
@@ -256,6 +257,7 @@ export const ALL_SERVICES = [
 export default function AllServicesSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -276,18 +278,18 @@ export default function AllServicesSection() {
       <div className="container mx-auto px-6 lg:px-8 max-w-7xl">
         {/* Header */}
         <div className="reveal mb-14">
-          <span className="section-label mb-4 block">Everything We Do</span>
+          <span className="section-label mb-4 block">{t.allServices.tag}</span>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
             <h2
               className="text-4xl lg:text-5xl xl:text-6xl font-bold text-[oklch(0.22_0.01_65)] leading-tight"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Our Full Suite
+              {t.allServices.heading1}
               <br />
-              <em className="italic text-[oklch(0.55_0.13_38)]">of Services</em>
+              <em className="italic text-[oklch(0.55_0.13_38)]">{t.allServices.heading2}</em>
             </h2>
             <p className="text-[oklch(0.50_0.02_65)] text-base leading-relaxed">
-              From finding your first apartment to managing a global real estate portfolio — Rosalia Group delivers expert, personalized service at every stage of your real estate journey.
+              {t.allServices.sub}
             </p>
           </div>
         </div>
@@ -297,6 +299,7 @@ export default function AllServicesSection() {
           {ALL_SERVICES.map((service, index) => {
             const Icon = service.icon;
             const isExpanded = expandedId === service.id;
+            const copy = t.extra.allSvc.items[service.id] ?? service;
 
             return (
               <div
@@ -329,7 +332,7 @@ export default function AllServicesSection() {
                     color: service.accent,
                   }}
                 >
-                  {service.tagline}
+                  {copy.tagline}
                 </span>
 
                 {/* Title */}
@@ -337,12 +340,12 @@ export default function AllServicesSection() {
                   className="text-lg font-bold text-[oklch(0.22_0.01_65)] mb-3 leading-snug"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
-                  {service.title}
+                  {copy.title}
                 </h3>
 
                 {/* Short desc */}
                 <p className="text-sm text-[oklch(0.50_0.02_65)] leading-relaxed mb-4 flex-1">
-                  {service.shortDesc}
+                  {copy.shortDesc}
                 </p>
 
                 {/* Expand toggle */}
@@ -357,7 +360,7 @@ export default function AllServicesSection() {
                     setExpandedId(isExpanded ? null : service.id);
                   }}
                 >
-                  {isExpanded ? "Show Less" : "Learn More"}
+                  {isExpanded ? t.allServices.showLess : t.allServices.learnMore}
                   <ChevronDown
                     size={12}
                     className={`transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
@@ -368,7 +371,7 @@ export default function AllServicesSection() {
                 {isExpanded && (
                   <div className="mt-4 pt-4 border-t border-[oklch(0.87_0.02_80)]">
                     <ul className="space-y-2">
-                      {service.details.map((detail, i) => (
+                      {copy.details.map((detail, i) => (
                         <li key={i} className="flex items-start gap-2.5 text-xs text-[oklch(0.40_0.02_65)] leading-relaxed">
                           <span
                             className="w-1 h-1 rounded-full mt-1.5 shrink-0"
@@ -387,7 +390,7 @@ export default function AllServicesSection() {
                       }}
                       onClick={(e) => e.stopPropagation()}
                     >
-                      Get Started
+                      {t.extra.allSvc.getStarted}
                       <ArrowRight size={11} className="transition-transform group-hover/cta:translate-x-1" />
                     </a>
                   </div>
@@ -404,21 +407,21 @@ export default function AllServicesSection() {
               className="text-xs text-[oklch(0.55_0.13_38)] tracking-widest uppercase mb-2"
               style={{ fontFamily: "'Space Mono', monospace" }}
             >
-              Not Sure Where to Start?
+              {t.allServices.ctaTitle}
             </div>
             <h3
               className="text-2xl lg:text-3xl font-bold text-white"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Let's find the right service for you.
+              {t.allServices.ctaSub}
             </h3>
           </div>
           <div className="flex gap-4 shrink-0">
             <a href="#contact" className="btn-outline-light">
-              Free Consultation
+              {t.allServices.ctaBtn1}
             </a>
             <a href="tel:8623331681" className="btn-primary">
-              Call Now
+              {t.allServices.ctaBtn2}
             </a>
           </div>
         </div>
