@@ -4,6 +4,9 @@
  * All sections read from this context to render translated content.
  */
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useLocation } from "wouter";
+import { DEEP_EN, deepMerge, type DeepContent, type DeepPartial } from "../i18n/deep";
+import { DEEP } from "../i18n/deep/index";
 
 export type LangCode =
   | "en" | "es" | "pt" | "fr" | "it" | "de" | "nl" | "pl"
@@ -226,7 +229,7 @@ const EN: SiteTranslations = {
 };
 
 // ── Translations for each language ───────────────────────────────────────────
-const TRANSLATIONS: Record<string, SiteTranslations> = {
+const TRANSLATIONS: Record<string, DeepPartial<Translations>> = {
   en: EN,
   es: {
     nav: { services: "Servicios", rentals: "Alquileres", buySell: "Compra y Venta", management: "Gestión", international: "Internacional", about: "Nosotros", contact: "Contacto", bookTour: "Reservar Visita" },
@@ -496,27 +499,53 @@ const EXTRA_TRANSLATIONS: Record<string, SiteTranslations> = {
     cta: { heading: "Handa na Bang Magsimula?", sub: "Nagpapaupa, bumibili, nagbebenta, o namumuhunan — nandito kami para tumulong sa NJ, NY, at internasyonal.", btn1: "Mag-iskedyul ng Libreng Konsultasyon", btn2: "Tumawag Ngayon" },
     about: { tag: "Ang Aming Kwento", heading1: "Makilala", heading2: "si Ana Haynes", sub: "Kumpanya ng real estate na pinamumunuan ng babae at pag-aari ng pamilya na naglilingkod sa NJ at NY.", testimonialsHeading: "Ano ang Sinasabi ng Aming mga Kliyente", founderTitle: "Tagapagtatag at Nangungunang Ahente" },
     contact: { tag: "Makipag-ugnayan", heading1: "Simulan Natin", heading2: "ang Pag-uusap", sub: "Handa na bang hanapin ang iyong susunod na hakbang?", firstName: "Pangalan", lastName: "Apelyido", email: "Email", phone: "Telepono", service: "Serbisyo ng Interes", message: "Mensahe", smsConsent: "Sumasang-ayon ako na makatanggap ng mga text message mula sa Rosalia Group.", sendBtn: "Ipadala ang Kahilingan", selectService: "Pumili ng isa" },
-    footer: { desc: "Mga espesyalista sa real estate, pamamahala ng ari-arian, at internasyonal na pamumuhunan sa resort sa NJ at NY. Pinamumunuan ng babae, pag-aari ng pamilya. Sertipikadong SBE at MWBE.", services: "Mga Serbisyo", areas: "Mga Lugar na Pinaglilingkuran", contact: "Makipag-ugnayan", rights: "Lahat ng karapatan ay nakalaan.", privacy: "Patakaran sa Privacy", terms: "Mga Tuntunin", sbe: "Sertipikadong SBE at MWBE" }
+    footer: { desc: "Mga espesyalista sa real estate, pamamahala ng ari-arian, at internasyonal na pamumuhunan sa resort sa NJ at NY. Pinamumunuan ng babae, pag-aari ng pamilya. Sertipikadong SBE at MWBE.", services: "Mga Serbisyo", areas: "Mga Lugar na Pinaglilingkuran", contact: "Makipag-ugnayan", rights: "Lahat ng karapatan ay nakalaan.", privacy: "Patakaran sa Privacy", terms: "Mga Tuntunin", sbe: "Sertipikadong SBE at MWBE" },
   },
 };
 
 // ── Translation lookup ──────────────────────────────────────────────────────
-function getTranslation(lang: LangCode): SiteTranslations {
-  return (TRANSLATIONS as Record<string, SiteTranslations>)[lang] ?? EN;
+/**
+ * The full translation object a component consumes: the core `SiteTranslations`
+ * plus the `DeepContent` marketing/body copy, both read from one global source.
+ */
+export type Translations = SiteTranslations & DeepContent;
+
+/** English is the base every language is deep-merged onto. */
+const EN_FULL: Translations = { ...EN, ...DEEP_EN };
+
+/**
+ * Core dictionary was historically split across two objects; `EXTRA_TRANSLATIONS`
+ * (zh-TW, ja, ko, it, de, nl, pl, ru, uk, hi, bn, tr, vi, tl) was defined but
+ * never wired into the lookup, so those 14 languages silently fell back to
+ * English for the whole interface. Merge both so every language resolves.
+ */
+const CORE_TRANSLATIONS: Record<string, DeepPartial<Translations>> = {
+  ...TRANSLATIONS,
+  ...EXTRA_TRANSLATIONS,
+};
+
+/**
+ * Resolve the complete dictionary for a language: English base ← core override
+ * (`CORE_TRANSLATIONS`) ← deep/locale override (`DEEP`). Any key a language has
+ * not translated transparently falls back to English.
+ */
+function getTranslation(lang: LangCode): Translations {
+  const withCore = deepMerge(EN_FULL, CORE_TRANSLATIONS[lang]);
+  return deepMerge(withCore, DEEP[lang]);
 }
 
 // ── Context ───────────────────────────────────────────────────────────────────
 interface LanguageContextType {
   lang: LangCode;
   setLang: (code: LangCode) => void;
-  t: SiteTranslations;
+  t: Translations;
   dir: "ltr" | "rtl";
 }
 
 const LanguageContext = createContext<LanguageContextType>({
   lang: "en",
   setLang: () => {},
-  t: EN,
+  t: EN_FULL,
   dir: "ltr",
 });
 
@@ -550,18 +579,25 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return "en";
   });
 
-  const setLang = (code: LangCode) => {
-    setLangState(code);
-    localStorage.setItem("rg-lang", code);
-    // Update document direction for RTL languages
-    document.documentElement.dir = code === "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = code;
-  };
+  // Wouter location. Re-running the side-effect on every route change guarantees
+  // a freshly-mounted page can never drift from the selected language.
+  const [location] = useLocation();
 
+  const setLang = (code: LangCode) => setLangState(code);
+
+  // Single source of truth for persistence + document attributes. Runs on mount,
+  // on every language change, and on every navigation — so localStorage, the
+  // <html lang> attribute, and RTL direction stay in lockstep across all routes.
   useEffect(() => {
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = lang;
-  }, [lang]);
+    try {
+      localStorage.setItem("rg-lang", lang);
+    } catch {
+      /* private-mode / storage-disabled: language still applies for the session */
+    }
+    const el = document.documentElement;
+    el.lang = lang;
+    el.dir = lang === "ar" ? "rtl" : "ltr";
+  }, [lang, location]);
 
   const t = getTranslation(lang);
   const dir = lang === "ar" ? "rtl" : "ltr";

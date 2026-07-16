@@ -76,21 +76,15 @@ export default function AboutSection() {
                 <em className="italic text-[oklch(0.55_0.13_38)]">{t.about.heading2}</em>
               </h2>
               <div className="space-y-4 text-[oklch(0.45_0.02_65)] text-sm leading-relaxed">
-                <p>
-                  Rosalia Group was founded with a simple mission: to be your trusted real estate partner in New Jersey, New York, and beyond. Led by Ana Haynes, a licensed NJ & NY realtor and property manager, we've built our reputation on honest advice, personal attention, and exceptional results.
-                </p>
-                <p>
-                  As a woman-run, family-owned business, we understand that real estate decisions are deeply personal. Whether you're searching for your first apartment, buying your dream home, or growing your investment portfolio — we treat every client like family.
-                </p>
-                <p>
-                  We proudly serve clients across New Jersey, New York, and international markets — from local apartment rentals to resort investment properties in the Caribbean, Latin America, and Europe.
-                </p>
+                {t.extra.about.story.map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
               </div>
             </div>
 
             {/* Certifications */}
             <div className="reveal mt-8 grid grid-cols-2 gap-3">
-              {certifications.map((cert) => (
+              {certifications.map((cert, certIndex) => (
                 <div
                   key={cert.label}
                   className="flex items-start gap-3 p-4 bg-[oklch(0.97_0.015_80)] border border-[oklch(0.87_0.02_80)]"
@@ -103,7 +97,7 @@ export default function AboutSection() {
                     >
                       {cert.label}
                     </div>
-                    <div className="text-xs text-[oklch(0.55_0.02_65)] mt-0.5">{cert.sub}</div>
+                    <div className="text-xs text-[oklch(0.55_0.02_65)] mt-0.5">{t.extra.about.certSubs[certIndex] ?? cert.sub}</div>
                   </div>
                 </div>
               ))}
@@ -136,14 +130,14 @@ export default function AboutSection() {
                 Ana Haynes
               </h3>
               <p className="text-[oklch(0.55_0.01_80)] text-sm mb-6">
-                Licensed NJ & NY Realtor · Realty Mark Advantage
+                {t.extra.about.founderCred}
               </p>
 
               <blockquote
                 className="text-[oklch(0.80_0.01_80)] text-base italic leading-relaxed mb-6 border-l-2 border-[oklch(0.55_0.13_38)] pl-4"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                "My mission is to be your trusted real estate partner — providing exceptional service for buying, selling, and managing properties in New Jersey, New York, and internationally."
+                &ldquo;{t.extra.about.mission}&rdquo;
               </blockquote>
 
               <div className="flex flex-col gap-2 text-sm">
@@ -169,12 +163,12 @@ export default function AboutSection() {
         {/* Testimonials */}
         <div>
           <div className="reveal mb-8">
-            <span className="section-label mb-3 block">Client Stories</span>
+            <span className="section-label mb-3 block">{t.extra.about.clientStories}</span>
             <h2
               className="text-3xl lg:text-4xl font-bold text-[oklch(0.22_0.01_65)]"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              What Our Clients Say
+              {t.about.testimonialsHeading}
             </h2>
           </div>
 
@@ -196,7 +190,7 @@ export default function AboutSection() {
                   className="text-[oklch(0.35_0.02_65)] text-sm leading-relaxed mb-5 italic"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
-                  "{testimonial.quote}"
+                  &ldquo;{t.extra.about.testimonials[index]?.quote ?? testimonial.quote}&rdquo;
                 </blockquote>
 
                 <div className="border-t border-[oklch(0.87_0.02_80)] pt-4">

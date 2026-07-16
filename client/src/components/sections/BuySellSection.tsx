@@ -123,9 +123,9 @@ export default function BuySellSection() {
             <div className="relative overflow-hidden" style={{ height: "520px" }}>
               <img src={BUY_SELL_IMAGE} alt="New Jersey home for sale" className="w-full h-full object-cover" />
               <div className="absolute bottom-6 left-6 right-6 bg-[oklch(0.22_0.01_65/0.9)] backdrop-blur-sm p-5 border-l-4 border-[oklch(0.55_0.13_38)]">
-                <div className="text-xs text-[oklch(0.55_0.13_38)] tracking-widest uppercase mb-2" style={{ fontFamily: "'Space Mono', monospace" }}>Bright MLS Powered</div>
+                <div className="text-xs text-[oklch(0.55_0.13_38)] tracking-widest uppercase mb-2" style={{ fontFamily: "'Space Mono', monospace" }}>{t.extra.buySell.mlsPowered}</div>
                 <p className="text-white text-sm font-medium" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  Thousands of active listings across New Jersey and New York — updated daily.
+                  {t.extra.buySell.mlsSub}
                 </p>
               </div>
             </div>
