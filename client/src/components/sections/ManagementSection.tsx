@@ -174,9 +174,9 @@ export default function ManagementSection() {
                   className="text-2xl font-bold text-white mb-2 leading-tight"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
-                  We handle everything
+                  {t.extra.management.bannerLine1}
                   <br />
-                  <em className="italic text-[oklch(0.72_0.10_38)]">so you don't have to</em>
+                  <em className="italic text-[oklch(0.72_0.10_38)]">{t.extra.management.bannerLine2}</em>
                 </h3>
                 <a
                   href="#contact"

@@ -130,7 +130,7 @@ export default function HeroSection() {
             className="text-xs tracking-widest uppercase"
             style={{ fontFamily: "'Space Mono', monospace" }}
           >
-            Scroll to explore
+            {t.extra.common.scrollToExplore}
           </span>
           <ArrowDown size={14} className="animate-bounce" />
         </div>

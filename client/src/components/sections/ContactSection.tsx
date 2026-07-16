@@ -85,7 +85,7 @@ export default function ContactSection() {
                     className="text-xs text-[oklch(0.55_0.01_80)] tracking-widest uppercase mb-1"
                     style={{ fontFamily: "'Space Mono', monospace" }}
                   >
-                    Phone
+                    {t.extra.contact.info.phone}
                   </div>
                   <a
                     href="tel:8623331681"
@@ -106,7 +106,7 @@ export default function ContactSection() {
                     className="text-xs text-[oklch(0.55_0.01_80)] tracking-widest uppercase mb-1"
                     style={{ fontFamily: "'Space Mono', monospace" }}
                   >
-                    Email
+                    {t.extra.contact.info.email}
                   </div>
                   <a
                     href="mailto:inquiries@rosaliagroup.com"
@@ -127,7 +127,7 @@ export default function ContactSection() {
                     className="text-xs text-[oklch(0.55_0.01_80)] tracking-widest uppercase mb-1"
                     style={{ fontFamily: "'Space Mono', monospace" }}
                   >
-                    Areas Served
+                    {t.extra.contact.info.areas}
                   </div>
                   <p className="text-white text-sm leading-relaxed">
                     Newark · Jersey City<br />
@@ -146,7 +146,7 @@ export default function ContactSection() {
                     className="text-xs text-[oklch(0.55_0.01_80)] tracking-widest uppercase mb-1"
                     style={{ fontFamily: "'Space Mono', monospace" }}
                   >
-                    Hours
+                    {t.extra.contact.info.hours}
                   </div>
                   <p className="text-white text-sm leading-relaxed">
                     Mon–Fri: 9am–6pm<br />
@@ -162,7 +162,7 @@ export default function ContactSection() {
                 className="text-xs text-[oklch(0.55_0.01_80)] tracking-widest uppercase mb-4"
                 style={{ fontFamily: "'Space Mono', monospace" }}
               >
-                Quick Contact
+                {t.extra.contact.info.quickContact}
               </div>
               <div className="flex flex-col gap-3">
                 <a
@@ -192,17 +192,17 @@ export default function ContactSection() {
                   className="text-2xl font-bold text-white mb-3"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
-                  Message Sent!
+                  {t.extra.contact.successTitle}
                 </h3>
                 <p className="text-[oklch(0.65_0.01_80)] text-sm max-w-sm">
-                  Thank you for reaching out. A member of the Rosalia Group team will follow up with you the same day.
+                  {t.extra.contact.successBody}
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
                   className="mt-6 text-xs text-[oklch(0.55_0.13_38)] hover:text-white transition-colors"
                   style={{ fontFamily: "'Space Mono', monospace", letterSpacing: "0.1em" }}
                 >
-                  Send Another Message
+                  {t.extra.contact.sendAnother}
                 </button>
               </div>
             ) : (
@@ -210,7 +210,7 @@ export default function ContactSection() {
                 {/* Name Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>First Name</label>
+                    <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>{t.contact.firstName}</label>
                     <input
                       type="text"
                       placeholder="Ana"
@@ -221,7 +221,7 @@ export default function ContactSection() {
                     />
                   </div>
                   <div>
-                    <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>Last Name</label>
+                    <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>{t.contact.lastName}</label>
                     <input
                       type="text"
                       placeholder="Haynes"
@@ -236,7 +236,7 @@ export default function ContactSection() {
                 {/* Email & Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>Email</label>
+                    <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>{t.contact.email}</label>
                     <input
                       type="email"
                       placeholder="you@email.com"
@@ -247,7 +247,7 @@ export default function ContactSection() {
                     />
                   </div>
                   <div>
-                    <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>Phone</label>
+                    <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>{t.contact.phone}</label>
                     <input
                       type="tel"
                       placeholder="(201) 555-1234"
@@ -260,36 +260,36 @@ export default function ContactSection() {
 
                 {/* Interest */}
                 <div>
-                  <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>I'm Interested In…</label>
+                  <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>{t.contact.service}</label>
                   <select
                     value={formData.interest}
                     onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
                     className={`${inputClass} appearance-none`}
                     required
                   >
-                    <option value="" disabled>Select one</option>
-                    <option value="rentals">Apartment Rentals</option>
-                    <option value="buying">Buying a Home</option>
-                    <option value="selling">Selling a Home</option>
-                    <option value="property-mgmt">Property Management</option>
-                    <option value="asset-mgmt">Asset Management</option>
-                    <option value="international">International Property Management</option>
-                    <option value="acquisitions">Acquisitions</option>
-                    <option value="consulting">Consulting &amp; Project Maximization</option>
-                    <option value="tenant-placement">Tenant Placement</option>
-                    <option value="relocation">Relocation Assistance</option>
-                    <option value="investment">Investment Portfolio Analysis</option>
-                    <option value="commercial">Commercial Real Estate</option>
-                    <option value="staging">Home Staging &amp; Renovation</option>
-                    <option value="other">Other / General Inquiry</option>
+                    <option value="" disabled>{t.contact.selectService}</option>
+                    <option value="rentals">{t.extra.contact.options.rentals}</option>
+                    <option value="buying">{t.extra.contact.options.buying}</option>
+                    <option value="selling">{t.extra.contact.options.selling}</option>
+                    <option value="property-mgmt">{t.extra.contact.options.propertyMgmt}</option>
+                    <option value="asset-mgmt">{t.extra.contact.options.assetMgmt}</option>
+                    <option value="international">{t.extra.contact.options.international}</option>
+                    <option value="acquisitions">{t.extra.contact.options.acquisitions}</option>
+                    <option value="consulting">{t.extra.contact.options.consulting}</option>
+                    <option value="tenant-placement">{t.extra.contact.options.tenantPlacement}</option>
+                    <option value="relocation">{t.extra.contact.options.relocation}</option>
+                    <option value="investment">{t.extra.contact.options.investment}</option>
+                    <option value="commercial">{t.extra.contact.options.commercial}</option>
+                    <option value="staging">{t.extra.contact.options.staging}</option>
+                    <option value="other">{t.extra.contact.options.other}</option>
                   </select>
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>Message</label>
+                  <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>{t.contact.message}</label>
                   <textarea
-                    placeholder="Tell us what you're looking for…"
+                    placeholder={t.extra.contact.messagePlaceholder}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     rows={4}
@@ -314,7 +314,7 @@ export default function ContactSection() {
                   style={{ fontFamily: "'Space Mono', monospace" }}
                 >
                   <Send size={14} />
-                  Send Message
+                  {t.contact.sendBtn}
                 </button>
               </form>
             )}
