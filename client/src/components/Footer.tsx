@@ -6,7 +6,9 @@
  */
 
 import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin } from "lucide-react";
+import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { PRIVACY_POLICY_PATH, TERMS_PATH } from "@shared/legal/sms-consent";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -154,12 +156,12 @@ export default function Footer() {
             © {currentYear} Rosalia Group. {t.footer.rights}
           </p>
           <div className="flex items-center gap-5">
-            <a href="#" className="text-xs text-[oklch(0.45_0.01_80)] hover:text-[oklch(0.55_0.13_38)] transition-colors" style={{ fontFamily: "'Space Mono', monospace" }}>
+            <Link href={PRIVACY_POLICY_PATH} className="text-xs text-[oklch(0.45_0.01_80)] hover:text-[oklch(0.55_0.13_38)] transition-colors" style={{ fontFamily: "'Space Mono', monospace" }}>
               Privacy Policy
-            </a>
-            <a href="#" className="text-xs text-[oklch(0.45_0.01_80)] hover:text-[oklch(0.55_0.13_38)] transition-colors" style={{ fontFamily: "'Space Mono', monospace" }}>
-              Terms
-            </a>
+            </Link>
+            <Link href={TERMS_PATH} className="text-xs text-[oklch(0.45_0.01_80)] hover:text-[oklch(0.55_0.13_38)] transition-colors" style={{ fontFamily: "'Space Mono', monospace" }}>
+              Terms &amp; Conditions
+            </Link>
             <span className="text-xs text-[oklch(0.45_0.01_80)]" style={{ fontFamily: "'Space Mono', monospace" }}>
               SBE &amp; MWBE Certified
             </span>

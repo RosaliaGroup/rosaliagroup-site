@@ -9,6 +9,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SmsConsent from "@/components/SmsConsent";
 
 export default function ContactSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -296,22 +297,15 @@ export default function ContactSection() {
                   />
                 </div>
 
-                {/* SMS Consent */}
-                <div className="flex items-start gap-3">
-                  <input
-                    type="checkbox"
-                    id="sms_consent"
-                    checked={formData.smsConsent}
-                    onChange={(e) => setFormData({ ...formData, smsConsent: e.target.checked })}
-                    className="mt-1 w-4 h-4 accent-[oklch(0.55_0.13_38)]"
-                  />
-                  <label
-                    htmlFor="sms_consent"
-                    className="text-xs text-[oklch(0.50_0.01_80)] leading-relaxed"
-                  >
-                    I agree to receive SMS messages from Rosalia Group regarding my inquiry. Msg &amp; data rates may apply. Reply STOP to opt out.
-                  </label>
-                </div>
+                {/* SMS Consent — A2P 10DLC compliant (shared wording) */}
+                <SmsConsent
+                  id="contact_sms_consent"
+                  checked={formData.smsConsent}
+                  onChange={(value) => setFormData({ ...formData, smsConsent: value })}
+                  textClassName="text-xs leading-relaxed text-[oklch(0.65_0.01_80)]"
+                  linkClassName="text-[oklch(0.72_0.10_38)] underline underline-offset-2 hover:text-white transition-colors"
+                  checkboxClassName="accent-[oklch(0.55_0.13_38)]"
+                />
 
                 {/* Submit */}
                 <button
