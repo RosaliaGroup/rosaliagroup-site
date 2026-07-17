@@ -335,6 +335,23 @@ export const tl: DeepPartial<Translations> = {
     },
     chat: {
       assistantTitle: "Rosalia Assistant",
+      servicePrompts: {
+        rentals: "Sabihin mo sa akin ang tungkol sa inyong mga listing ng paupahang apartment sa New Jersey at New York.",
+        sales: "Interesado akong bumili o magbenta ng bahay sa New Jersey o New York.",
+        intlListings: "Interesado ako sa mga internasyonal na property listing. Anong mga bansa ang sakop ninyo?",
+        resort: "Sabihin mo sa akin ang tungkol sa mga resort investment property at kung paano ako kikita ng rental income.",
+        propertyMgmt: "Paano gumagana ang inyong serbisyo sa pamamahala ng property para sa mga may-ari ng paupahan?",
+        intlMgmt: "May pag-aari akong property sa ibang bansa. Paano gumagana ang inyong internasyonal na pamamahala ng property?",
+        assetMgmt: "Maaari mo bang ipaliwanag ang inyong mga serbisyo sa asset management para sa mga real estate portfolio?",
+        acquisitions: "Gusto kong kumuha ng mga investment property. Paano makakatulong ang Rosalia Group?",
+        consulting: "Sabihin mo sa akin ang tungkol sa inyong mga serbisyong konsultasyon para mapataas ang kita sa mga real estate project.",
+        tenantPlacement: "Kailangan ko ng tulong sa paghahanap ng kwalipikadong nangungupahan. Ano ang kasama sa inyong serbisyo sa placement?",
+        relocation: "Lilipat ako sa New Jersey o New York. Anong tulong sa paglilipat ang ibinibigay ninyo?",
+        investment: "Gusto ko ng pagsusuri sa aking real estate investment portfolio.",
+        commercial: "Naghahanap ako ng mga serbisyo sa commercial real estate — opisina, retail, o industriyal.",
+        staging: "Kailangan ko ng tulong sa staging ng aking bahay para ibenta. Anong mga serbisyo sa staging at renovation ang inaalok ninyo?",
+      },
+      connectionError: "Nagkakaproblema ako sa koneksyon sa ngayon. Mangyaring direktang makipag-ugnayan sa amin:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
     },
   },
 };

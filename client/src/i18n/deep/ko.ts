@@ -335,6 +335,23 @@ export const ko: DeepPartial<Translations> = {
     },
     chat: {
       assistantTitle: "Rosalia 어시스턴트",
+      servicePrompts: {
+        rentals: "New Jersey와 New York의 아파트 임대 매물에 대해 알려주세요.",
+        sales: "New Jersey 또는 New York에서 주택을 매매하는 데 관심이 있습니다.",
+        intlListings: "해외 부동산 매물에 관심이 있습니다. 어떤 국가를 다루시나요?",
+        resort: "리조트 투자 부동산과 임대 수익을 얻는 방법에 대해 알려주세요.",
+        propertyMgmt: "임대인을 위한 부동산 관리 서비스는 어떻게 운영되나요?",
+        intlMgmt: "해외에 부동산을 소유하고 있습니다. 국제 부동산 관리는 어떻게 이루어지나요?",
+        assetMgmt: "부동산 포트폴리오를 위한 자산 관리 서비스에 대해 설명해 주시겠어요?",
+        acquisitions: "투자용 부동산을 매입하고 싶습니다. Rosalia Group이 어떻게 도와줄 수 있나요?",
+        consulting: "부동산 프로젝트 수익을 극대화하기 위한 컨설팅 서비스에 대해 알려주세요.",
+        tenantPlacement: "적격 임차인을 찾는 데 도움이 필요합니다. 임차인 알선 서비스에는 무엇이 포함되나요?",
+        relocation: "New Jersey 또는 New York으로 이주할 예정입니다. 어떤 이주 지원을 제공하시나요?",
+        investment: "제 부동산 투자 포트폴리오에 대한 분석을 받고 싶습니다.",
+        commercial: "상업용 부동산 서비스를 찾고 있습니다 — 사무실, 상가 또는 산업용.",
+        staging: "매매를 위한 홈 스테이징에 도움이 필요합니다. 어떤 스테이징 및 리노베이션 서비스를 제공하시나요?",
+      },
+      connectionError: "지금 연결에 문제가 있습니다. 직접 연락해 주세요:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
     },
   },
 };

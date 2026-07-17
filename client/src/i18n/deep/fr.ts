@@ -335,6 +335,23 @@ export const fr: DeepPartial<Translations> = {
     },
     chat: {
       assistantTitle: "Assistant Rosalia",
+      servicePrompts: {
+        rentals: "Parlez-moi de vos annonces de location d’appartements dans le New Jersey et à New York.",
+        sales: "Je souhaite acheter ou vendre une maison dans le New Jersey ou à New York.",
+        intlListings: "Les annonces de biens immobiliers à l’international m’intéressent. Quels pays couvrez-vous ?",
+        resort: "Parlez-moi des biens d’investissement en résidence de villégiature et de la façon dont je peux générer des revenus locatifs.",
+        propertyMgmt: "Comment fonctionne votre service de gestion immobilière pour les propriétaires bailleurs ?",
+        intlMgmt: "Je possède un bien à l’étranger. Comment fonctionne votre gestion immobilière à l’international ?",
+        assetMgmt: "Pouvez-vous m’expliquer vos services de gestion d’actifs pour les portefeuilles immobiliers ?",
+        acquisitions: "Je veux acquérir des biens d’investissement. Comment Rosalia Group peut-il m’aider ?",
+        consulting: "Parlez-moi de vos services de conseil pour maximiser le rendement des projets immobiliers.",
+        tenantPlacement: "J’ai besoin d’aide pour trouver un locataire qualifié. Que comprend votre service de placement ?",
+        relocation: "Je déménage dans le New Jersey ou à New York. Quelle aide au déménagement proposez-vous ?",
+        investment: "Je souhaite une analyse de mon portefeuille d’investissements immobiliers.",
+        commercial: "Je recherche des services d’immobilier commercial — bureaux, commerces ou industriel.",
+        staging: "J’ai besoin d’aide pour mettre en valeur ma maison en vue de la vendre. Quels services de home staging et de rénovation proposez-vous ?",
+      },
+      connectionError: "J’ai des difficultés à me connecter pour le moment. Merci de nous contacter directement :\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
     },
   },
 };

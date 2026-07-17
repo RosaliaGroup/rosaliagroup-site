@@ -69,7 +69,18 @@ export interface ExtraContent {
   };
   footer: { services: string[]; internationalMarkets: string };
   a11y: { selectLanguage: string; toggleMenu: string; openChat: string };
-  chat: { assistantTitle: string };
+  chat: {
+    assistantTitle: string;
+    /** Opening question shown (and sent to the assistant) when a service is picked. */
+    servicePrompts: {
+      rentals: string; sales: string; intlListings: string; resort: string;
+      propertyMgmt: string; intlMgmt: string; assetMgmt: string; acquisitions: string;
+      consulting: string; tenantPlacement: string; relocation: string; investment: string;
+      commercial: string; staging: string;
+    };
+    /** Shown when the assistant backend is unreachable. */
+    connectionError: string;
+  };
   about: {
     story: string[];
     founderCred: string;
@@ -200,6 +211,23 @@ export const EXTRA_EN: ExtraContent = {
   },
   chat: {
     assistantTitle: "Rosalia Assistant",
+    servicePrompts: {
+      rentals: "Tell me about your apartment rental listings in New Jersey and New York.",
+      sales: "I'm interested in buying or selling a home in New Jersey or New York.",
+      intlListings: "I'm interested in international property listings. What countries do you cover?",
+      resort: "Tell me about resort investment properties and how I can earn rental income.",
+      propertyMgmt: "How does your property management service work for landlords?",
+      intlMgmt: "I own a property overseas. How does your international property management work?",
+      assetMgmt: "Can you explain your asset management services for real estate portfolios?",
+      acquisitions: "I want to acquire investment properties. How can Rosalia Group help?",
+      consulting: "Tell me about your consulting services for maximizing real estate project returns.",
+      tenantPlacement: "I need help finding a qualified tenant. What does your placement service include?",
+      relocation: "I'm relocating to New Jersey or New York. What relocation assistance do you provide?",
+      investment: "I want an analysis of my real estate investment portfolio.",
+      commercial: "I'm looking for commercial real estate services — office, retail, or industrial.",
+      staging: "I need help staging my home for sale. What staging and renovation services do you offer?",
+    },
+    connectionError: "I'm having trouble connecting right now. Please contact us directly:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
   },
   about: {
     story: [

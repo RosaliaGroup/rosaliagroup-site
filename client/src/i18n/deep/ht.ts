@@ -479,6 +479,23 @@ export const ht: DeepPartial<Translations> = {
     },
     chat: {
       assistantTitle: "Asistan Rosalia",
+      servicePrompts: {
+        rentals: "Pale m sou anons lokasyon apatman ou yo nan New Jersey ak New York.",
+        sales: "Mwen enterese pou achte oswa vann yon kay nan New Jersey oswa New York.",
+        intlListings: "Mwen enterese nan anons pwopriyete entènasyonal. Ki peyi ou kouvri?",
+        resort: "Pale m sou pwopriyete envestisman resort yo ak kijan mwen ka fè revni lokasyon.",
+        propertyMgmt: "Kijan sèvis jesyon pwopriyete ou a mache pou pwopriyetè yo?",
+        intlMgmt: "Mwen posede yon pwopriyete aletranje. Kijan jesyon pwopriyete entènasyonal ou a mache?",
+        assetMgmt: "Èske ou ka esplike m sèvis jesyon aktif ou yo pou pòtfòy imobilye?",
+        acquisitions: "Mwen vle akeri pwopriyete envestisman. Kijan Rosalia Group ka ede m?",
+        consulting: "Pale m sou sèvis konsèy ou yo pou maksimize rannman pwojè imobilye.",
+        tenantPlacement: "Mwen bezwen èd pou jwenn yon lokatè kalifye. Kisa sèvis plasman ou a genyen ladan l?",
+        relocation: "M ap relokalize nan New Jersey oswa New York. Ki asistans relokalizasyon ou bay?",
+        investment: "Mwen vle yon analiz pòtfòy envestisman imobilye mwen an.",
+        commercial: "M ap chèche sèvis byen imobilye komèsyal — biwo, detay, oswa endistriyèl.",
+        staging: "Mwen bezwen èd pou prezante kay mwen pou vann. Ki sèvis prezantasyon ak renovasyon ou ofri?",
+      },
+      connectionError: "Mwen gen difikilte pou konekte kounye a. Tanpri kontakte nou dirèkteman:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
     },
   },
 };
