@@ -168,7 +168,8 @@ Keep answers concise (2–4 sentences). Be warm and professional. Encourage user
 async function callClaude(
   messages: { role: "user" | "assistant"; content: string }[],
   systemPrompt: string,
-  onChunk: (text: string) => void
+  onChunk: (text: string) => void,
+  fallbackMsg: string
 ): Promise<void> {
   let response: Response;
   try {
@@ -183,12 +184,12 @@ async function callClaude(
       }),
     });
   } catch {
-    onChunk("I'm having trouble connecting right now. Please contact us directly:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com");
+    onChunk(fallbackMsg);
     return;
   }
 
   if (!response.ok) {
-    onChunk("I'm having trouble connecting right now. Please contact us directly:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com");
+    onChunk(fallbackMsg);
     return;
   }
 
@@ -289,7 +290,9 @@ export default function ChatBot() {
   async function startService(serviceId: ServiceId) {
     setSelected(serviceId);
     setView("chat");
-    const prompt = SERVICE_PROMPTS[serviceId];
+    // Translated opening question (falls back to English); the assistant is told
+    // to reply in the selected language via buildSystemPrompt.
+    const prompt = siteT.extra.chat.servicePrompts[serviceId] ?? SERVICE_PROMPTS[serviceId];
     const userMsg: Message = { id: Date.now().toString(), role: "user", content: prompt, timestamp: new Date() };
     setMessages([userMsg]);
     await sendToAI([{ role: "user", content: prompt }]);
@@ -300,13 +303,14 @@ export default function ChatBot() {
     const assistantId = (Date.now() + 1).toString();
     setMessages(prev => [...prev, { id: assistantId, role: "assistant", content: "", timestamp: new Date() }]);
     let full = "";
+    const fallbackMsg = siteT.extra.chat.connectionError;
     try {
       await callClaude(msgs, buildSystemPrompt(language), (chunk) => {
         full += chunk;
         setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: full } : m));
-      });
+      }, fallbackMsg);
     } catch {
-      setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: "I'm having trouble connecting. Please call us at (862) 333-1681." } : m));
+      setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: fallbackMsg } : m));
     }
     setIsLoading(false);
   }

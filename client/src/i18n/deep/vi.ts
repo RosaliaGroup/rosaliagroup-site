@@ -335,6 +335,23 @@ export const vi: DeepPartial<Translations> = {
     },
     chat: {
       assistantTitle: "Trợ lý Rosalia",
+      servicePrompts: {
+        rentals: "Hãy cho tôi biết về các tin đăng cho thuê căn hộ của bạn tại New Jersey và New York.",
+        sales: "Tôi quan tâm đến việc mua hoặc bán nhà tại New Jersey hoặc New York.",
+        intlListings: "Tôi quan tâm đến các tin đăng bất động sản quốc tế. Bạn phục vụ những quốc gia nào?",
+        resort: "Hãy cho tôi biết về bất động sản nghỉ dưỡng đầu tư và cách tôi có thể thu về thu nhập cho thuê.",
+        propertyMgmt: "Dịch vụ quản lý bất động sản của bạn hoạt động thế nào đối với chủ nhà?",
+        intlMgmt: "Tôi sở hữu một bất động sản ở nước ngoài. Dịch vụ quản lý bất động sản quốc tế của bạn hoạt động ra sao?",
+        assetMgmt: "Bạn có thể giải thích các dịch vụ quản lý tài sản dành cho danh mục bất động sản không?",
+        acquisitions: "Tôi muốn thu mua bất động sản đầu tư. Rosalia Group có thể hỗ trợ như thế nào?",
+        consulting: "Hãy cho tôi biết về các dịch vụ tư vấn giúp tối đa hóa lợi nhuận cho dự án bất động sản.",
+        tenantPlacement: "Tôi cần hỗ trợ tìm người thuê đủ điều kiện. Dịch vụ tìm người thuê của bạn bao gồm những gì?",
+        relocation: "Tôi đang chuyển đến New Jersey hoặc New York. Bạn cung cấp những hỗ trợ chuyển nơi ở nào?",
+        investment: "Tôi muốn được phân tích danh mục đầu tư bất động sản của mình.",
+        commercial: "Tôi đang tìm dịch vụ bất động sản thương mại — văn phòng, bán lẻ hoặc công nghiệp.",
+        staging: "Tôi cần hỗ trợ trang trí nhà để bán. Bạn cung cấp những dịch vụ trang trí và cải tạo nào?",
+      },
+      connectionError: "Hiện tôi đang gặp trục trặc kết nối. Vui lòng liên hệ trực tiếp với chúng tôi:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
     },
   },
 };

@@ -335,6 +335,23 @@ export const tr: DeepPartial<Translations> = {
     },
     chat: {
       assistantTitle: "Rosalia Asistanı",
+      servicePrompts: {
+        rentals: "New Jersey ve New York'taki daire kiralama ilanlarınızdan bahsedin.",
+        sales: "New Jersey veya New York'ta ev almak ya da satmakla ilgileniyorum.",
+        intlListings: "Uluslararası mülk ilanlarıyla ilgileniyorum. Hangi ülkeleri kapsıyorsunuz?",
+        resort: "Tatil köyü yatırım mülklerinden ve nasıl kira geliri elde edebileceğimden bahsedin.",
+        propertyMgmt: "Ev sahipleri için mülk yönetimi hizmetiniz nasıl işliyor?",
+        intlMgmt: "Yurt dışında bir mülküm var. Uluslararası mülk yönetiminiz nasıl çalışıyor?",
+        assetMgmt: "Gayrimenkul portföyleri için varlık yönetimi hizmetlerinizi açıklayabilir misiniz?",
+        acquisitions: "Yatırım mülkleri edinmek istiyorum. Rosalia Group bana nasıl yardımcı olabilir?",
+        consulting: "Gayrimenkul projelerinin getirisini en üst düzeye çıkarmaya yönelik danışmanlık hizmetlerinizden bahsedin.",
+        tenantPlacement: "Nitelikli bir kiracı bulmakta yardıma ihtiyacım var. Kiracı yerleştirme hizmetiniz neleri kapsıyor?",
+        relocation: "New Jersey veya New York'a taşınıyorum. Ne tür taşınma desteği sağlıyorsunuz?",
+        investment: "Gayrimenkul yatırım portföyümün bir analizini istiyorum.",
+        commercial: "Ticari gayrimenkul hizmetleri arıyorum — ofis, perakende veya sanayi.",
+        staging: "Evimi satış için hazırlamakta yardıma ihtiyacım var. Ne tür ev hazırlama ve renovasyon hizmetleri sunuyorsunuz?",
+      },
+      connectionError: "Şu anda bağlantı kurmakta sorun yaşıyorum. Lütfen doğrudan bizimle iletişime geçin:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
     },
   },
 };

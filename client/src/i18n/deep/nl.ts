@@ -13,7 +13,7 @@ export const nl: DeepPartial<Translations> = {
         "Toegang tot actuele Bright MLS-aanbiedingen, dagelijks bijgewerkt",
         "Erkende makelaars in NJ & NY met kennis van de lokale markt",
         "Begeleiding van de eerste bezichtiging tot de dag van de sleuteloverdracht",
-        "Ondersteuning en verwijzingen voor hypotheek-vooraccordering",
+        "Ondersteuning en doorverwijzing voor voorlopige hypotheekgoedkeuring",
         "Buurtinzichten in de markten van NJ & NY",
       ],
       sellerBenefits: [
@@ -37,7 +37,7 @@ export const nl: DeepPartial<Translations> = {
       ],
       features: [
         { title: "Huurderscreening & bemiddeling", description: "Grondige achtergrondcontroles, kredietverificatie en referentiecontroles om betrouwbare huurders voor de lange termijn te vinden." },
-        { title: "Huurincasso & uitbetaling", description: "Geautomatiseerde huurincasso met directe overboeking naar uw rekening, inclusief handhaving van boetes bij te late betaling." },
+        { title: "Huurincasso & uitbetaling", description: "Geautomatiseerde huurincasso met directe overboeking naar uw rekening, inclusief het innen van boetes bij te late betaling." },
         { title: "24/7 onderhoudscoördinatie", description: "Dag en nacht reactie bij noodgevallen en een vertrouwd netwerk van erkende aannemers." },
         { title: "Maandelijkse financiële rapportage", description: "Gedetailleerde overzichten van inkomsten en uitgaven, toegang tot het eigenaarsportaal en fiscale documenten aan het einde van het jaar." },
         { title: "Contractverlengingen & ondersteuning bij uitzetting", description: "Proactief beheer van contractverlengingen en volledige juridische ondersteuning wanneer uitzetting noodzakelijk wordt." },
@@ -132,7 +132,7 @@ export const nl: DeepPartial<Translations> = {
             "Vertegenwoordiging van kopers van zoektocht tot afronding",
             "Verkoopdiensten: prijsbepaling, styling, marketing, onderhandeling",
             "Gratis vergelijkende marktanalyse (CMA) voor verkopers",
-            "Verwijzingen voor hypotheek-vooraccordering en contacten met kredietverstrekkers",
+            "Doorverwijzing voor voorlopige hypotheekgoedkeuring en contacten met kredietverstrekkers",
             "Begeleiding en voorlichting voor starters op de woningmarkt",
           ],
         },
@@ -182,7 +182,7 @@ export const nl: DeepPartial<Translations> = {
           details: [
             "Het vinden van off-market deals in heel New Jersey",
             "Beoordeling en analyse van beleggingspanden",
-            "Coördinatie van due diligence (inspecties, eigendom, bestemmingsplan)",
+            "Coördinatie van due diligence (inspecties, eigendomsonderzoek, bestemmingsplan)",
             "Financieringsstrategie en introducties bij kredietverstrekkers",
             "Onderhandeling en contractbeheer",
             "Overgang en onboarding na acquisitie",
@@ -223,7 +223,7 @@ export const nl: DeepPartial<Translations> = {
             "Virtuele en fysieke bezichtigingen",
             "Analyse van schooldistricten en woon-werkverkeer",
             "Coördinatie van tijdelijke huisvesting en kortlopende huur",
-            "Aansluiting van nutsvoorzieningen, verwijzingen naar verhuisbedrijven en lokale gidsen",
+            "Aansluiting van nutsvoorzieningen, doorverwijzingen naar verhuisbedrijven en lokale gidsen",
             "Zakelijke verhuispakketten voor HR-afdelingen",
           ],
         },
@@ -256,7 +256,7 @@ export const nl: DeepPartial<Translations> = {
         "staging": {
           title: "Woningstyling & renovatie",
           tagline: "Presenteer uw pand op zijn best",
-          shortDesc: "Professioneel styling-advies en betrouwbare renovatieverwijzingen om de aantrekkingskracht en verkoopprijs van uw pand te maximaliseren.",
+          shortDesc: "Professioneel styling-advies en betrouwbare doorverwijzingen voor renovaties om de aantrekkingskracht en verkoopprijs van uw pand te maximaliseren.",
           details: [
             "Styling-advies vóór de verkoop en het verzorgen van meubilair",
             "Virtuele styling voor lege panden",
@@ -335,6 +335,23 @@ export const nl: DeepPartial<Translations> = {
     },
     chat: {
       assistantTitle: "Rosalia Assistent",
+      servicePrompts: {
+        rentals: "Vertel me meer over uw huuraanbod voor appartementen in New Jersey en New York.",
+        sales: "Ik ben geïnteresseerd in het kopen of verkopen van een woning in New Jersey of New York.",
+        intlListings: "Ik ben geïnteresseerd in internationaal vastgoedaanbod. In welke landen bent u actief?",
+        resort: "Vertel me meer over beleggingen in resortvastgoed en hoe ik huurinkomsten kan verdienen.",
+        propertyMgmt: "Hoe werkt uw vastgoedbeheer voor verhuurders?",
+        intlMgmt: "Ik bezit een woning in het buitenland. Hoe werkt uw internationale vastgoedbeheer?",
+        assetMgmt: "Kunt u uw vermogensbeheerdiensten voor vastgoedportefeuilles toelichten?",
+        acquisitions: "Ik wil beleggingspanden verwerven. Hoe kan Rosalia Group mij daarbij helpen?",
+        consulting: "Vertel me meer over uw adviesdiensten om het rendement van vastgoedprojecten te maximaliseren.",
+        tenantPlacement: "Ik zoek hulp bij het vinden van een geschikte huurder. Wat omvat uw bemiddelingsdienst?",
+        relocation: "Ik verhuis naar New Jersey of New York. Welke verhuisbegeleiding biedt u aan?",
+        investment: "Ik wil een analyse van mijn vastgoedbeleggingsportefeuille.",
+        commercial: "Ik zoek diensten voor commercieel vastgoed — kantoor, winkel of industrie.",
+        staging: "Ik zoek hulp bij het stylen van mijn woning voor de verkoop. Welke styling- en renovatiediensten biedt u aan?",
+      },
+      connectionError: "Ik kan momenteel geen verbinding maken. Neem rechtstreeks contact met ons op:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
     },
   },
 };

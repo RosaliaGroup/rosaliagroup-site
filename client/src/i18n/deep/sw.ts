@@ -462,6 +462,23 @@ export const sw: DeepPartial<Translations> = {
     },
     chat: {
       assistantTitle: "Msaidizi wa Rosalia",
+      servicePrompts: {
+        rentals: "Nieleze kuhusu matangazo yako ya upangishaji wa vyumba katika New Jersey na New York.",
+        sales: "Nina nia ya kununua au kuuza nyumba katika New Jersey au New York.",
+        intlListings: "Nina nia ya matangazo ya mali za kimataifa. Mnahudumia nchi zipi?",
+        resort: "Nieleze kuhusu mali za uwekezaji za mapumziko na jinsi ninavyoweza kupata mapato ya kodi.",
+        propertyMgmt: "Huduma yenu ya usimamizi wa mali inafanyaje kazi kwa wamiliki?",
+        intlMgmt: "Ninamiliki mali nje ya nchi. Usimamizi wenu wa mali wa kimataifa unafanyaje kazi?",
+        assetMgmt: "Je, unaweza kunieleza huduma zenu za usimamizi wa rasilimali kwa mikusanyiko ya mali?",
+        acquisitions: "Nataka kununua mali za uwekezaji. Rosalia Group inawezaje kunisaidia?",
+        consulting: "Nieleze kuhusu huduma zenu za ushauri za kuongeza faida za miradi ya mali.",
+        tenantPlacement: "Nahitaji msaada wa kupata mpangaji mwenye sifa. Huduma yenu ya uwekaji inajumuisha nini?",
+        relocation: "Ninahamia New Jersey au New York. Mnatoa msaada gani wa kuhamia?",
+        investment: "Nataka uchambuzi wa mkusanyiko wangu wa uwekezaji wa mali.",
+        commercial: "Ninatafuta huduma za mali isiyohamishika ya kibiashara — ofisi, rejareja au viwanda.",
+        staging: "Nahitaji msaada wa kuandaa nyumba yangu kwa mauzo. Mnatoa huduma gani za uandaaji na ukarabati?",
+      },
+      connectionError: "Nina tatizo la kuunganisha kwa sasa. Tafadhali wasiliana nasi moja kwa moja:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
     },
     notFound: {
       code: "404",

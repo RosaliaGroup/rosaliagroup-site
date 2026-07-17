@@ -336,6 +336,23 @@ export const zh: DeepPartial<Translations> = {
     },
     chat: {
       assistantTitle: "Rosalia 助手",
+      servicePrompts: {
+        rentals: "请介绍一下你们在 New Jersey 和 New York 的公寓租赁房源。",
+        sales: "我想在 New Jersey 或 New York 买房或卖房。",
+        intlListings: "我对国际房源感兴趣。你们覆盖哪些国家？",
+        resort: "请介绍一下度假投资物业，以及我如何从中获得租金收入。",
+        propertyMgmt: "你们面向房东的物业管理服务是如何运作的？",
+        intlMgmt: "我在海外拥有一处物业。你们的国际物业管理是如何运作的？",
+        assetMgmt: "能为我介绍一下你们针对房地产投资组合的资产管理服务吗？",
+        acquisitions: "我想收购投资物业。Rosalia Group 能提供哪些帮助？",
+        consulting: "请介绍一下你们在最大化房地产项目回报方面的咨询服务。",
+        tenantPlacement: "我需要帮助寻找合格的租客。你们的租客安置服务包含哪些内容？",
+        relocation: "我要搬迁到 New Jersey 或 New York。你们能提供哪些搬迁协助？",
+        investment: "我想对我的房地产投资组合做一次分析。",
+        commercial: "我在寻找商业地产服务——写字楼、零售或工业物业。",
+        staging: "我需要帮助为售房布置我的住宅。你们提供哪些布置与翻新服务？",
+      },
+      connectionError: "我现在连接遇到问题。请直接联系我们：\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
     },
   },
 };

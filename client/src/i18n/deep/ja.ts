@@ -335,6 +335,23 @@ export const ja: DeepPartial<Translations> = {
     },
     chat: {
       assistantTitle: "Rosalia アシスタント",
+      servicePrompts: {
+        rentals: "New Jersey と New York のアパート賃貸物件について教えてください。",
+        sales: "New Jersey または New York で住宅の購入または売却を検討しています。",
+        intlListings: "海外の不動産物件に興味があります。どの国を取り扱っていますか？",
+        resort: "リゾート投資物件と、賃貸収入を得る方法について教えてください。",
+        propertyMgmt: "オーナー向けの不動産管理サービスはどのように機能しますか？",
+        intlMgmt: "海外に物件を所有しています。国際不動産管理はどのように行われますか？",
+        assetMgmt: "不動産ポートフォリオ向けのアセットマネジメントサービスについて説明していただけますか？",
+        acquisitions: "投資物件を取得したいと考えています。Rosalia Group はどのようにサポートできますか？",
+        consulting: "不動産プロジェクトの収益を最大化するためのコンサルティングサービスについて教えてください。",
+        tenantPlacement: "適格な入居者を見つける手助けが必要です。入居者紹介サービスには何が含まれますか？",
+        relocation: "New Jersey または New York へ引っ越します。どのような移転サポートを提供していますか？",
+        investment: "私の不動産投資ポートフォリオの分析をお願いしたいです。",
+        commercial: "商業用不動産サービス（オフィス、店舗、工業用）を探しています。",
+        staging: "売却に向けて自宅のステージングの手助けが必要です。どのようなステージングやリノベーションのサービスを提供していますか？",
+      },
+      connectionError: "現在、接続に問題が発生しています。直接お問い合わせください：\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
     },
   },
 };

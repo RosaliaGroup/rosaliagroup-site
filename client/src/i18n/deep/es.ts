@@ -335,6 +335,23 @@ export const es: DeepPartial<Translations> = {
     },
     chat: {
       assistantTitle: "Asistente de Rosalia",
+      servicePrompts: {
+        rentals: "Cuénteme sobre sus listados de alquiler de apartamentos en New Jersey y New York.",
+        sales: "Me interesa comprar o vender una vivienda en New Jersey o New York.",
+        intlListings: "Me interesan los listados de propiedades internacionales. ¿Qué países cubren?",
+        resort: "Cuénteme sobre las propiedades de inversión en complejos turísticos y cómo puedo generar ingresos por alquiler.",
+        propertyMgmt: "¿Cómo funciona su servicio de administración de propiedades para propietarios?",
+        intlMgmt: "Tengo una propiedad en el extranjero. ¿Cómo funciona su administración de propiedades internacionales?",
+        assetMgmt: "¿Puede explicarme sus servicios de gestión de activos para carteras inmobiliarias?",
+        acquisitions: "Quiero adquirir propiedades de inversión. ¿Cómo puede ayudarme Rosalia Group?",
+        consulting: "Cuénteme sobre sus servicios de consultoría para maximizar el rendimiento de proyectos inmobiliarios.",
+        tenantPlacement: "Necesito ayuda para encontrar un inquilino calificado. ¿Qué incluye su servicio de colocación?",
+        relocation: "Me estoy mudando a New Jersey o New York. ¿Qué asistencia de reubicación ofrecen?",
+        investment: "Quiero un análisis de mi cartera de inversiones inmobiliarias.",
+        commercial: "Busco servicios de bienes raíces comerciales: oficinas, locales comerciales o industriales.",
+        staging: "Necesito ayuda para preparar mi vivienda para la venta. ¿Qué servicios de staging y renovación ofrecen?",
+      },
+      connectionError: "Tengo problemas para conectarme en este momento. Comuníquese con nosotros directamente:\n\n📞 (862) 333-1681\n✉️ inquiries@rosaliagroup.com",
     },
   },
 };
