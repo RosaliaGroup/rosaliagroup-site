@@ -9,10 +9,41 @@ export const ja: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Bright MLS 搭載",
       mlsSub: "NJ・NY 全域の数千件の物件情報を毎日更新。",
+      buyerBenefits: [
+        "毎日更新される Bright MLS のライブ物件情報にアクセス",
+        "地元市場に精通した NJ・NY 州公認リアルター",
+        "初回の内覧からクロージング当日まで手厚くサポート",
+        "住宅ローン事前承認のサポートと紹介",
+        "NJ・NY 市場全域のエリア情報",
+      ],
+      sellerBenefits: [
+        "無料の比較市場分析（CMA）",
+        "プロによる撮影と掲載準備",
+        "収益を最大化する戦略的な価格設定",
+        "お客様に代わって交渉を代行",
+        "掲載からクロージングまでシームレスに調整",
+      ],
+      attribution: "Bright MLS 搭載 · ライブ物件情報を毎日更新",
+      imageAlt: "売り出し中の New Jersey の住宅",
     },
     management: {
       bannerLine1: "すべて私たちにお任せください",
       bannerLine2: "あなたの手を煩わせません",
+      stats: [
+        { label: "入居率", sub: "管理する全戸数において" },
+        { label: "管理戸数", sub: "NJ・NY 全域" },
+        { label: "経験年数", sub: "NJ・NY 市場全域" },
+        { label: "メンテナンス", sub: "緊急時対応" },
+      ],
+      features: [
+        { title: "入居者審査・仲介", description: "徹底した経歴確認、信用照会、身元照会により、信頼できる長期入居者を見つけます。" },
+        { title: "家賃回収・送金", description: "口座への直接振込による家賃の自動回収に加え、延滞料の徴収も行います。" },
+        { title: "24時間365日のメンテナンス対応", description: "24時間体制の緊急対応と、信頼できる公認業者ネットワークをご用意しています。" },
+        { title: "月次財務報告", description: "詳細な収支報告書、オーナーポータルへのアクセス、年末の税務書類をご提供します。" },
+        { title: "契約更新・立ち退きサポート", description: "先を見据えた契約更新管理と、立ち退きが必要となった際の全面的な法的サポート。" },
+        { title: "定期的な物件インスペクション", description: "入居時、退去時、および定期的なインスペクションを実施し、写真付きの詳細レポートをご提供します。" },
+      ],
+      imageAlt: "不動産管理の建物",
     },
     about: {
       story: [
@@ -44,6 +75,7 @@ export const ja: DeepPartial<Translations> = {
         hours: "営業時間",
         quickContact: "クイックお問い合わせ",
       },
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "you@email.com", phone: "(201) 555-1234" },
       successTitle: "メッセージを送信しました！",
       successBody:
         "お問い合わせいただきありがとうございます。Rosalia Group チームの担当者が当日中にご連絡いたします。",
@@ -238,6 +270,8 @@ export const ja: DeepPartial<Translations> = {
     },
     intl: {
       tag: "グローバル不動産",
+      heroAlt: "Caribbean のビーチフロントリゾートヴィラ",
+      interiorAlt: "オーシャンビューの高級リゾートヴィラ内観",
       heading1: "国際物件情報",
       heading2: "& リゾート投資",
       intro: "Rosalia Group は、カリブ海、ラテンアメリカ、ヨーロッパ、アジア太平洋地域の高級物件と、買主・投資家をつなぎます。豪華なリゾートヴィラ、バケーションレンタル、収益を生むビーチフロント物件まで幅広く取り扱っています。",
@@ -286,6 +320,21 @@ export const ja: DeepPartial<Translations> = {
       lastUpdated: "最終更新",
       controllingNotice:
         "英語版が法的に有効な正式版となります。以下の詳細なポリシーは現在、英語でのみご利用いただけます。",
+    },
+    footer: {
+      services: [
+        "アパート賃貸", "住宅の購入", "住宅の売却", "不動産管理",
+        "国際物件情報", "リゾート投資", "アセットマネジメント", "取得（アクイジション）",
+      ],
+      internationalMarkets: "国際市場",
+    },
+    a11y: {
+      selectLanguage: "言語を選択",
+      toggleMenu: "メニューを切り替え",
+      openChat: "チャットを開く",
+    },
+    chat: {
+      assistantTitle: "Rosalia アシスタント",
     },
   },
 };

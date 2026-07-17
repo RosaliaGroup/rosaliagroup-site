@@ -52,8 +52,24 @@ export function deepMerge<T>(base: T, override?: DeepPartial<T>): T {
 // SiteTranslations top-level keys (services/about/contact/rentals/...).
 export interface ExtraContent {
   services: { womanRun: string };
-  buySell: { mlsPowered: string; mlsSub: string };
-  management: { bannerLine1: string; bannerLine2: string };
+  buySell: {
+    mlsPowered: string;
+    mlsSub: string;
+    buyerBenefits: string[];
+    sellerBenefits: string[];
+    attribution: string;
+    imageAlt: string;
+  };
+  management: {
+    bannerLine1: string;
+    bannerLine2: string;
+    stats: { label: string; sub: string }[];
+    features: { title: string; description: string }[];
+    imageAlt: string;
+  };
+  footer: { services: string[]; internationalMarkets: string };
+  a11y: { selectLanguage: string; toggleMenu: string; openChat: string };
+  chat: { assistantTitle: string };
   about: {
     story: string[];
     founderCred: string;
@@ -68,6 +84,7 @@ export interface ExtraContent {
     successBody: string;
     sendAnother: string;
     messagePlaceholder: string;
+    placeholders: { firstName: string; lastName: string; email: string; phone: string };
     options: {
       rentals: string; buying: string; selling: string; propertyMgmt: string;
       assetMgmt: string; international: string; acquisitions: string; consulting: string;
@@ -107,6 +124,8 @@ export interface ExtraContent {
     benefits: string[];
     regions: string[];
     scheduleConsult: string;
+    heroAlt: string;
+    interiorAlt: string;
   };
   notFound: { code: string; title: string; body1: string; body2: string; goHome: string };
   common: { unexpectedError: string; scrollToExplore: string };
@@ -125,10 +144,62 @@ export const EXTRA_EN: ExtraContent = {
   buySell: {
     mlsPowered: "Bright MLS Powered",
     mlsSub: "Thousands of active listings across New Jersey and New York — updated daily.",
+    buyerBenefits: [
+      "Access to live Bright MLS listings updated daily",
+      "Licensed NJ & NY realtors with local market expertise",
+      "Guidance from first showing through closing day",
+      "Mortgage pre-approval assistance & referrals",
+      "Neighborhood insights across NJ & NY markets",
+    ],
+    sellerBenefits: [
+      "Free comparative market analysis (CMA)",
+      "Professional photography & listing preparation",
+      "Strategic pricing to maximize your return",
+      "Negotiation expertise on your behalf",
+      "Seamless coordination from listing to close",
+    ],
+    attribution: "Powered by Bright MLS · Live listings updated daily",
+    imageAlt: "New Jersey home for sale",
   },
   management: {
     bannerLine1: "We handle everything",
     bannerLine2: "so you don't have to",
+    stats: [
+      { label: "Occupancy Rate", sub: "Across all managed units" },
+      { label: "Units Managed", sub: "Across NJ & NY" },
+      { label: "Years Experience", sub: "Across NJ & NY markets" },
+      { label: "Maintenance", sub: "Emergency response" },
+    ],
+    features: [
+      { title: "Tenant Screening & Placement", description: "Thorough background checks, credit verification, and reference checks to find reliable, long-term tenants." },
+      { title: "Rent Collection & Disbursement", description: "Automated rent collection with direct deposit to your account, plus late fee enforcement." },
+      { title: "24/7 Maintenance Coordination", description: "Round-the-clock emergency response and a trusted network of licensed contractors." },
+      { title: "Monthly Financial Reporting", description: "Detailed income and expense statements, owner portal access, and year-end tax documents." },
+      { title: "Lease Renewals & Eviction Support", description: "Proactive lease renewal management and full legal support when eviction becomes necessary." },
+      { title: "Regular Property Inspections", description: "Scheduled move-in, move-out, and periodic inspections with detailed photo reports." },
+    ],
+    imageAlt: "Property management building",
+  },
+  footer: {
+    services: [
+      "Apartment Rentals",
+      "Buy a Home",
+      "Sell a Home",
+      "Property Management",
+      "International Listings",
+      "Resort Investments",
+      "Asset Management",
+      "Acquisitions",
+    ],
+    internationalMarkets: "International Markets",
+  },
+  a11y: {
+    selectLanguage: "Select language",
+    toggleMenu: "Toggle menu",
+    openChat: "Open chat",
+  },
+  chat: {
+    assistantTitle: "Rosalia Assistant",
   },
   about: {
     story: [
@@ -165,6 +236,7 @@ export const EXTRA_EN: ExtraContent = {
       "Thank you for reaching out. A member of the Rosalia Group team will follow up with you the same day.",
     sendAnother: "Send Another Message",
     messagePlaceholder: "Tell us what you're looking for…",
+    placeholders: { firstName: "Ana", lastName: "Haynes", email: "you@email.com", phone: "(201) 555-1234" },
     options: {
       rentals: "Apartment Rentals",
       buying: "Buying a Home",
@@ -386,6 +458,8 @@ export const EXTRA_EN: ExtraContent = {
     ],
     regions: ["Caribbean", "Latin America", "Europe", "Asia Pacific"],
     scheduleConsult: "Schedule a Free Consultation",
+    heroAlt: "Caribbean beachfront resort villas",
+    interiorAlt: "Luxury resort villa interior with ocean view",
   },
   notFound: {
     code: "404",

@@ -10,10 +10,41 @@ export const zh: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Bright MLS 强力支持",
       mlsSub: "遍布新泽西州和纽约州的数千套在售房源——每日更新。",
+      buyerBenefits: [
+        "实时查看 Bright MLS 房源，每日更新",
+        "持牌 NJ 与 NY 房地产经纪人，精通本地市场",
+        "从首次看房到成交当天的全程指导",
+        "抵押贷款预批协助与推荐",
+        "覆盖 NJ 与 NY 市场的社区洞察",
+      ],
+      sellerBenefits: [
+        "免费比较市场分析（CMA）",
+        "专业摄影与房源准备",
+        "战略定价，实现回报最大化",
+        "代表您进行专业谈判",
+        "从挂牌到成交的无缝协调",
+      ],
+      attribution: "由 Bright MLS 提供支持 · 实时房源每日更新",
+      imageAlt: "新泽西州待售住宅",
     },
     management: {
       bannerLine1: "一切由我们打理",
       bannerLine2: "让您省心无忧",
+      stats: [
+        { label: "出租率", sub: "所有受管单元" },
+        { label: "受管单元", sub: "遍布 NJ 与 NY" },
+        { label: "从业年限", sub: "覆盖 NJ 与 NY 市场" },
+        { label: "维护服务", sub: "紧急响应" },
+      ],
+      features: [
+        { title: "租客筛选与安置", description: "严谨的背景调查、信用核实与推荐人核查，为您找到可靠的长期租客。" },
+        { title: "租金收取与发放", description: "自动收取租金并直接存入您的账户，同时执行滞纳金管理。" },
+        { title: "24/7 维护协调", description: "全天候紧急响应，并拥有值得信赖的持牌承包商网络。" },
+        { title: "月度财务报告", description: "详尽的收支报表、业主门户访问权限及年终税务文件。" },
+        { title: "续租与驱逐支持", description: "主动管理租约续签，并在需要驱逐时提供全面的法律支持。" },
+        { title: "定期物业检查", description: "定期开展入住、退租及周期性检查，并附带详尽的照片报告。" },
+      ],
+      imageAlt: "物业管理楼宇",
     },
     about: {
       story: [
@@ -50,6 +81,7 @@ export const zh: DeepPartial<Translations> = {
         "感谢您的联系。Rosalia Group 团队的成员将于当天与您跟进。",
       sendAnother: "再发一条消息",
       messagePlaceholder: "告诉我们您想找什么…",
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "you@email.com", phone: "(201) 555-1234" },
       options: {
         rentals: "公寓租赁",
         buying: "购房",
@@ -271,6 +303,8 @@ export const zh: DeepPartial<Translations> = {
       ],
       regions: ["加勒比海", "拉丁美洲", "欧洲", "亚太地区"],
       scheduleConsult: "预约免费咨询",
+      heroAlt: "Caribbean 海滨度假别墅",
+      interiorAlt: "坐拥海景的豪华度假别墅内景",
     },
     notFound: {
       code: "404",
@@ -287,6 +321,21 @@ export const zh: DeepPartial<Translations> = {
       lastUpdated: "最后更新",
       controllingNotice:
         "英文版本为具法律效力的准据版本。以下详细政策目前仅提供英文版。",
+    },
+    footer: {
+      services: [
+        "公寓租赁", "购房", "售房", "物业管理",
+        "国际房源", "度假投资", "资产管理", "收购",
+      ],
+      internationalMarkets: "国际市场",
+    },
+    a11y: {
+      selectLanguage: "选择语言",
+      toggleMenu: "切换菜单",
+      openChat: "打开聊天",
+    },
+    chat: {
+      assistantTitle: "Rosalia 助手",
     },
   },
 };

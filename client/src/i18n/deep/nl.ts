@@ -9,10 +9,41 @@ export const nl: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Aangedreven door Bright MLS",
       mlsSub: "Duizenden actieve aanbiedingen in New Jersey en New York — dagelijks bijgewerkt.",
+      buyerBenefits: [
+        "Toegang tot actuele Bright MLS-aanbiedingen, dagelijks bijgewerkt",
+        "Erkende makelaars in NJ & NY met kennis van de lokale markt",
+        "Begeleiding van de eerste bezichtiging tot de dag van de sleuteloverdracht",
+        "Ondersteuning en verwijzingen voor hypotheek-vooraccordering",
+        "Buurtinzichten in de markten van NJ & NY",
+      ],
+      sellerBenefits: [
+        "Gratis vergelijkende marktanalyse (CMA)",
+        "Professionele fotografie & voorbereiding van de aanbieding",
+        "Strategische prijsbepaling om uw rendement te maximaliseren",
+        "Onderhandelingsexpertise namens u",
+        "Naadloze coördinatie van aanbieding tot afronding",
+      ],
+      attribution: "Aangedreven door Bright MLS · Actuele aanbiedingen dagelijks bijgewerkt",
+      imageAlt: "Te koop staande woning in New Jersey",
     },
     management: {
       bannerLine1: "Wij regelen alles",
       bannerLine2: "zodat u dat niet hoeft",
+      stats: [
+        { label: "Bezettingsgraad", sub: "Over alle beheerde eenheden" },
+        { label: "Beheerde eenheden", sub: "In NJ & NY" },
+        { label: "Jaar ervaring", sub: "In de markten van NJ & NY" },
+        { label: "Onderhoud", sub: "Reactie bij noodgevallen" },
+      ],
+      features: [
+        { title: "Huurderscreening & bemiddeling", description: "Grondige achtergrondcontroles, kredietverificatie en referentiecontroles om betrouwbare huurders voor de lange termijn te vinden." },
+        { title: "Huurincasso & uitbetaling", description: "Geautomatiseerde huurincasso met directe overboeking naar uw rekening, inclusief handhaving van boetes bij te late betaling." },
+        { title: "24/7 onderhoudscoördinatie", description: "Dag en nacht reactie bij noodgevallen en een vertrouwd netwerk van erkende aannemers." },
+        { title: "Maandelijkse financiële rapportage", description: "Gedetailleerde overzichten van inkomsten en uitgaven, toegang tot het eigenaarsportaal en fiscale documenten aan het einde van het jaar." },
+        { title: "Contractverlengingen & ondersteuning bij uitzetting", description: "Proactief beheer van contractverlengingen en volledige juridische ondersteuning wanneer uitzetting noodzakelijk wordt." },
+        { title: "Regelmatige vastgoedinspecties", description: "Geplande inspecties bij intrek, uittrek en periodiek, met gedetailleerde fotorapporten." },
+      ],
+      imageAlt: "Gebouw voor vastgoedbeheer",
     },
     about: {
       story: [
@@ -49,6 +80,7 @@ export const nl: DeepPartial<Translations> = {
         "Bedankt dat u contact met ons opneemt. Een medewerker van het Rosalia Group-team neemt dezelfde dag nog contact met u op.",
       sendAnother: "Nog een bericht versturen",
       messagePlaceholder: "Vertel ons waar u naar op zoek bent…",
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "u@email.com", phone: "(201) 555-1234" },
       options: {
         rentals: "Appartementverhuur",
         buying: "Een huis kopen",
@@ -238,6 +270,8 @@ export const nl: DeepPartial<Translations> = {
     },
     intl: {
       tag: "Internationaal vastgoed",
+      heroAlt: "Resortvilla's aan het strand in het Caribisch gebied",
+      interiorAlt: "Luxe resortvilla-interieur met uitzicht op de oceaan",
       heading1: "Internationale aanbiedingen",
       heading2: "& resortbeleggingen",
       intro: "Rosalia Group verbindt kopers en investeerders met eersteklas vastgoed in het Caribisch gebied, Latijns-Amerika, Europa en Azië-Pacific — waaronder luxe resortvilla's, vakantiewoningen en inkomen genererende panden aan het strand.",
@@ -286,6 +320,21 @@ export const nl: DeepPartial<Translations> = {
       lastUpdated: "Laatst bijgewerkt",
       controllingNotice:
         "De Engelse versie is de rechtsgeldige versie. Het gedetailleerde beleid hieronder is momenteel beschikbaar in het Engels.",
+    },
+    footer: {
+      services: [
+        "Appartementverhuur", "Een huis kopen", "Een huis verkopen", "Vastgoedbeheer",
+        "Internationale aanbiedingen", "Resortbeleggingen", "Vermogensbeheer", "Acquisities",
+      ],
+      internationalMarkets: "Internationale markten",
+    },
+    a11y: {
+      selectLanguage: "Selecteer taal",
+      toggleMenu: "Menu in-/uitschakelen",
+      openChat: "Chat openen",
+    },
+    chat: {
+      assistantTitle: "Rosalia Assistent",
     },
   },
 };

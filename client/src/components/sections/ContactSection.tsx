@@ -213,7 +213,7 @@ export default function ContactSection() {
                     <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>{t.contact.firstName}</label>
                     <input
                       type="text"
-                      placeholder="Ana"
+                      placeholder={t.extra.contact.placeholders.firstName}
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                       className={inputClass}
@@ -224,7 +224,7 @@ export default function ContactSection() {
                     <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>{t.contact.lastName}</label>
                     <input
                       type="text"
-                      placeholder="Haynes"
+                      placeholder={t.extra.contact.placeholders.lastName}
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                       className={inputClass}
@@ -239,7 +239,7 @@ export default function ContactSection() {
                     <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>{t.contact.email}</label>
                     <input
                       type="email"
-                      placeholder="you@email.com"
+                      placeholder={t.extra.contact.placeholders.email}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className={inputClass}
@@ -250,7 +250,7 @@ export default function ContactSection() {
                     <label className={labelClass} style={{ fontFamily: "'Space Mono', monospace" }}>{t.contact.phone}</label>
                     <input
                       type="tel"
-                      placeholder="(201) 555-1234"
+                      placeholder={t.extra.contact.placeholders.phone}
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className={inputClass}

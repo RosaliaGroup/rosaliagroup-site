@@ -93,7 +93,7 @@ export default function Navbar() {
                     : "border-[oklch(0.80_0.02_80)] text-[oklch(0.35_0.02_65)] hover:border-[oklch(0.55_0.13_38)] hover:text-[oklch(0.55_0.13_38)] bg-transparent"
                 }`}
                 style={{ fontFamily: "'Space Mono', monospace" }}
-                aria-label="Select language"
+                aria-label={t.extra.a11y.selectLanguage}
               >
                 <Globe size={13} />
                 <span>{currentLang.flag} {currentLang.code.toUpperCase().replace("-TW","")}</span>
@@ -135,7 +135,7 @@ export default function Navbar() {
             <button
               className="lg:hidden p-2 text-[oklch(0.22_0.01_65)]"
               onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
+              aria-label={t.extra.a11y.toggleMenu}
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>

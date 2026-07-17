@@ -75,7 +75,7 @@ export default function Footer() {
               {t.footer.services}
             </h4>
             <ul className="space-y-3">
-              {["Apartment Rentals", "Buy a Home", "Sell a Home", "Property Management", "International Listings", "Resort Investments", "Asset Management", "Acquisitions"].map((item) => (
+              {t.extra.footer.services.map((item) => (
                 <li key={item}>
                   <a
                     href="#"
@@ -97,7 +97,7 @@ export default function Footer() {
               {t.footer.areas}
             </h4>
             <ul className="space-y-3">
-              {["Newark, NJ", "Jersey City, NJ", "East Orange, NJ", "Elizabeth, NJ", "Orange, NJ", "New York City, NY", "Brooklyn, NY", "International Markets"].map((area) => (
+              {["Newark, NJ", "Jersey City, NJ", "East Orange, NJ", "Elizabeth, NJ", "Orange, NJ", "New York City, NY", "Brooklyn, NY", t.extra.footer.internationalMarkets].map((area) => (
                 <li key={area}>
                   <span className="text-sm text-[oklch(0.65_0.01_80)]">{area}</span>
                 </li>

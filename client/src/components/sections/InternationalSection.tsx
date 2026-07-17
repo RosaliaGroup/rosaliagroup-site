@@ -104,7 +104,7 @@ export default function InternationalSection() {
         <div className="reveal relative overflow-hidden mb-16" style={{ height: "480px" }}>
           <img
             src={RESORT_IMAGE}
-            alt="Caribbean beachfront resort villas"
+            alt={intl.heroAlt}
             className="w-full h-full object-cover"
           />
           <div
@@ -206,7 +206,7 @@ export default function InternationalSection() {
           <div className="relative overflow-hidden" style={{ height: "460px" }}>
             <img
               src={INTERIOR_IMAGE}
-              alt="Luxury resort villa interior with ocean view"
+              alt={intl.interiorAlt}
               className="w-full h-full object-cover"
             />
             <div

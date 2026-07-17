@@ -230,11 +230,13 @@ export default function ChatBot() {
   const [form, setForm]                 = useState<LeadForm>(EMPTY_FORM);
   const [formErrors, setFormErrors]     = useState<Partial<LeadForm>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { lang: globalLang, setLang: setGlobalLang } = useLanguage();
+  const { lang: globalLang, t: siteT } = useLanguage();
   const [language, setLanguage]         = useState<string>(() => globalLang || detectBrowserLanguage());
   const [showLangMenu, setShowLangMenu] = useState(false);
 
-  // Sync chat bot language with global navbar language
+  // By default the chatbot follows the website's selected language. Changing the
+  // site language re-syncs the chatbot (clearing any in-chat override); the
+  // in-chat selector below is an optional, chatbot-only override.
   useEffect(() => {
     setLanguage(globalLang);
   }, [globalLang]);
@@ -355,7 +357,7 @@ export default function ChatBot() {
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-110"
         style={{ background: "oklch(0.55 0.13 38)", borderRadius: 0 }}
-        aria-label="Open chat"
+        aria-label={siteT.extra.a11y.openChat}
       >
         {isOpen ? <X size={22} color="white" /> : <MessageCircle size={22} color="white" />}
         {!isOpen && hasUnread && (
@@ -381,7 +383,7 @@ export default function ChatBot() {
                 <Bot size={14} color="white" />
               </div>
               <div>
-                <div className="text-white text-xs font-semibold" style={{ fontFamily: "'Playfair Display', serif" }}>Rosalia Assistant</div>
+                <div className="text-white text-xs font-semibold" style={{ fontFamily: "'Playfair Display', serif" }}>{siteT.extra.chat.assistantTitle}</div>
                 <div className="text-[oklch(0.55_0.01_80)] text-[10px]" style={{ fontFamily: "'Space Mono', monospace" }}>
                   {view === "chat"
                     ? serviceLabel
@@ -420,7 +422,7 @@ export default function ChatBot() {
                   {LANGUAGES.map(lang => (
                     <button
                       key={lang.code}
-                      onClick={(e) => { e.stopPropagation(); setLanguage(lang.code); setGlobalLang(lang.code as any); setShowLangMenu(false); }}
+                      onClick={(e) => { e.stopPropagation(); setLanguage(lang.code); setShowLangMenu(false); }}
                       className="w-full text-left px-3 py-2.5 text-xs transition-all flex items-center justify-between gap-2"
                       style={{
                         fontFamily: "'DM Sans', sans-serif",

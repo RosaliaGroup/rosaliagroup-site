@@ -115,9 +115,9 @@ export default function ManagementSection() {
                 className="text-xs text-[oklch(0.22_0.01_65)] tracking-widest uppercase mb-1"
                 style={{ fontFamily: "'Space Mono', monospace" }}
               >
-                {stat.label}
+                {t.extra.management.stats[i]?.label ?? stat.label}
               </div>
-              <div className="text-xs text-[oklch(0.55_0.02_65)]">{stat.sub}</div>
+              <div className="text-xs text-[oklch(0.55_0.02_65)]">{t.extra.management.stats[i]?.sub ?? stat.sub}</div>
             </div>
           ))}
         </div>
@@ -143,10 +143,10 @@ export default function ManagementSection() {
                         className="text-sm font-semibold text-[oklch(0.22_0.01_65)] mb-1"
                         style={{ fontFamily: "'Playfair Display', serif" }}
                       >
-                        {feature.title}
+                        {t.extra.management.features[index]?.title ?? feature.title}
                       </h4>
                       <p className="text-xs text-[oklch(0.55_0.02_65)] leading-relaxed">
-                        {feature.description}
+                        {t.extra.management.features[index]?.description ?? feature.description}
                       </p>
                     </div>
                   </div>
@@ -160,7 +160,7 @@ export default function ManagementSection() {
             <div className="relative h-full min-h-[400px]">
               <img
                 src={MGMT_IMAGE}
-                alt="Property management building"
+                alt={t.extra.management.imageAlt}
                 className="w-full h-full object-cover"
               />
               {/* Overlay */}

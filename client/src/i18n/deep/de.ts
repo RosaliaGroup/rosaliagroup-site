@@ -9,10 +9,41 @@ export const de: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Unterstützt durch Bright MLS",
       mlsSub: "Tausende aktive Angebote in ganz New Jersey und New York — täglich aktualisiert.",
+      buyerBenefits: [
+        "Zugang zu Live-Angeboten von Bright MLS, täglich aktualisiert",
+        "Lizenzierte Immobilienmakler in NJ & NY mit lokaler Marktexpertise",
+        "Begleitung von der ersten Besichtigung bis zum Abschlusstag",
+        "Unterstützung und Empfehlungen zur Hypotheken-Vorabgenehmigung",
+        "Einblicke in Nachbarschaften auf den Märkten in NJ & NY",
+      ],
+      sellerBenefits: [
+        "Kostenlose vergleichende Marktanalyse (CMA)",
+        "Professionelle Fotografie und Angebotsvorbereitung",
+        "Strategische Preisgestaltung zur Maximierung Ihrer Rendite",
+        "Verhandlungsexpertise in Ihrem Namen",
+        "Nahtlose Koordination vom Angebot bis zum Abschluss",
+      ],
+      attribution: "Unterstützt durch Bright MLS · Live-Angebote täglich aktualisiert",
+      imageAlt: "Haus zum Verkauf in New Jersey",
     },
     management: {
       bannerLine1: "Wir kümmern uns um alles,",
       bannerLine2: "damit Sie es nicht tun müssen",
+      stats: [
+        { label: "Auslastungsrate", sub: "Über alle verwalteten Einheiten" },
+        { label: "Verwaltete Einheiten", sub: "In NJ & NY" },
+        { label: "Jahre Erfahrung", sub: "Auf den Märkten in NJ & NY" },
+        { label: "Instandhaltung", sub: "Notfallreaktion" },
+      ],
+      features: [
+        { title: "Mieterprüfung & -vermittlung", description: "Gründliche Hintergrundprüfungen, Bonitätsverifizierung und Referenzprüfungen, um zuverlässige, langfristige Mieter zu finden." },
+        { title: "Mietinkasso & Auszahlung", description: "Automatisiertes Mietinkasso mit Direktüberweisung auf Ihr Konto sowie Durchsetzung von Mahngebühren." },
+        { title: "24/7-Wartungskoordination", description: "Rund-um-die-Uhr-Notfallreaktion und ein vertrauenswürdiges Netzwerk lizenzierter Handwerker." },
+        { title: "Monatliche Finanzberichterstattung", description: "Detaillierte Einnahmen- und Ausgabenaufstellungen, Zugang zum Eigentümerportal und Steuerunterlagen zum Jahresende." },
+        { title: "Mietvertragsverlängerungen & Räumungsunterstützung", description: "Proaktive Verwaltung von Mietvertragsverlängerungen und vollständige rechtliche Unterstützung, wenn eine Räumung erforderlich wird." },
+        { title: "Regelmäßige Immobilieninspektionen", description: "Geplante Ein- und Auszugsinspektionen sowie regelmäßige Inspektionen mit detaillierten Fotoberichten." },
+      ],
+      imageAlt: "Gebäude der Hausverwaltung",
     },
     about: {
       story: [
@@ -44,6 +75,7 @@ export const de: DeepPartial<Translations> = {
         hours: "Öffnungszeiten",
         quickContact: "Schnellkontakt",
       },
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "du@email.com", phone: "(201) 555-1234" },
       successTitle: "Nachricht gesendet!",
       successBody:
         "Vielen Dank für Ihre Kontaktaufnahme. Ein Mitglied des Rosalia Group-Teams wird sich noch am selben Tag bei Ihnen melden.",
@@ -270,6 +302,8 @@ export const de: DeepPartial<Translations> = {
       ],
       regions: ["Karibik", "Lateinamerika", "Europa", "Asien-Pazifik"],
       scheduleConsult: "Kostenlose Beratung vereinbaren",
+      heroAlt: "Strandresort-Villen in der Karibik",
+      interiorAlt: "Luxuriöses Resort-Villa-Interieur mit Meerblick",
     },
     notFound: {
       code: "404",
@@ -286,6 +320,21 @@ export const de: DeepPartial<Translations> = {
       lastUpdated: "Zuletzt aktualisiert",
       controllingNotice:
         "Die englische Version ist die rechtlich maßgebliche Version. Die ausführliche Richtlinie unten ist derzeit auf Englisch verfügbar.",
+    },
+    footer: {
+      services: [
+        "Wohnungsvermietung", "Ein Haus kaufen", "Ein Haus verkaufen", "Hausverwaltung",
+        "Internationale Angebote", "Resort-Investitionen", "Vermögensverwaltung", "Akquisitionen",
+      ],
+      internationalMarkets: "Internationale Märkte",
+    },
+    a11y: {
+      selectLanguage: "Sprache auswählen",
+      toggleMenu: "Menü umschalten",
+      openChat: "Chat öffnen",
+    },
+    chat: {
+      assistantTitle: "Rosalia Assistent",
     },
   },
 };

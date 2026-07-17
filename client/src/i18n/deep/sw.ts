@@ -152,10 +152,41 @@ export const sw: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Inaendeshwa na Bright MLS",
       mlsSub: "Maelfu ya matangazo hai kote New Jersey na New York — yanasasishwa kila siku.",
+      buyerBenefits: [
+        "Ufikiaji wa matangazo hai ya Bright MLS yanayosasishwa kila siku",
+        "Mawakala wa mali walioidhinishwa NJ na NY wenye utaalamu wa soko la ndani",
+        "Mwongozo kutoka onyesho la kwanza hadi siku ya kufunga",
+        "Msaada wa idhini ya awali ya mkopo na rufaa",
+        "Maarifa ya mitaa kote masoko ya NJ na NY",
+      ],
+      sellerBenefits: [
+        "Uchambuzi wa soko wa kulinganisha (CMA) bila malipo",
+        "Upigaji picha wa kitaalamu na maandalizi ya tangazo",
+        "Upangaji wa bei wa kimkakati ili kuongeza mapato yako",
+        "Utaalamu wa mazungumzo kwa niaba yako",
+        "Uratibu usio na mshono kutoka tangazo hadi kufunga",
+      ],
+      attribution: "Inaendeshwa na Bright MLS · Matangazo hai yanasasishwa kila siku",
+      imageAlt: "Nyumba ya New Jersey inayouzwa",
     },
     management: {
       bannerLine1: "Tunashughulikia kila kitu",
       bannerLine2: "ili wewe usilazimike",
+      stats: [
+        { label: "Kiwango cha Ukaaji", sub: "Kote vitengo vyote vinavyosimamiwa" },
+        { label: "Vitengo Vinavyosimamiwa", sub: "Kote NJ na NY" },
+        { label: "Miaka ya Uzoefu", sub: "Kote masoko ya NJ na NY" },
+        { label: "Matengenezo", sub: "Majibu ya dharura" },
+      ],
+      features: [
+        { title: "Uchunguzi na Uwekaji wa Wapangaji", description: "Ukaguzi wa kina wa historia, uthibitisho wa mkopo na ukaguzi wa marejeo ili kupata wapangaji wa kuaminika wa muda mrefu." },
+        { title: "Ukusanyaji na Ugawaji wa Kodi", description: "Ukusanyaji wa kodi wa kiotomatiki kwa amana ya moja kwa moja kwenye akaunti yako, pamoja na utekelezaji wa ada za kuchelewa." },
+        { title: "Uratibu wa Matengenezo 24/7", description: "Majibu ya dharura ya saa zote na mtandao wa kuaminika wa wakandarasi walioidhinishwa." },
+        { title: "Ripoti za Kifedha za Kila Mwezi", description: "Taarifa za kina za mapato na matumizi, ufikiaji wa tovuti ya mmiliki na nyaraka za kodi za mwisho wa mwaka." },
+        { title: "Ufufuaji wa Kodi na Msaada wa Kufukuza", description: "Usimamizi makini wa ufufuaji wa kodi na msaada kamili wa kisheria wakati kufukuza kunapohitajika." },
+        { title: "Ukaguzi wa Mara kwa Mara wa Mali", description: "Ukaguzi uliopangwa wa kuhamia, kuhama na wa mara kwa mara pamoja na ripoti za picha za kina." },
+      ],
+      imageAlt: "Jengo la usimamizi wa mali",
     },
     about: {
       story: [
@@ -192,6 +223,7 @@ export const sw: DeepPartial<Translations> = {
         "Asante kwa kuwasiliana. Mwanachama wa timu ya Rosalia Group atafuatilia nawe siku hiyo hiyo.",
       sendAnother: "Tuma Ujumbe Mwingine",
       messagePlaceholder: "Tuambie unachotafuta…",
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "wewe@email.com", phone: "(201) 555-1234" },
       options: {
         rentals: "Upangishaji wa Vyumba",
         buying: "Kununua Nyumba",
@@ -413,6 +445,23 @@ export const sw: DeepPartial<Translations> = {
       ],
       regions: ["Karibiani", "Amerika ya Kusini", "Ulaya", "Asia Pacific"],
       scheduleConsult: "Panga Ushauri wa Bure",
+      heroAlt: "Villa za mapumziko za kando ya bahari za Karibiani",
+      interiorAlt: "Ndani ya villa ya kifahari ya mapumziko yenye mandhari ya bahari",
+    },
+    footer: {
+      services: [
+        "Upangishaji wa Vyumba", "Nunua Nyumba", "Uza Nyumba", "Usimamizi wa Mali",
+        "Matangazo ya Kimataifa", "Uwekezaji wa Mapumziko", "Usimamizi wa Rasilimali", "Ununuzi wa Mali",
+      ],
+      internationalMarkets: "Masoko ya Kimataifa",
+    },
+    a11y: {
+      selectLanguage: "Chagua lugha",
+      toggleMenu: "Geuza menyu",
+      openChat: "Fungua gumzo",
+    },
+    chat: {
+      assistantTitle: "Msaidizi wa Rosalia",
     },
     notFound: {
       code: "404",
