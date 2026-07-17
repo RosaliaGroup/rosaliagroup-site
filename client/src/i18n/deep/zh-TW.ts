@@ -9,10 +9,41 @@ export const zhTW: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "由 Bright MLS 提供支援",
       mlsSub: "數千筆遍佈 NJ 與 NY 的活躍物件——每日更新。",
+      buyerBenefits: [
+        "存取每日更新的即時 Bright MLS 物件",
+        "持照 NJ 與 NY 房地產經紀人，深諳在地市場",
+        "從首次看屋到成交當日全程指引",
+        "房貸預先核准協助與轉介",
+        "橫跨 NJ 與 NY 市場的社區洞察",
+      ],
+      sellerBenefits: [
+        "免費比較市場分析（CMA）",
+        "專業攝影與上架準備",
+        "策略性定價，讓您的回報最大化",
+        "代表您進行專業議價",
+        "從上架到成交的無縫協調",
+      ],
+      attribution: "由 Bright MLS 提供支援 · 即時物件每日更新",
+      imageAlt: "New Jersey 待售住宅",
     },
     management: {
       bannerLine1: "我們為您打理一切",
       bannerLine2: "讓您無後顧之憂",
+      stats: [
+        { label: "出租率", sub: "涵蓋所有代管單位" },
+        { label: "代管單位數", sub: "橫跨 NJ 與 NY" },
+        { label: "經驗年數", sub: "橫跨 NJ 與 NY 市場" },
+        { label: "維修服務", sub: "緊急應變" },
+      ],
+      features: [
+        { title: "租客篩選與媒合", description: "徹底的背景查核、信用驗證與推薦查詢，為您找到可靠、長期的租客。" },
+        { title: "租金收取與撥付", description: "自動化租金收取並直接入帳至您的帳戶，並落實逾期費用收取。" },
+        { title: "24/7 維修協調", description: "全天候緊急應變，以及值得信賴的持照承包商網絡。" },
+        { title: "每月財務報告", description: "詳盡的收支報表、屋主專屬入口存取，以及年終稅務文件。" },
+        { title: "續約與驅逐支援", description: "主動的續約管理，並在必要時提供完整的驅逐法律支援。" },
+        { title: "定期物業檢查", description: "排定入住、退租與定期檢查，並附上詳盡的照片報告。" },
+      ],
+      imageAlt: "物業管理建築",
     },
     about: {
       story: [
@@ -65,6 +96,7 @@ export const zhTW: DeepPartial<Translations> = {
         staging: "房屋佈置與裝修",
         other: "其他／一般諮詢",
       },
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "you@email.com", phone: "(201) 555-1234" },
     },
     rentals: {
       tags: { featured: "精選", newListing: "全新物件", spacious: "寬敞" },
@@ -270,6 +302,8 @@ export const zhTW: DeepPartial<Translations> = {
       ],
       regions: ["加勒比海", "拉丁美洲", "歐洲", "亞太地區"],
       scheduleConsult: "預約免費諮詢",
+      heroAlt: "Caribbean 海濱度假別墅",
+      interiorAlt: "坐擁海景的豪華度假別墅室內",
     },
     notFound: {
       code: "404",
@@ -286,6 +320,21 @@ export const zhTW: DeepPartial<Translations> = {
       lastUpdated: "最後更新",
       controllingNotice:
         "英文版本為具法律效力的準據版本。以下詳細條款目前僅提供英文版。",
+    },
+    footer: {
+      services: [
+        "公寓租賃", "購屋", "售屋", "物業管理",
+        "國際物件", "度假投資", "資產管理", "收購",
+      ],
+      internationalMarkets: "國際市場",
+    },
+    a11y: {
+      selectLanguage: "選擇語言",
+      toggleMenu: "切換選單",
+      openChat: "開啟聊天",
+    },
+    chat: {
+      assistantTitle: "Rosalia 助理",
     },
   },
 };

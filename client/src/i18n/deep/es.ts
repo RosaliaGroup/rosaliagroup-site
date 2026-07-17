@@ -9,10 +9,41 @@ export const es: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Con la tecnología de Bright MLS",
       mlsSub: "Miles de propiedades activas en Nueva Jersey y Nueva York, actualizadas a diario.",
+      buyerBenefits: [
+        "Acceso a anuncios en vivo de Bright MLS actualizados a diario",
+        "Agentes inmobiliarios con licencia en NJ y NY con experiencia en el mercado local",
+        "Orientación desde la primera visita hasta el día del cierre",
+        "Asistencia y referencias para la preaprobación hipotecaria",
+        "Información sobre vecindarios en los mercados de NJ y NY",
+      ],
+      sellerBenefits: [
+        "Análisis comparativo de mercado (CMA) gratuito",
+        "Fotografía profesional y preparación del anuncio",
+        "Fijación estratégica de precios para maximizar su rendimiento",
+        "Experiencia en negociación en su nombre",
+        "Coordinación fluida desde el anuncio hasta el cierre",
+      ],
+      attribution: "Con la tecnología de Bright MLS · Anuncios en vivo actualizados a diario",
+      imageAlt: "Casa en venta en Nueva Jersey",
     },
     management: {
       bannerLine1: "Nosotros nos ocupamos de todo",
       bannerLine2: "para que usted no tenga que hacerlo",
+      stats: [
+        { label: "Tasa de ocupación", sub: "En todas las unidades administradas" },
+        { label: "Unidades administradas", sub: "En NJ y NY" },
+        { label: "Años de experiencia", sub: "En los mercados de NJ y NY" },
+        { label: "Mantenimiento", sub: "Respuesta de emergencia" },
+      ],
+      features: [
+        { title: "Selección y colocación de inquilinos", description: "Verificaciones exhaustivas de antecedentes, confirmación de crédito y comprobación de referencias para encontrar inquilinos confiables y de largo plazo." },
+        { title: "Cobro y desembolso de rentas", description: "Cobro automatizado de rentas con depósito directo a su cuenta, además de la aplicación de cargos por pagos atrasados." },
+        { title: "Coordinación de mantenimiento 24/7", description: "Respuesta de emergencia las 24 horas y una red confiable de contratistas con licencia." },
+        { title: "Informes financieros mensuales", description: "Estados detallados de ingresos y gastos, acceso al portal del propietario y documentos fiscales de fin de año." },
+        { title: "Renovaciones de contrato y apoyo en desalojos", description: "Gestión proactiva de la renovación de contratos y apoyo legal completo cuando el desalojo se vuelve necesario." },
+        { title: "Inspecciones periódicas de la propiedad", description: "Inspecciones programadas de entrada, salida y periódicas con informes fotográficos detallados." },
+      ],
+      imageAlt: "Edificio de administración de propiedades",
     },
     about: {
       story: [
@@ -49,6 +80,7 @@ export const es: DeepPartial<Translations> = {
         "Gracias por comunicarse con nosotros. Un miembro del equipo de Rosalia Group le dará seguimiento el mismo día.",
       sendAnother: "Enviar otro mensaje",
       messagePlaceholder: "Cuéntenos qué está buscando…",
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "tu@email.com", phone: "(201) 555-1234" },
       options: {
         rentals: "Alquiler de apartamentos",
         buying: "Comprar una casa",
@@ -270,6 +302,8 @@ export const es: DeepPartial<Translations> = {
       ],
       regions: ["Caribe", "América Latina", "Europa", "Asia-Pacífico"],
       scheduleConsult: "Programe una consulta gratuita",
+      heroAlt: "Villas frente al mar en un complejo turístico del Caribe",
+      interiorAlt: "Interior de villa de lujo en complejo turístico con vista al océano",
     },
     notFound: {
       code: "404",
@@ -286,6 +320,21 @@ export const es: DeepPartial<Translations> = {
       lastUpdated: "Última actualización",
       controllingNotice:
         "La versión en inglés es la versión legal vigente. La política detallada que aparece a continuación está disponible actualmente en inglés.",
+    },
+    footer: {
+      services: [
+        "Alquiler de apartamentos", "Comprar una casa", "Vender una casa", "Administración de propiedades",
+        "Anuncios internacionales", "Inversiones en complejos turísticos", "Gestión de activos", "Adquisiciones",
+      ],
+      internationalMarkets: "Mercados internacionales",
+    },
+    a11y: {
+      selectLanguage: "Seleccionar idioma",
+      toggleMenu: "Alternar menú",
+      openChat: "Abrir chat",
+    },
+    chat: {
+      assistantTitle: "Asistente de Rosalia",
     },
   },
 };

@@ -9,10 +9,41 @@ export const tl: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Pinapagana ng Bright MLS",
       mlsSub: "Libu-libong aktibong listing sa buong New Jersey at New York — ina-update araw-araw.",
+      buyerBenefits: [
+        "Access sa live na Bright MLS listing na ina-update araw-araw",
+        "Lisensyadong realtor sa NJ at NY na may kadalubhasaan sa lokal na pamilihan",
+        "Gabay mula sa unang showing hanggang sa araw ng closing",
+        "Tulong sa mortgage pre-approval at mga referral",
+        "Kaalaman sa kapitbahayan sa buong pamilihan ng NJ at NY",
+      ],
+      sellerBenefits: [
+        "Libreng comparative market analysis (CMA)",
+        "Propesyonal na photography at paghahanda ng listing",
+        "Estratehikong pagpepresyo upang i-maximize ang iyong kita",
+        "Kadalubhasaan sa negosasyon para sa iyong panig",
+        "Walang tuloy-tuloy na koordinasyon mula listing hanggang closing",
+      ],
+      attribution: "Pinapagana ng Bright MLS · Live na listing na ina-update araw-araw",
+      imageAlt: "Bahay sa New Jersey na ipinagbibili",
     },
     management: {
       bannerLine1: "Kami ang bahala sa lahat",
       bannerLine2: "para hindi mo na kailangan",
+      stats: [
+        { label: "Rate ng Okupasyon", sub: "Sa lahat ng pinamamahalaang unit" },
+        { label: "Mga Unit na Pinamamahalaan", sub: "Sa buong NJ at NY" },
+        { label: "Taong Karanasan", sub: "Sa buong pamilihan ng NJ at NY" },
+        { label: "Pagpapanatili", sub: "Emergency na pagtugon" },
+      ],
+      features: [
+        { title: "Screening at Paglalagay ng Nangungupahan", description: "Masusing background check, credit verification, at reference check upang makahanap ng mapagkakatiwalaan at pangmatagalang nangungupahan." },
+        { title: "Pangongolekta at Pagpapamahagi ng Renta", description: "Awtomatikong pangongolekta ng renta na may direct deposit sa iyong account, kasama ang pagpapatupad ng late fee." },
+        { title: "24/7 na Koordinasyon sa Pagpapanatili", description: "Pagtugon sa emergency sa buong araw at isang mapagkakatiwalaang network ng lisensyadong kontratista." },
+        { title: "Buwanang Financial Reporting", description: "Detalyadong income at expense statement, access sa portal ng may-ari, at mga dokumento sa buwis sa katapusan ng taon." },
+        { title: "Pag-renew ng Lease at Suporta sa Pagpapaalis", description: "Maagap na pamamahala ng pag-renew ng lease at buong legal na suporta kapag kinakailangan ang pagpapaalis." },
+        { title: "Regular na Inspeksyon ng Ari-arian", description: "Naka-iskedyul na move-in, move-out, at pana-panahong inspeksyon na may detalyadong ulat na may larawan." },
+      ],
+      imageAlt: "Gusali ng pamamahala ng ari-arian",
     },
     about: {
       story: [
@@ -65,6 +96,7 @@ export const tl: DeepPartial<Translations> = {
         staging: "Home Staging at Renovation",
         other: "Iba pa / Pangkalahatang Katanungan",
       },
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "ikaw@email.com", phone: "(201) 555-1234" },
     },
     rentals: {
       tags: { featured: "Itinatampok", newListing: "Bagong Listing", spacious: "Maluwang" },
@@ -270,6 +302,8 @@ export const tl: DeepPartial<Translations> = {
       ],
       regions: ["Caribbean", "Latin America", "Europa", "Asia Pacific"],
       scheduleConsult: "Mag-iskedyul ng Libreng Konsultasyon",
+      heroAlt: "Mga beachfront resort villa sa Caribbean",
+      interiorAlt: "Interior ng luxury resort villa na may tanawin ng karagatan",
     },
     notFound: {
       code: "404",
@@ -286,6 +320,21 @@ export const tl: DeepPartial<Translations> = {
       lastUpdated: "Huling na-update",
       controllingNotice:
         "Ang bersyong Ingles ang namamahalang legal na bersyon. Ang detalyadong patakaran sa ibaba ay kasalukuyang available sa Ingles.",
+    },
+    footer: {
+      services: [
+        "Pagpapaupa ng Apartment", "Bumili ng Tahanan", "Magbenta ng Tahanan", "Pamamahala ng Ari-arian",
+        "Mga Internasyonal na Listing", "Resort Investment", "Pamamahala ng Asset", "Mga Akisisyon",
+      ],
+      internationalMarkets: "Mga Internasyonal na Pamilihan",
+    },
+    a11y: {
+      selectLanguage: "Pumili ng wika",
+      toggleMenu: "I-toggle ang menu",
+      openChat: "Buksan ang chat",
+    },
+    chat: {
+      assistantTitle: "Rosalia Assistant",
     },
   },
 };

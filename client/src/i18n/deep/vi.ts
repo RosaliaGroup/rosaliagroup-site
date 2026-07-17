@@ -9,10 +9,41 @@ export const vi: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Vận hành bởi Bright MLS",
       mlsSub: "Hàng nghìn tin đăng đang hoạt động khắp New Jersey và New York — cập nhật hằng ngày.",
+      buyerBenefits: [
+        "Truy cập tin đăng Bright MLS trực tiếp, cập nhật hằng ngày",
+        "Chuyên viên môi giới được cấp phép NJ & NY am hiểu thị trường địa phương",
+        "Đồng hành từ buổi xem đầu tiên đến ngày hoàn tất giao dịch",
+        "Hỗ trợ phê duyệt vay thế chấp trước & giới thiệu bên cho vay",
+        "Thông tin chuyên sâu về khu dân cư khắp thị trường NJ & NY",
+      ],
+      sellerBenefits: [
+        "Phân tích thị trường so sánh (CMA) miễn phí",
+        "Chụp ảnh chuyên nghiệp & chuẩn bị tin đăng",
+        "Định giá chiến lược để tối đa hóa lợi nhuận của bạn",
+        "Chuyên môn thương lượng thay mặt bạn",
+        "Phối hợp trọn vẹn từ khi đăng tin đến khi hoàn tất giao dịch",
+      ],
+      attribution: "Vận hành bởi Bright MLS · Tin đăng trực tiếp cập nhật hằng ngày",
+      imageAlt: "Nhà bán tại New Jersey",
     },
     management: {
       bannerLine1: "Chúng tôi lo mọi việc",
       bannerLine2: "để bạn không phải bận tâm",
+      stats: [
+        { label: "Tỷ lệ lấp đầy", sub: "Trên tất cả các căn được quản lý" },
+        { label: "Số căn được quản lý", sub: "Khắp NJ & NY" },
+        { label: "Năm kinh nghiệm", sub: "Khắp thị trường NJ & NY" },
+        { label: "Bảo trì", sub: "Ứng phó khẩn cấp" },
+      ],
+      features: [
+        { title: "Sàng lọc & Bố trí người thuê", description: "Kiểm tra lý lịch kỹ lưỡng, xác minh tín dụng và tham chiếu để tìm được người thuê đáng tin cậy, gắn bó lâu dài." },
+        { title: "Thu & Chi tiền thuê", description: "Thu tiền thuê tự động với chuyển khoản trực tiếp vào tài khoản của bạn, kèm áp dụng phí trễ hạn." },
+        { title: "Điều phối bảo trì 24/7", description: "Ứng phó khẩn cấp suốt ngày đêm và mạng lưới nhà thầu được cấp phép uy tín." },
+        { title: "Báo cáo tài chính hằng tháng", description: "Báo cáo thu chi chi tiết, quyền truy cập cổng thông tin chủ sở hữu và hồ sơ thuế cuối năm." },
+        { title: "Gia hạn hợp đồng & Hỗ trợ trục xuất", description: "Chủ động quản lý gia hạn hợp đồng thuê và hỗ trợ pháp lý toàn diện khi cần trục xuất." },
+        { title: "Kiểm tra bất động sản định kỳ", description: "Kiểm tra khi dọn vào, dọn ra và định kỳ theo lịch, kèm báo cáo ảnh chi tiết." },
+      ],
+      imageAlt: "Tòa nhà quản lý bất động sản",
     },
     about: {
       story: [
@@ -44,6 +75,7 @@ export const vi: DeepPartial<Translations> = {
         hours: "Giờ làm việc",
         quickContact: "Liên hệ nhanh",
       },
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "ban@email.com", phone: "(201) 555-1234" },
       successTitle: "Đã gửi tin nhắn!",
       successBody:
         "Cảm ơn bạn đã liên hệ. Một thành viên của đội ngũ Rosalia Group sẽ phản hồi bạn ngay trong ngày.",
@@ -238,6 +270,8 @@ export const vi: DeepPartial<Translations> = {
     },
     intl: {
       tag: "Bất động sản toàn cầu",
+      heroAlt: "Biệt thự nghỉ dưỡng ven biển Caribbean",
+      interiorAlt: "Nội thất biệt thự nghỉ dưỡng sang trọng nhìn ra đại dương",
       heading1: "Tin đăng quốc tế",
       heading2: "& Đầu tư nghỉ dưỡng",
       intro: "Rosalia Group kết nối người mua và nhà đầu tư với những bất động sản cao cấp khắp vùng Caribe, Mỹ Latinh, châu Âu và châu Á - Thái Bình Dương — bao gồm biệt thự nghỉ dưỡng sang trọng, nhà cho thuê kỳ nghỉ và bất động sản ven biển tạo thu nhập.",
@@ -286,6 +320,21 @@ export const vi: DeepPartial<Translations> = {
       lastUpdated: "Cập nhật lần cuối",
       controllingNotice:
         "Bản tiếng Anh là bản pháp lý có hiệu lực. Chính sách chi tiết bên dưới hiện có sẵn bằng tiếng Anh.",
+    },
+    footer: {
+      services: [
+        "Cho thuê căn hộ", "Mua nhà", "Bán nhà", "Quản lý bất động sản",
+        "Tin đăng quốc tế", "Đầu tư nghỉ dưỡng", "Quản lý tài sản", "Thu mua bất động sản",
+      ],
+      internationalMarkets: "Thị trường quốc tế",
+    },
+    a11y: {
+      selectLanguage: "Chọn ngôn ngữ",
+      toggleMenu: "Bật/tắt menu",
+      openChat: "Mở trò chuyện",
+    },
+    chat: {
+      assistantTitle: "Trợ lý Rosalia",
     },
   },
 };

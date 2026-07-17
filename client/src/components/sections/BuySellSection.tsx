@@ -43,7 +43,10 @@ export default function BuySellSection() {
     return () => observer.disconnect();
   }, []);
 
-  const benefits = activeTab === "buy" ? buyerBenefits : sellerBenefits;
+  const benefits =
+    activeTab === "buy"
+      ? (t.extra.buySell.buyerBenefits ?? buyerBenefits)
+      : (t.extra.buySell.sellerBenefits ?? sellerBenefits);
 
   return (
     <section id="buy-sell" ref={sectionRef} className="bg-[oklch(0.22_0.01_65)] py-20 lg:py-28">
@@ -82,7 +85,7 @@ export default function BuySellSection() {
                 </button>
               </div>
               <p className="text-xs text-[oklch(0.45_0.01_80)] mt-2" style={{ fontFamily: "'Space Mono', monospace" }}>
-                Powered by Bright MLS · Live listings updated daily
+                {t.extra.buySell.attribution}
               </p>
             </div>
 
@@ -121,7 +124,7 @@ export default function BuySellSection() {
           {/* Right: Image */}
           <div className="reveal relative">
             <div className="relative overflow-hidden" style={{ height: "520px" }}>
-              <img src={BUY_SELL_IMAGE} alt="New Jersey home for sale" className="w-full h-full object-cover" />
+              <img src={BUY_SELL_IMAGE} alt={t.extra.buySell.imageAlt} className="w-full h-full object-cover" />
               <div className="absolute bottom-6 left-6 right-6 bg-[oklch(0.22_0.01_65/0.9)] backdrop-blur-sm p-5 border-l-4 border-[oklch(0.55_0.13_38)]">
                 <div className="text-xs text-[oklch(0.55_0.13_38)] tracking-widest uppercase mb-2" style={{ fontFamily: "'Space Mono', monospace" }}>{t.extra.buySell.mlsPowered}</div>
                 <p className="text-white text-sm font-medium" style={{ fontFamily: "'Playfair Display', serif" }}>

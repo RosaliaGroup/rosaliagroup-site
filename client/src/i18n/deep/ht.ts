@@ -153,10 +153,41 @@ export const ht: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Alimante pa Bright MLS",
       mlsSub: "Dè milye pwopriyete aktif atravè New Jersey ak New York — mete ajou chak jou.",
+      buyerBenefits: [
+        "Aksè a pwopriyete Bright MLS an dirèk mete ajou chak jou",
+        "Ajan imobilye ki gen lisans nan NJ & NY ak ekspètiz mache lokal",
+        "Gidans depi premye vizit jiska jou fèmti a",
+        "Asistans pre-apwobasyon ipotèk ak referans",
+        "Enfòmasyon sou katye atravè mache NJ & NY yo",
+      ],
+      sellerBenefits: [
+        "Analiz mache konparatif (CMA) gratis",
+        "Fotografi pwofesyonèl ak preparasyon anons",
+        "Pri estratejik pou maksimize rannman ou",
+        "Ekspètiz negosyasyon nan non ou",
+        "Kowòdinasyon san pwoblèm depi anons jiska fèmti",
+      ],
+      attribution: "Alimante pa Bright MLS · Pwopriyete an dirèk mete ajou chak jou",
+      imageAlt: "Kay pou vann nan New Jersey",
     },
     management: {
       bannerLine1: "Nou okipe tout bagay",
       bannerLine2: "pou ou pa oblije",
+      stats: [
+        { label: "To Okipasyon", sub: "Atravè tout inite ki jere" },
+        { label: "Inite Jere", sub: "Atravè NJ & NY" },
+        { label: "Ane Eksperyans", sub: "Atravè mache NJ & NY yo" },
+        { label: "Antretyen", sub: "Repons ijans" },
+      ],
+      features: [
+        { title: "Tès & Plasman Lokatè", description: "Verifikasyon background apwofondi, verifikasyon kredi, ak verifikasyon referans pou jwenn lokatè fyab, long tèm." },
+        { title: "Kolèk & Distribisyon Lwaye", description: "Kolèk lwaye otomatik ak depo dirèk nan kont ou, plis aplikasyon frè an reta." },
+        { title: "Kowòdinasyon Antretyen 24/7", description: "Repons ijans toutan ak yon rezo kontraktè ki gen lisans e ki fyab." },
+        { title: "Rapò Finansye Chak Mwa", description: "Deklarasyon detaye revni ak depans, aksè pòtal pwopriyetè, ak dokiman taks fen ane." },
+        { title: "Renouvèlman Lwaye & Sipò Ekspilsyon", description: "Jesyon pwoaktif renouvèlman lwaye ak sipò legal konplè lè ekspilsyon vin nesesè." },
+        { title: "Enspeksyon Pwopriyete Regilye", description: "Enspeksyon demenajman antre, soti, ak peryodik pwograme ak rapò foto detaye." },
+      ],
+      imageAlt: "Batiman jesyon pwopriyete",
     },
     about: {
       story: [
@@ -192,6 +223,7 @@ export const ht: DeepPartial<Translations> = {
       successBody:
         "Mèsi paske ou kontakte nou. Yon manm ekip Rosalia Group la ap swiv ak ou menm jou a.",
       sendAnother: "Voye yon Lòt Mesaj",
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "ou@email.com", phone: "(201) 555-1234" },
       messagePlaceholder: "Di nou sa w ap chèche…",
       options: {
         rentals: "Lokasyon Apatman",
@@ -414,6 +446,8 @@ export const ht: DeepPartial<Translations> = {
       ],
       regions: ["Karayib", "Amerik Latin", "Ewòp", "Azi Pasifik"],
       scheduleConsult: "Pwograme yon Konsiltasyon Gratis",
+      heroAlt: "Vila resort bò lanmè nan Karayib",
+      interiorAlt: "Enteryè vila resort lwxe ak vi sou oseyan",
     },
     notFound: {
       code: "404",
@@ -430,6 +464,21 @@ export const ht: DeepPartial<Translations> = {
       lastUpdated: "Dènye mizajou",
       controllingNotice:
         "Vèsyon anglè a se vèsyon legal ki kontwole a. Politik detaye ki anba a disponib kounye a an anglè.",
+    },
+    footer: {
+      services: [
+        "Lokasyon Apatman", "Achte yon Kay", "Vann yon Kay", "Jesyon Pwopriyete",
+        "Anons Entènasyonal", "Envestisman Resort", "Jesyon Aktif", "Akizisyon",
+      ],
+      internationalMarkets: "Mache Entènasyonal",
+    },
+    a11y: {
+      selectLanguage: "Chwazi lang",
+      toggleMenu: "Ouvri/Fèmen meni",
+      openChat: "Ouvri chat",
+    },
+    chat: {
+      assistantTitle: "Asistan Rosalia",
     },
   },
 };

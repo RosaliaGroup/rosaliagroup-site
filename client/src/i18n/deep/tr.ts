@@ -9,10 +9,41 @@ export const tr: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Bright MLS Destekli",
       mlsSub: "New Jersey ve New York genelinde binlerce aktif ilan — her gün güncelleniyor.",
+      buyerBenefits: [
+        "Her gün güncellenen canlı Bright MLS ilanlarına erişim",
+        "Yerel pazar uzmanlığına sahip lisanslı NJ ve NY emlakçıları",
+        "İlk gösterimden kapanış gününe kadar rehberlik",
+        "Mortgage ön onay desteği ve yönlendirmeleri",
+        "NJ ve NY pazarları genelinde mahalle içgörüleri",
+      ],
+      sellerBenefits: [
+        "Ücretsiz karşılaştırmalı piyasa analizi (CMA)",
+        "Profesyonel fotoğraf çekimi ve ilan hazırlığı",
+        "Getirinizi en üst düzeye çıkaracak stratejik fiyatlandırma",
+        "Sizin adınıza uzman müzakere",
+        "İlandan kapanışa kadar sorunsuz koordinasyon",
+      ],
+      attribution: "Bright MLS Destekli · Canlı ilanlar her gün güncelleniyor",
+      imageAlt: "Satılık New Jersey evi",
     },
     management: {
       bannerLine1: "Her şeyle biz ilgileniyoruz",
       bannerLine2: "böylece sizin uğraşmanıza gerek kalmaz",
+      stats: [
+        { label: "Doluluk Oranı", sub: "Yönetilen tüm birimlerde" },
+        { label: "Yönetilen Birim", sub: "NJ ve NY genelinde" },
+        { label: "Yıllık Deneyim", sub: "NJ ve NY pazarlarında" },
+        { label: "Bakım", sub: "Acil durum müdahalesi" },
+      ],
+      features: [
+        { title: "Kiracı Taraması ve Yerleştirme", description: "Güvenilir, uzun vadeli kiracılar bulmak için kapsamlı geçmiş kontrolleri, kredi doğrulaması ve referans incelemeleri." },
+        { title: "Kira Tahsilatı ve Ödemesi", description: "Hesabınıza doğrudan havale ile otomatik kira tahsilatı ve gecikme ücreti uygulaması." },
+        { title: "7/24 Bakım Koordinasyonu", description: "Kesintisiz acil durum müdahalesi ve güvenilir lisanslı müteahhit ağı." },
+        { title: "Aylık Mali Raporlama", description: "Ayrıntılı gelir ve gider tabloları, mülk sahibi portalı erişimi ve yıl sonu vergi belgeleri." },
+        { title: "Kira Yenileme ve Tahliye Desteği", description: "Proaktif kira yenileme yönetimi ve tahliye gerektiğinde tam hukuki destek." },
+        { title: "Düzenli Mülk Denetimleri", description: "Ayrıntılı fotoğraf raporlarıyla planlı giriş, çıkış ve periyodik denetimler." },
+      ],
+      imageAlt: "Mülk yönetimi binası",
     },
     about: {
       story: [
@@ -65,6 +96,7 @@ export const tr: DeepPartial<Translations> = {
         staging: "Ev Hazırlama ve Renovasyon",
         other: "Diğer / Genel Talep",
       },
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "sen@email.com", phone: "(201) 555-1234" },
     },
     rentals: {
       tags: { featured: "Öne Çıkan", newListing: "Yeni İlan", spacious: "Ferah" },
@@ -270,6 +302,8 @@ export const tr: DeepPartial<Translations> = {
       ],
       regions: ["Karayipler", "Latin Amerika", "Avrupa", "Asya Pasifik"],
       scheduleConsult: "Ücretsiz Danışmanlık Planlayın",
+      heroAlt: "Caribbean sahil kenarı tatil köyü villaları",
+      interiorAlt: "Okyanus manzaralı lüks tatil köyü villası iç mekânı",
     },
     notFound: {
       code: "404",
@@ -286,6 +320,21 @@ export const tr: DeepPartial<Translations> = {
       lastUpdated: "Son güncelleme",
       controllingNotice:
         "İngilizce sürüm, hukuken geçerli olan sürümdür. Aşağıdaki ayrıntılı politika şu anda İngilizce olarak sunulmaktadır.",
+    },
+    footer: {
+      services: [
+        "Daire Kiralama", "Ev Satın Alma", "Ev Satma", "Mülk Yönetimi",
+        "Uluslararası İlanlar", "Tatil Köyü Yatırımları", "Varlık Yönetimi", "Satın Almalar",
+      ],
+      internationalMarkets: "Uluslararası Pazarlar",
+    },
+    a11y: {
+      selectLanguage: "Dil seçin",
+      toggleMenu: "Menüyü aç/kapat",
+      openChat: "Sohbeti aç",
+    },
+    chat: {
+      assistantTitle: "Rosalia Asistanı",
     },
   },
 };

@@ -9,10 +9,41 @@ export const ko: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Bright MLS 기반",
       mlsSub: "New Jersey와 New York 전역의 수천 건의 활성 매물 — 매일 업데이트됩니다.",
+      buyerBenefits: [
+        "매일 업데이트되는 실시간 Bright MLS 매물 이용",
+        "현지 시장 전문성을 갖춘 NJ & NY 공인 부동산 중개인",
+        "첫 방문부터 계약 완료일까지의 안내",
+        "모기지 사전 승인 지원 및 추천",
+        "NJ & NY 시장 전반의 동네 인사이트",
+      ],
+      sellerBenefits: [
+        "무료 비교 시장 분석 (CMA)",
+        "전문 사진 촬영 및 매물 등록 준비",
+        "수익을 극대화하기 위한 전략적 가격 책정",
+        "고객님을 대신한 협상 전문성",
+        "매물 등록부터 계약 완료까지 매끄러운 조율",
+      ],
+      attribution: "Bright MLS 제공 · 실시간 매물 매일 업데이트",
+      imageAlt: "판매 중인 New Jersey 주택",
     },
     management: {
       bannerLine1: "모든 것을 저희가 처리합니다",
       bannerLine2: "고객님께서 신경 쓰지 않으셔도 됩니다",
+      stats: [
+        { label: "입주율", sub: "관리 중인 모든 유닛 기준" },
+        { label: "관리 유닛 수", sub: "NJ & NY 전역" },
+        { label: "경력 연수", sub: "NJ & NY 시장 전반" },
+        { label: "유지보수", sub: "긴급 대응" },
+      ],
+      features: [
+        { title: "세입자 심사 & 매칭", description: "신뢰할 수 있는 장기 세입자를 찾기 위한 철저한 신원 조회, 신용 확인, 추천서 검토." },
+        { title: "임대료 징수 & 지급", description: "고객님 계좌로의 직접 입금을 통한 자동화된 임대료 징수와 연체료 부과." },
+        { title: "24/7 유지보수 조율", description: "연중무휴 긴급 대응과 신뢰할 수 있는 공인 시공업체 네트워크." },
+        { title: "월간 재무 보고", description: "상세한 수입 및 지출 명세서, 소유주 포털 이용, 연말 세무 서류." },
+        { title: "임대 갱신 & 퇴거 지원", description: "선제적인 임대 갱신 관리와 퇴거가 필요할 때의 전면적인 법률 지원." },
+        { title: "정기 부동산 점검", description: "상세한 사진 보고서와 함께하는 정기적인 입주, 퇴거 및 주기적 점검." },
+      ],
+      imageAlt: "부동산 관리 건물",
     },
     about: {
       story: [
@@ -65,6 +96,7 @@ export const ko: DeepPartial<Translations> = {
         staging: "홈 스테이징 & 리노베이션",
         other: "기타 / 일반 문의",
       },
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "you@email.com", phone: "(201) 555-1234" },
     },
     rentals: {
       tags: { featured: "추천", newListing: "신규 매물", spacious: "넓은 공간" },
@@ -270,6 +302,8 @@ export const ko: DeepPartial<Translations> = {
       ],
       regions: ["카리브해", "라틴 아메리카", "유럽", "아시아 태평양"],
       scheduleConsult: "무료 상담 예약하기",
+      heroAlt: "Caribbean 해변 리조트 빌라",
+      interiorAlt: "바다 전망을 갖춘 럭셔리 리조트 빌라 인테리어",
     },
     notFound: {
       code: "404",
@@ -286,6 +320,21 @@ export const ko: DeepPartial<Translations> = {
       lastUpdated: "마지막 업데이트",
       controllingNotice:
         "영어 버전이 법적 효력을 갖는 기준 버전입니다. 아래의 상세 정책은 현재 영어로 제공됩니다.",
+    },
+    footer: {
+      services: [
+        "아파트 임대", "주택 구매", "주택 판매", "부동산 관리",
+        "국제 매물", "리조트 투자", "자산 관리", "인수",
+      ],
+      internationalMarkets: "국제 시장",
+    },
+    a11y: {
+      selectLanguage: "언어 선택",
+      toggleMenu: "메뉴 전환",
+      openChat: "채팅 열기",
+    },
+    chat: {
+      assistantTitle: "Rosalia 어시스턴트",
     },
   },
 };

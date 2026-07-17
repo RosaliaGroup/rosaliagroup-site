@@ -9,10 +9,41 @@ export const fr: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Propulsé par Bright MLS",
       mlsSub: "Des milliers d’annonces actives dans le New Jersey et à New York — mises à jour chaque jour.",
+      buyerBenefits: [
+        "Accès aux annonces Bright MLS en direct, mises à jour chaque jour",
+        "Agents immobiliers licenciés NJ & NY avec une expertise du marché local",
+        "Accompagnement de la première visite au jour de la clôture",
+        "Aide à la pré-approbation hypothécaire et mise en relation",
+        "Connaissance approfondie des quartiers sur les marchés NJ & NY",
+      ],
+      sellerBenefits: [
+        "Analyse comparative de marché (CMA) gratuite",
+        "Photographie professionnelle et préparation de l’annonce",
+        "Tarification stratégique pour maximiser votre rendement",
+        "Expertise en négociation en votre nom",
+        "Coordination fluide de la mise en vente à la clôture",
+      ],
+      attribution: "Propulsé par Bright MLS · Annonces en direct mises à jour chaque jour",
+      imageAlt: "Maison à vendre dans le New Jersey",
     },
     management: {
       bannerLine1: "Nous nous occupons de tout",
       bannerLine2: "pour que vous n’ayez pas à le faire",
+      stats: [
+        { label: "Taux d’occupation", sub: "Sur l’ensemble des unités gérées" },
+        { label: "Unités gérées", sub: "Dans le NJ & NY" },
+        { label: "Années d’expérience", sub: "Sur les marchés NJ & NY" },
+        { label: "Entretien", sub: "Intervention d’urgence" },
+      ],
+      features: [
+        { title: "Sélection et placement des locataires", description: "Vérifications approfondies des antécédents, du crédit et des références afin de trouver des locataires fiables et durables." },
+        { title: "Encaissement et versement des loyers", description: "Encaissement automatisé des loyers avec dépôt direct sur votre compte, ainsi que l’application des pénalités de retard." },
+        { title: "Coordination de l’entretien 24/7", description: "Intervention d’urgence à toute heure et un réseau de confiance d’entrepreneurs licenciés." },
+        { title: "Rapports financiers mensuels", description: "États détaillés des revenus et dépenses, accès au portail propriétaire et documents fiscaux de fin d’année." },
+        { title: "Renouvellements de bail et soutien aux expulsions", description: "Gestion proactive du renouvellement des baux et accompagnement juridique complet lorsqu’une expulsion s’avère nécessaire." },
+        { title: "Inspections régulières des biens", description: "Inspections d’entrée, de sortie et périodiques planifiées, avec rapports photographiques détaillés." },
+      ],
+      imageAlt: "Immeuble de gestion immobilière",
     },
     about: {
       story: [
@@ -49,6 +80,7 @@ export const fr: DeepPartial<Translations> = {
         "Merci de nous avoir contactés. Un membre de l’équipe Rosalia Group vous recontactera le jour même.",
       sendAnother: "Envoyer un autre message",
       messagePlaceholder: "Dites-nous ce que vous recherchez…",
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "vous@email.com", phone: "(201) 555-1234" },
       options: {
         rentals: "Locations d’appartements",
         buying: "Achat d’une maison",
@@ -238,6 +270,8 @@ export const fr: DeepPartial<Translations> = {
     },
     intl: {
       tag: "Immobilier mondial",
+      heroAlt: "Villas de villégiature en bord de mer dans les Caraïbes",
+      interiorAlt: "Intérieur de villa de villégiature de luxe avec vue sur l’océan",
       heading1: "Annonces internationales",
       heading2: "& investissements de villégiature",
       intro: "Rosalia Group met en relation acheteurs et investisseurs avec des biens de prestige dans les Caraïbes, en Amérique latine, en Europe et en Asie-Pacifique — dont des villas de villégiature de luxe, des locations de vacances et des propriétés en bord de mer génératrices de revenus.",
@@ -286,6 +320,21 @@ export const fr: DeepPartial<Translations> = {
       lastUpdated: "Dernière mise à jour",
       controllingNotice:
         "La version anglaise est la version juridique qui fait foi. La politique détaillée ci-dessous est actuellement disponible en anglais.",
+    },
+    footer: {
+      services: [
+        "Locations d’appartements", "Acheter une maison", "Vendre une maison", "Gestion immobilière",
+        "Annonces internationales", "Investissements de villégiature", "Gestion d’actifs", "Acquisitions",
+      ],
+      internationalMarkets: "Marchés internationaux",
+    },
+    a11y: {
+      selectLanguage: "Choisir la langue",
+      toggleMenu: "Afficher/masquer le menu",
+      openChat: "Ouvrir la discussion",
+    },
+    chat: {
+      assistantTitle: "Assistant Rosalia",
     },
   },
 };

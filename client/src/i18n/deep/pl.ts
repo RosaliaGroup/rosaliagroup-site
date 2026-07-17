@@ -9,10 +9,41 @@ export const pl: DeepPartial<Translations> = {
     buySell: {
       mlsPowered: "Zasilane przez Bright MLS",
       mlsSub: "Tysiące aktywnych ofert w New Jersey i Nowym Jorku — aktualizowane codziennie.",
+      buyerBenefits: [
+        "Dostęp do aktualnych ofert Bright MLS aktualizowanych codziennie",
+        "Licencjonowani pośrednicy NJ i NY ze znajomością lokalnego rynku",
+        "Wsparcie od pierwszego pokazu po dzień finalizacji",
+        "Pomoc i rekomendacje w zakresie wstępnego zatwierdzenia kredytu",
+        "Wiedza o dzielnicach na rynkach NJ i NY",
+      ],
+      sellerBenefits: [
+        "Bezpłatna porównawcza analiza rynku (CMA)",
+        "Profesjonalna fotografia i przygotowanie oferty",
+        "Strategiczna wycena maksymalizująca Twój zysk",
+        "Ekspercka reprezentacja w negocjacjach w Twoim imieniu",
+        "Płynna koordynacja od wystawienia oferty po finalizację",
+      ],
+      attribution: "Zasilane przez Bright MLS · Aktualne oferty aktualizowane codziennie",
+      imageAlt: "Dom na sprzedaż w New Jersey",
     },
     management: {
       bannerLine1: "Zajmujemy się wszystkim",
       bannerLine2: "abyś Ty nie musiał",
+      stats: [
+        { label: "Wskaźnik zajętości", sub: "We wszystkich zarządzanych lokalach" },
+        { label: "Zarządzane lokale", sub: "W NJ i NY" },
+        { label: "Lata doświadczenia", sub: "Na rynkach NJ i NY" },
+        { label: "Konserwacja", sub: "Reagowanie w sytuacjach awaryjnych" },
+      ],
+      features: [
+        { title: "Weryfikacja i pozyskiwanie najemców", description: "Dokładna weryfikacja przeszłości, sprawdzenie historii kredytowej i referencji, aby znaleźć wiarygodnych, długoterminowych najemców." },
+        { title: "Pobór i wypłata czynszu", description: "Zautomatyzowany pobór czynszu z przelewem bezpośrednim na Twoje konto oraz egzekwowanie opłat za zwłokę." },
+        { title: "Koordynacja konserwacji 24/7", description: "Całodobowe reagowanie w sytuacjach awaryjnych i zaufana sieć licencjonowanych wykonawców." },
+        { title: "Miesięczne raportowanie finansowe", description: "Szczegółowe zestawienia przychodów i wydatków, dostęp do portalu właściciela oraz roczne dokumenty podatkowe." },
+        { title: "Odnowienia umów i wsparcie przy eksmisjach", description: "Proaktywne zarządzanie odnowieniami umów najmu i pełne wsparcie prawne, gdy eksmisja staje się konieczna." },
+        { title: "Regularne inspekcje nieruchomości", description: "Zaplanowane inspekcje przy wprowadzeniu, wyprowadzeniu oraz okresowe, ze szczegółowymi raportami fotograficznymi." },
+      ],
+      imageAlt: "Budynek zarządzania nieruchomościami",
     },
     about: {
       story: [
@@ -49,6 +80,7 @@ export const pl: DeepPartial<Translations> = {
         "Dziękujemy za kontakt. Członek zespołu Rosalia Group skontaktuje się z Tobą tego samego dnia.",
       sendAnother: "Wyślij kolejną wiadomość",
       messagePlaceholder: "Powiedz nam, czego szukasz…",
+      placeholders: { firstName: "Ana", lastName: "Haynes", email: "ty@email.com", phone: "(201) 555-1234" },
       options: {
         rentals: "Wynajem mieszkań",
         buying: "Kupno domu",
@@ -237,6 +269,8 @@ export const pl: DeepPartial<Translations> = {
       },
     },
     intl: {
+      heroAlt: "Nadmorskie wille w kurorcie na Karaibach",
+      interiorAlt: "Wnętrze luksusowej willi w kurorcie z widokiem na ocean",
       tag: "Globalne nieruchomości",
       heading1: "Oferty międzynarodowe",
       heading2: "i inwestycje wypoczynkowe",
@@ -286,6 +320,21 @@ export const pl: DeepPartial<Translations> = {
       lastUpdated: "Ostatnia aktualizacja",
       controllingNotice:
         "Wersja angielska jest wiążącą wersją prawną. Szczegółowa polityka poniżej jest obecnie dostępna w języku angielskim.",
+    },
+    footer: {
+      services: [
+        "Wynajem mieszkań", "Kupno domu", "Sprzedaż domu", "Zarządzanie nieruchomościami",
+        "Oferty międzynarodowe", "Inwestycje wypoczynkowe", "Zarządzanie aktywami", "Akwizycje",
+      ],
+      internationalMarkets: "Rynki międzynarodowe",
+    },
+    a11y: {
+      selectLanguage: "Wybierz język",
+      toggleMenu: "Przełącz menu",
+      openChat: "Otwórz czat",
+    },
+    chat: {
+      assistantTitle: "Asystent Rosalia",
     },
   },
 };
