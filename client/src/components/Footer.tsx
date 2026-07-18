@@ -169,16 +169,16 @@ export default function Footer() {
         </div>
         <div className="container mx-auto px-6 lg:px-8 max-w-7xl pb-4 -mt-2">
           <p className="text-[10px] leading-relaxed text-[oklch(0.38_0.01_80)]" style={{ fontFamily: "'Space Mono', monospace" }}>
-            Hero photograph — Newark skyline by King of Hearts, via{" "}
+            Newark skyline photographs, via{" "}
             <a
-              href="https://commons.wikimedia.org/wiki/File:Newark_October_2016_001.jpg"
+              href="https://commons.wikimedia.org/wiki/Category:Skyline_of_Newark,_New_Jersey"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-[oklch(0.55_0.13_38)] transition-colors"
             >
               Wikimedia Commons
             </a>
-            , licensed CC BY-SA 4.0.
+            : daytime by King of Hearts (CC BY-SA 4.0) and night by Jamaalcobbs (CC BY-SA 3.0).
           </p>
         </div>
       </div>
