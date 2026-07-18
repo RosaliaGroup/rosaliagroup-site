@@ -2,14 +2,14 @@
  * ROSALIA GROUP — Hero dynamic sky layer
  *
  * A permanent Newark skyline photograph sits behind this layer. This component
- * draws the DYNAMIC sky on top of it: a time-of-day colour tint, a horizon glow,
- * and a sun OR moon positioned from the *real* solar/lunar geometry over Newark,
- * NJ (America/New_York) at the current instant.
+ * draws the DYNAMIC sky on top of it: a time-of-day colour tint and a horizon
+ * glow, plus — AT NIGHT ONLY — a moon positioned from the *real* lunar geometry
+ * over Newark, NJ (America/New_York) at the current instant.
  *
- * - Sunrise: sun low on the eastern side, warm tone.
- * - Midday: sun high, neutral daylight.
- * - Sunset: sun low on the western side, golden tone.
- * - Night: sun hidden, dark-blue tint + subtle moon (if up) and faint stars.
+ * - Daytime (sunrise → midday → sunset, sun above the horizon): tint + a warm
+ *   horizon glow only. There is deliberately NO sun disc / orb.
+ * - Night (sun below the horizon): dark-blue tint + a subtle moon in the safe
+ *   open-sky band + faint stars. No moon is ever shown while the sun is up.
  *
  * Everything here is decorative: aria-hidden, pointer-events:none, and it always
  * renders behind the hero content (z-index), so it can never cover the headline,
@@ -21,7 +21,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { sunPosition, moonPosition, maxSunAltitude } from "@/lib/solar";
+import { sunPosition, moonPosition } from "@/lib/solar";
 import { getHeroNow, NEWARK } from "@/lib/heroTime";
 
 const DEG = Math.PI / 180;
@@ -37,8 +37,6 @@ const SUNRISE: RGB = [255, 150, 96];
 const GOLDEN: RGB = [255, 168, 74];
 const MIDDAY: RGB = [176, 202, 232];
 const NIGHT: RGB = [16, 26, 64];
-const SUN_WARM: RGB = [255, 158, 92];
-const SUN_HOT: RGB = [255, 249, 234];
 
 interface SkyState {
   phase: "sunrise" | "morning" | "midday" | "evening" | "sunset" | "night";
@@ -47,9 +45,6 @@ interface SkyState {
   horizonOpacity: number;
   horizonColor: string;
   horizonX: number;
-  sunVisible: boolean;
-  sunX: number; sunY: number; sunSize: number;
-  sunColor: string; sunGlow: string;
   moonVisible: boolean;
   moonX: number; moonY: number; moonOpacity: number;
   starOpacity: number;
@@ -59,7 +54,6 @@ function computeSky(date: Date, isMobile: boolean): SkyState {
   const sun = sunPosition(date, NEWARK.lat, NEWARK.lng);
   const altDeg = sun.altitude / DEG;
   const morning = sun.azimuth < 0; // eastern half of the sky
-  const maxAlt = maxSunAltitude(date, NEWARK.lat);
 
   // 0 in deep night → 1 in full day, with a smooth twilight band around the horizon
   const dayness = clamp((altDeg + 4) / 10, 0, 1);
@@ -83,21 +77,21 @@ function computeSky(date: Date, isMobile: boolean): SkyState {
   const scrim = lerp(0.52, 0.14, dayness);
   const navScrim = `linear-gradient(to bottom, rgba(247,246,241,${scrim.toFixed(3)}) 0%, rgba(247,246,241,${(scrim * 0.38).toFixed(3)}) 42%, rgba(0,0,0,0) 100%)`;
 
-  // sun position → screen fractions
+  // Horizon glow tracks the sun's azimuth (a soft sunrise / golden-hour wash near the
+  // horizon). There is deliberately NO sun disc: during the day the sky shows only the
+  // tint + this glow, never an orb over the skyline.
   const sunXFrac = clamp(0.5 + clamp(sun.azimuth, -Math.PI / 2, Math.PI / 2) / Math.PI, 0.08, 0.92);
-  const altNorm = clamp(sun.altitude / maxAlt, 0, 1);
-  const sunYFrac = 0.47 - altNorm * 0.34; // 0.47 at horizon → 0.13 at solar noon (upper band, clear of content)
-  const sunOpacity = clamp((altDeg + 0.5) / 5, 0, 1); // sinks behind the skyline as it sets
-  const sunColor = mix(SUN_WARM, SUN_HOT, dayHeight);
 
-  // Moon: shown whenever the sun is below the horizon (night). Uses Newark's real lunar
-  // position when the moon is above the horizon; otherwise a fallback upper-right spot so
-  // a moon is always visible at night. Clamped to the upper band so it never reaches the
-  // headline/stats, and it renders behind the navigation and hero content.
+  // Moon — NIGHT ONLY. Rendered strictly when the sun is below the horizon
+  // (sun.altitude < 0); there is no daytime / twilight fallback orb. Its preferred
+  // position is the real lunar altitude/azimuth over Newark; when the moon is up that
+  // position is clamped INTO a safe open-sky band (above the skyline, below the nav) so
+  // the disc never lands on a building. When the real moon is below the horizon but the
+  // sun is too (deep night), a safe in-band sky spot is used so a moon is still present.
   const moon = moonPosition(date, NEWARK.lat, NEWARK.lng);
   const moonAltDeg = moon.altitude / DEG;
   const moonUp = moonAltDeg > 0.5;
-  const moonVisible = altDeg < 0; // sun below the horizon
+  const moonVisible = sun.altitude < 0; // strictly night: sun below the horizon
   // Safe SKY band: strictly above the skyline (buildings sit lower in the frame) and
   // below the navigation. The moon's preferred position is computed from its real
   // altitude/azimuth, then clamped INTO this band so the disc never lands on a building.
@@ -123,11 +117,6 @@ function computeSky(date: Date, isMobile: boolean): SkyState {
     horizonOpacity: dayness * clamp(1 - altDeg / 16, 0, 1) * 0.9,
     horizonColor: rgba(horizonTone, 0.9),
     horizonX: sunXFrac,
-    sunVisible: sunOpacity > 0.02,
-    sunX: sunXFrac * 100, sunY: sunYFrac * 100,
-    sunSize: 5.5 - dayHeight * 1.6, // vmin; a touch larger near the horizon
-    sunColor: rgba(sunColor, sunOpacity),
-    sunGlow: rgba(sunColor, sunOpacity),
     moonVisible,
     moonX: moonXFrac * 100, moonY: moonYFrac * 100,
     moonOpacity: 0.96,
@@ -194,34 +183,9 @@ export default function HeroSky() {
         />
       )}
 
-      {/* sun */}
-      {sky.sunVisible && (
-        <>
-          {/* glow halo */}
-          <div
-            className="absolute -translate-x-1/2 -translate-y-1/2"
-            style={{
-              zIndex: 3, left: `${sky.sunX}%`, top: `${sky.sunY}%`,
-              width: "27vmin", height: "27vmin", mixBlendMode: "screen",
-              background: `radial-gradient(circle, ${sky.sunGlow} 0%, rgba(0,0,0,0) 62%)`,
-              transition: move,
-            }}
-          />
-          {/* disc */}
-          <div
-            className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
-            style={{
-              zIndex: 3, left: `${sky.sunX}%`, top: `${sky.sunY}%`,
-              width: `${sky.sunSize}vmin`, height: `${sky.sunSize}vmin`,
-              background: `radial-gradient(circle, ${sky.sunColor} 0%, ${sky.sunColor} 45%, rgba(0,0,0,0) 72%)`,
-              boxShadow: `0 0 6vmin ${sky.sunGlow}`, mixBlendMode: "screen",
-              transition: move,
-            }}
-          />
-        </>
-      )}
+      {/* No sun disc: the daytime sky is tint + horizon glow only, never an orb. */}
 
-      {/* moon (night) — clearly visible with a subtle glow; behind nav + content */}
+      {/* moon (night only) — clearly visible with a subtle glow; behind nav + content */}
       {sky.moonVisible && (
         <>
           {/* soft glow halo */}
