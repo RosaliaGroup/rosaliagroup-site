@@ -24,6 +24,18 @@ export default function ContactSection() {
     smsConsent: false,
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [submissionId, setSubmissionId] = useState<string | null>(null);
+  const honeypotRef = useRef<HTMLInputElement>(null);
+  // Synchronous in-flight guard: blocks duplicate sends from rapid double-clicks
+  // that fire before React re-renders the disabled state.
+  const inFlightRef = useRef(false);
+
+  // Clear, non-technical failure message (kept in-component so no translation
+  // files are touched); the entered data is preserved so the visitor can retry.
+  const ERROR_MESSAGE =
+    "Sorry — your message couldn't be sent just now. Your details below are saved; please try again in a moment, or email inquiries@rosaliagroup.com directly.";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,9 +53,47 @@ export default function ContactSection() {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (inFlightRef.current) return; // guard against double-clicks / duplicate sends
+    inFlightRef.current = true;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          interest: formData.interest,
+          message: formData.message,
+          smsConsent: formData.smsConsent,
+          company: honeypotRef.current?.value || "", // honeypot (must stay empty)
+          pageUrl: typeof window !== "undefined" ? window.location.href : "",
+        }),
+      });
+      let data: { ok?: boolean; id?: string } = {};
+      try {
+        data = await res.json();
+      } catch {
+        /* non-JSON / empty body → treated as failure below */
+      }
+      // Only show success on a confirmed 2xx + ok response from the server.
+      if (res.ok && data.ok) {
+        setSubmissionId(data.id ?? null);
+        setSubmitted(true);
+      } else {
+        setError(ERROR_MESSAGE);
+      }
+    } catch {
+      setError(ERROR_MESSAGE);
+    } finally {
+      setSubmitting(false);
+      inFlightRef.current = false;
+    }
   };
 
   const inputClass =
@@ -197,8 +247,29 @@ export default function ContactSection() {
                 <p className="text-[oklch(0.65_0.01_80)] text-sm max-w-sm">
                   {t.extra.contact.successBody}
                 </p>
+                {submissionId && (
+                  <p
+                    className="mt-4 text-xs text-[oklch(0.55_0.01_80)]"
+                    style={{ fontFamily: "'Space Mono', monospace", letterSpacing: "0.08em" }}
+                  >
+                    Reference: {submissionId}
+                  </p>
+                )}
                 <button
-                  onClick={() => setSubmitted(false)}
+                  onClick={() => {
+                    setSubmitted(false);
+                    setSubmissionId(null);
+                    setError(null);
+                    setFormData({
+                      firstName: "",
+                      lastName: "",
+                      email: "",
+                      phone: "",
+                      interest: "",
+                      message: "",
+                      smsConsent: false,
+                    });
+                  }}
                   className="mt-6 text-xs text-[oklch(0.55_0.13_38)] hover:text-white transition-colors"
                   style={{ fontFamily: "'Space Mono', monospace", letterSpacing: "0.1em" }}
                 >
@@ -307,14 +378,45 @@ export default function ContactSection() {
                   checkboxClassName="accent-[oklch(0.55_0.13_38)]"
                 />
 
+                {/* Honeypot — visually hidden, off-screen; real users never fill it.
+                    Bots that populate it are silently discarded server-side. */}
+                <div
+                  aria-hidden="true"
+                  style={{ position: "absolute", left: "-9999px", top: "auto", width: 1, height: 1, overflow: "hidden" }}
+                >
+                  <label>
+                    Company
+                    <input
+                      ref={honeypotRef}
+                      type="text"
+                      name="company"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      defaultValue=""
+                    />
+                  </label>
+                </div>
+
+                {/* Delivery error — shown only on a failed send; entered data is kept */}
+                {error && (
+                  <p
+                    role="alert"
+                    className="text-sm leading-relaxed text-[oklch(0.72_0.16_28)] border border-[oklch(0.50_0.14_28)] bg-[oklch(0.30_0.06_28)] px-4 py-3"
+                  >
+                    {error}
+                  </p>
+                )}
+
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="w-full bg-[oklch(0.55_0.13_38)] text-white py-4 text-xs tracking-widest uppercase hover:bg-[oklch(0.65_0.12_38)] transition-colors flex items-center justify-center gap-2"
+                  disabled={submitting}
+                  aria-busy={submitting}
+                  className="w-full bg-[oklch(0.55_0.13_38)] text-white py-4 text-xs tracking-widest uppercase hover:bg-[oklch(0.65_0.12_38)] transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   style={{ fontFamily: "'Space Mono', monospace" }}
                 >
                   <Send size={14} />
-                  {t.contact.sendBtn}
+                  {submitting ? "Sending…" : t.contact.sendBtn}
                 </button>
               </form>
             )}
