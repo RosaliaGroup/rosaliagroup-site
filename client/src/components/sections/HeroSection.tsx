@@ -72,13 +72,15 @@ export default function HeroSection() {
       {/* Dynamic sky: time-of-day tint + sun / moon over Newark (decorative) */}
       <HeroSky />
 
-      {/* Gradient Overlay (text readability) */}
+      {/* Localized bottom gradient behind the headline / stats / buttons (kept independent
+          of the sky tint so the copy stays readable at every time of day; fades out before
+          the top, where the sky and the adaptive nav scrim take over). */}
       <div
         className="absolute inset-0"
         style={{
           zIndex: 2,
           background:
-            "linear-gradient(to top, oklch(0.22 0.01 65 / 0.92) 0%, oklch(0.22 0.01 65 / 0.55) 50%, oklch(0.22 0.01 65 / 0.15) 100%)",
+            "linear-gradient(to top, oklch(0.19 0.01 65 / 0.95) 0%, oklch(0.19 0.01 65 / 0.60) 44%, rgba(0,0,0,0) 82%)",
         }}
       />
 

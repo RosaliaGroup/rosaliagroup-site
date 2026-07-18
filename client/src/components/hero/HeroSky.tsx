@@ -36,17 +36,17 @@ const rgba = (c: RGB, a: number) => `rgba(${Math.round(c[0])},${Math.round(c[1])
 const SUNRISE: RGB = [255, 150, 96];
 const GOLDEN: RGB = [255, 168, 74];
 const MIDDAY: RGB = [176, 202, 232];
-const NIGHT: RGB = [8, 14, 40];
+const NIGHT: RGB = [16, 26, 64];
 const SUN_WARM: RGB = [255, 158, 92];
 const SUN_HOT: RGB = [255, 249, 234];
 
 interface SkyState {
   phase: "sunrise" | "morning" | "midday" | "evening" | "sunset" | "night";
   tint: string;
+  navScrim: string;
   horizonOpacity: number;
   horizonColor: string;
   horizonX: number;
-  nightVeil: number;
   sunVisible: boolean;
   sunX: number; sunY: number; sunSize: number;
   sunColor: string; sunGlow: string;
@@ -78,14 +78,18 @@ function computeSky(date: Date): SkyState {
   const dayTint = mix(horizonTone, MIDDAY, dayHeight);
   const tintColor = mix(NIGHT, dayTint, dayness);
   // Daytime blue-sky base: midday stays light/neutral (low alpha), sunrise/sunset warm,
-  // night deep-blue but moderate so the buildings never disappear.
-  const alphaTop = lerp(0.74, lerp(0.40, 0.13, dayHeight), dayness);
-  const alphaMid = alphaTop * (dayness < 0.3 ? 0.5 : 0.45);
-  const fade = dayness < 0.3 ? "88%" : "76%";
-  const tint = `linear-gradient(to bottom, ${rgba(tintColor, alphaTop)} 0%, ${rgba(tintColor, alphaMid)} 46%, rgba(0,0,0,0) ${fade})`;
-  // A uniform low-alpha veil at night lowers overall brightness so the scene reads
-  // as night, while the brighter buildings keep their silhouette (they don't vanish).
-  const nightVeil = clamp((0.32 - dayness) / 0.32, 0, 1) * 0.5;
+  // night a MODERATE deep-blue that darkens the sky but keeps building detail. The tint
+  // is a top-weighted gradient (not a uniform full-screen darkener) so the skyline stays
+  // visible; contrast for the copy comes from the localized gradients in HeroSection.
+  const alphaTop = lerp(0.66, lerp(0.40, 0.13, dayHeight), dayness);
+  const alphaMid = alphaTop * (dayness < 0.3 ? 0.52 : 0.45);
+  const fade = dayness < 0.3 ? "90%" : "76%";
+  const tint = `linear-gradient(to bottom, ${rgba(tintColor, alphaTop)} 0%, ${rgba(tintColor, alphaMid)} 48%, rgba(0,0,0,0) ${fade})`;
+  // Adaptive top scrim behind the (dark) logo / nav / language selector: subtle by day,
+  // stronger at night so the dark navigation text keeps a readable light backdrop. Kept
+  // soft so it reads as sky glow rather than washing out the night.
+  const scrim = lerp(0.52, 0.14, dayness);
+  const navScrim = `linear-gradient(to bottom, rgba(247,246,241,${scrim.toFixed(3)}) 0%, rgba(247,246,241,${(scrim * 0.38).toFixed(3)}) 42%, rgba(0,0,0,0) 100%)`;
 
   // sun position → screen fractions
   const sunXFrac = clamp(0.5 + clamp(sun.azimuth, -Math.PI / 2, Math.PI / 2) / Math.PI, 0.08, 0.92);
@@ -94,12 +98,16 @@ function computeSky(date: Date): SkyState {
   const sunOpacity = clamp((altDeg + 0.5) / 5, 0, 1); // sinks behind the skyline as it sets
   const sunColor = mix(SUN_WARM, SUN_HOT, dayHeight);
 
-  // moon (only drawn when it is above the horizon and it is dark enough)
+  // Moon: shown whenever the sun is below the horizon (night). Uses Newark's real lunar
+  // position when the moon is above the horizon; otherwise a fallback upper-right spot so
+  // a moon is always visible at night. Clamped to the upper band so it never reaches the
+  // headline/stats, and it renders behind the navigation and hero content.
   const moon = moonPosition(date, NEWARK.lat, NEWARK.lng);
   const moonAltDeg = moon.altitude / DEG;
-  const moonVisible = dayness < 0.25 && moonAltDeg > 1.5;
-  const moonXFrac = clamp(0.5 + clamp(moon.azimuth, -Math.PI / 2, Math.PI / 2) / Math.PI, 0.08, 0.92);
-  const moonYFrac = 0.50 - clamp(moon.altitude / (58 * DEG), 0, 1) * 0.34;
+  const moonUp = moonAltDeg > 0.5;
+  const moonVisible = altDeg < 0; // sun below the horizon
+  const moonXFrac = moonUp ? clamp(0.5 + clamp(moon.azimuth, -Math.PI / 2, Math.PI / 2) / Math.PI, 0.12, 0.88) : 0.76;
+  const moonYFrac = clamp(moonUp ? 0.44 - clamp(moon.altitude / (58 * DEG), 0, 1) * 0.30 : 0.20, 0.13, 0.42);
 
   const phase: SkyState["phase"] =
     dayness < 0.15 ? "night"
@@ -110,7 +118,7 @@ function computeSky(date: Date): SkyState {
   return {
     phase,
     tint,
-    nightVeil,
+    navScrim,
     horizonOpacity: dayness * clamp(1 - altDeg / 16, 0, 1) * 0.9,
     horizonColor: rgba(horizonTone, 0.9),
     horizonX: sunXFrac,
@@ -121,7 +129,7 @@ function computeSky(date: Date): SkyState {
     sunGlow: rgba(sunColor, sunOpacity),
     moonVisible,
     moonX: moonXFrac * 100, moonY: moonYFrac * 100,
-    moonOpacity: clamp(moonAltDeg / 6, 0.4, 0.95),
+    moonOpacity: 0.96,
     starOpacity: clamp((0.18 - dayness) / 0.18, 0, 1) * 0.7,
   };
 }
@@ -150,10 +158,8 @@ export default function HeroSky() {
       {/* time-of-day colour tint */}
       <div className="absolute inset-0" style={{ zIndex: 1, background: sky.tint, transition: fade }} />
 
-      {/* uniform night veil (keeps buildings visible while darkening the scene) */}
-      {sky.nightVeil > 0.01 && (
-        <div className="absolute inset-0" style={{ zIndex: 1, background: "rgb(4,8,24)", opacity: sky.nightVeil, transition: fade }} />
-      )}
+      {/* adaptive top scrim — keeps the dark logo / nav / language selector readable */}
+      <div className="absolute inset-x-0 top-0" style={{ zIndex: 2, height: "27%", background: sky.navScrim, transition: fade }} />
 
       {/* horizon glow (sunrise / golden hour) */}
       <div
@@ -204,17 +210,31 @@ export default function HeroSky() {
         </>
       )}
 
-      {/* moon (night) */}
+      {/* moon (night) — clearly visible with a subtle glow; behind nav + content */}
       {sky.moonVisible && (
-        <div
-          className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{
-            zIndex: 3, left: `${sky.moonX}%`, top: `${sky.moonY}%`,
-            width: "4.4vmin", height: "4.4vmin", opacity: sky.moonOpacity,
-            background: "radial-gradient(circle at 38% 38%, #f4f5fb 0%, #d9deec 55%, #aeb6cc 100%)",
-            boxShadow: "0 0 5vmin rgba(200,215,255,0.45)", transition: move,
-          }}
-        />
+        <>
+          {/* soft glow halo */}
+          <div
+            className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              zIndex: 3, left: `${sky.moonX}%`, top: `${sky.moonY}%`,
+              width: "22vmin", height: "22vmin", mixBlendMode: "screen",
+              background: "radial-gradient(circle, rgba(210,224,255,0.5) 0%, rgba(0,0,0,0) 62%)",
+              transition: move,
+            }}
+          />
+          {/* moon disc */}
+          <div
+            className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              zIndex: 3, left: `${sky.moonX}%`, top: `${sky.moonY}%`,
+              width: "6vmin", height: "6vmin", opacity: sky.moonOpacity,
+              background: "radial-gradient(circle at 37% 35%, #f8f9ff 0%, #e2e7f5 52%, #bcc4da 100%)",
+              boxShadow: "0 0 4vmin rgba(205,220,255,0.65), inset -0.6vmin -0.6vmin 1.5vmin rgba(120,132,168,0.4)",
+              transition: move,
+            }}
+          />
+        </>
       )}
     </div>
   );
