@@ -10,8 +10,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowDown } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663360032476/guxaFoxGN7JgksYjUwZfPH/hero-nj-skyline-MatPo4oVRgYqtAuM5BrK42.webp";
+import HeroSky from "@/components/hero/HeroSky";
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -43,16 +42,36 @@ export default function HeroSection() {
     <section
       ref={heroRef}
       className="relative min-h-screen flex flex-col justify-end overflow-hidden"
-      style={{
-        backgroundImage: `url(${HERO_IMAGE})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center 30%",
-      }}
+      style={{ isolation: "isolate", backgroundColor: "oklch(0.22 0.01 65)" }}
     >
-      {/* Gradient Overlay */}
+      {/* Permanent Newark skyline photograph (responsive) */}
+      <picture>
+        <source
+          type="image/webp"
+          srcSet="/hero/newark-skyline-640.webp 640w, /hero/newark-skyline-960.webp 960w, /hero/newark-skyline-1290.webp 1290w"
+          sizes="100vw"
+        />
+        <img
+          src="/hero/newark-skyline-1290.jpg"
+          srcSet="/hero/newark-skyline-640.jpg 640w, /hero/newark-skyline-960.jpg 960w, /hero/newark-skyline-1290.jpg 1290w"
+          sizes="100vw"
+          alt="The downtown Newark, New Jersey skyline"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ zIndex: 0, objectPosition: "center 42%" }}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
+      </picture>
+
+      {/* Dynamic sky: time-of-day tint + sun / moon over Newark (decorative) */}
+      <HeroSky />
+
+      {/* Gradient Overlay (text readability) */}
       <div
         className="absolute inset-0"
         style={{
+          zIndex: 2,
           background:
             "linear-gradient(to top, oklch(0.22 0.01 65 / 0.92) 0%, oklch(0.22 0.01 65 / 0.55) 50%, oklch(0.22 0.01 65 / 0.15) 100%)",
         }}
