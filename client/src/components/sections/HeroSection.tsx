@@ -44,20 +44,25 @@ export default function HeroSection() {
       className="relative min-h-screen flex flex-col justify-end overflow-hidden"
       style={{ isolation: "isolate", backgroundColor: "oklch(0.22 0.01 65)" }}
     >
-      {/* Permanent Newark skyline photograph (responsive) */}
+      {/* Permanent daytime Newark skyline photograph (responsive AVIF/WebP/JPEG) */}
       <picture>
         <source
+          type="image/avif"
+          srcSet="/hero/newark-day-640.avif 640w, /hero/newark-day-1024.avif 1024w, /hero/newark-day-1600.avif 1600w, /hero/newark-day-2400.avif 2400w"
+          sizes="100vw"
+        />
+        <source
           type="image/webp"
-          srcSet="/hero/newark-skyline-640.webp 640w, /hero/newark-skyline-960.webp 960w, /hero/newark-skyline-1290.webp 1290w"
+          srcSet="/hero/newark-day-640.webp 640w, /hero/newark-day-1024.webp 1024w, /hero/newark-day-1600.webp 1600w, /hero/newark-day-2400.webp 2400w"
           sizes="100vw"
         />
         <img
-          src="/hero/newark-skyline-1290.jpg"
-          srcSet="/hero/newark-skyline-640.jpg 640w, /hero/newark-skyline-960.jpg 960w, /hero/newark-skyline-1290.jpg 1290w"
+          src="/hero/newark-day-2400.jpg"
+          srcSet="/hero/newark-day-640.jpg 640w, /hero/newark-day-1024.jpg 1024w, /hero/newark-day-1600.jpg 1600w, /hero/newark-day-2400.jpg 2400w"
           sizes="100vw"
-          alt="The downtown Newark, New Jersey skyline"
+          alt="The Newark, New Jersey skyline across the Passaic River"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ zIndex: 0, objectPosition: "center 42%" }}
+          style={{ zIndex: 0, objectPosition: "center 38%" }}
           loading="eager"
           fetchPriority="high"
           decoding="async"

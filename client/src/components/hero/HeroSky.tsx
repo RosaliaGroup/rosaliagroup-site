@@ -46,6 +46,7 @@ interface SkyState {
   horizonOpacity: number;
   horizonColor: string;
   horizonX: number;
+  nightVeil: number;
   sunVisible: boolean;
   sunX: number; sunY: number; sunSize: number;
   sunColor: string; sunGlow: string;
@@ -76,10 +77,15 @@ function computeSky(date: Date): SkyState {
   const horizonTone = morning ? SUNRISE : GOLDEN;
   const dayTint = mix(horizonTone, MIDDAY, dayHeight);
   const tintColor = mix(NIGHT, dayTint, dayness);
-  const alphaTop = lerp(0.82, lerp(0.42, 0.22, dayHeight), dayness); // much stronger at night to override the golden base photo
-  const alphaMid = alphaTop * (dayness < 0.3 ? 0.85 : 0.5);
-  const fade = dayness < 0.3 ? "94%" : "78%";
+  // Daytime blue-sky base: midday stays light/neutral (low alpha), sunrise/sunset warm,
+  // night deep-blue but moderate so the buildings never disappear.
+  const alphaTop = lerp(0.74, lerp(0.40, 0.13, dayHeight), dayness);
+  const alphaMid = alphaTop * (dayness < 0.3 ? 0.5 : 0.45);
+  const fade = dayness < 0.3 ? "88%" : "76%";
   const tint = `linear-gradient(to bottom, ${rgba(tintColor, alphaTop)} 0%, ${rgba(tintColor, alphaMid)} 46%, rgba(0,0,0,0) ${fade})`;
+  // A uniform low-alpha veil at night lowers overall brightness so the scene reads
+  // as night, while the brighter buildings keep their silhouette (they don't vanish).
+  const nightVeil = clamp((0.32 - dayness) / 0.32, 0, 1) * 0.5;
 
   // sun position → screen fractions
   const sunXFrac = clamp(0.5 + clamp(sun.azimuth, -Math.PI / 2, Math.PI / 2) / Math.PI, 0.08, 0.92);
@@ -104,6 +110,7 @@ function computeSky(date: Date): SkyState {
   return {
     phase,
     tint,
+    nightVeil,
     horizonOpacity: dayness * clamp(1 - altDeg / 16, 0, 1) * 0.9,
     horizonColor: rgba(horizonTone, 0.9),
     horizonX: sunXFrac,
@@ -142,6 +149,11 @@ export default function HeroSky() {
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden" data-sky-phase={sky.phase}>
       {/* time-of-day colour tint */}
       <div className="absolute inset-0" style={{ zIndex: 1, background: sky.tint, transition: fade }} />
+
+      {/* uniform night veil (keeps buildings visible while darkening the scene) */}
+      {sky.nightVeil > 0.01 && (
+        <div className="absolute inset-0" style={{ zIndex: 1, background: "rgb(4,8,24)", opacity: sky.nightVeil, transition: fade }} />
+      )}
 
       {/* horizon glow (sunrise / golden hour) */}
       <div
