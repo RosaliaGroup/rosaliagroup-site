@@ -6,16 +6,20 @@
  * the dedicated endpoint file client/public/__forms.html (both parsed by Netlify
  * at build time to register the "contact" and "chatbot-lead" forms).
  *
- * The React forms submit via a urlencoded AJAX POST to "/__forms.html" — a REAL
- * static file. This is deliberate: a POST to "/" races with the SPA catch-all
- * rewrite ("/*" -> "/index.html"), so it non-deterministically returns 404 and
- * silently drops submissions. Posting to a real file is not subject to that
- * rewrite, so Netlify's form handler processes it reliably.
+ * The React forms submit via a urlencoded AJAX POST to "/". This is the only
+ * endpoint a *browser* can post a Netlify form to on this site: Netlify returns
+ * 404 for browser POSTs to real static files (e.g. /__forms.html) — those only
+ * work from non-browser clients like curl — so "/" is required. The __forms.html
+ * file exists as a second detection source and a clean form-success page.
+ *
+ * Reliability note: right after a deploy, form registration takes a short time
+ * to propagate across Netlify's edge; POSTs during that window can 404 and be
+ * silently dropped. Once propagated, "/" is reliable.
  *
  * IMPORTANT: a 2xx here means Netlify accepted the POST — it is NOT on its own
- * proof that the submission was stored (dashboard confirmation is the source of
- * truth). Callers still gate the success UI on `ok`, but final verification must
- * be that the entry appears in the Netlify Forms dashboard. Email notifications
+ * proof that the submission was stored. The source of truth is the entry
+ * appearing in the Netlify Forms dashboard. Callers still gate the success UI on
+ * `ok`, but final verification must be dashboard-confirmed. Email notifications
  * are configured separately in the dashboard.
  */
 
@@ -32,7 +36,7 @@ export async function submitToNetlifyForms(
   fields: Record<string, string>,
 ): Promise<{ ok: boolean; status: number }> {
   const body = new URLSearchParams({ "form-name": formName, ...fields }).toString();
-  const res = await fetch("/__forms.html", {
+  const res = await fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body,
