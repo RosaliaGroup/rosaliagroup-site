@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { getTranslation } from "@/lib/chatTranslations";
 import SmsConsent from "@/components/SmsConsent";
+import { submitToNetlifyForms, genReferenceId } from "@/lib/netlifyForms";
 
 /* ─── Types ─────────────────────────────────────────────────────────── */
 interface Message {
@@ -219,6 +220,10 @@ const EMPTY_FORM: LeadForm = {
   firstName: "", lastName: "", email: "", phone: "", message: "", smsConsent: false,
 };
 
+// Kept in-component (English) so no translation files are changed; the entered
+// data is preserved on failure so the visitor can retry.
+const LEAD_ERROR = "Sorry — we couldn't submit that just now. Your details are kept; please try again.";
+
 /* ─── Component ─────────────────────────────────────────────────────── */
 export default function ChatBot() {
   const [isOpen, setIsOpen]             = useState(false);
@@ -231,6 +236,10 @@ export default function ChatBot() {
   const [form, setForm]                 = useState<LeadForm>(EMPTY_FORM);
   const [formErrors, setFormErrors]     = useState<Partial<LeadForm>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [leadError, setLeadError]       = useState<string | null>(null);
+  const [leadRef, setLeadRef]           = useState<string | null>(null);
+  const leadInFlightRef                 = useRef(false);
+  const leadHoneypotRef                 = useRef<HTMLInputElement>(null);
   const { lang: globalLang, t: siteT } = useLanguage();
   const [language, setLanguage]         = useState<string>(() => globalLang || detectBrowserLanguage());
   const [showLangMenu, setShowLangMenu] = useState(false);
@@ -338,10 +347,40 @@ export default function ChatBot() {
   async function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!validateForm()) return;
+    if (leadInFlightRef.current) return; // guard against double/triple clicks
+    leadInFlightRef.current = true;
     setIsSubmitting(true);
-    await new Promise(r => setTimeout(r, 900));
-    setIsSubmitting(false);
-    setView("confirm");
+    setLeadError(null);
+    const referenceId = genReferenceId();
+    try {
+      // Separate submission to Netlify Forms — does NOT touch the /api/chat flow.
+      const { ok } = await submitToNetlifyForms("chatbot-lead", {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        phone: form.phone,
+        message: form.message,
+        smsConsent: form.smsConsent ? "Yes" : "No",
+        service: selectedService ?? "",
+        referenceId,
+        pageUrl: typeof window !== "undefined" ? window.location.href : "",
+        submittedAt: new Date().toISOString(),
+        language,
+        "bot-field": leadHoneypotRef.current?.value || "", // honeypot (stay empty)
+      });
+      // Only confirm once Netlify has accepted the submission (2xx).
+      if (ok) {
+        setLeadRef(referenceId);
+        setView("confirm");
+      } else {
+        setLeadError(LEAD_ERROR);
+      }
+    } catch {
+      setLeadError(LEAD_ERROR);
+    } finally {
+      setIsSubmitting(false);
+      leadInFlightRef.current = false;
+    }
   }
 
   function resetChat() {
@@ -351,6 +390,8 @@ export default function ChatBot() {
     setInput("");
     setForm(EMPTY_FORM);
     setFormErrors({});
+    setLeadError(null);
+    setLeadRef(null);
   }
 
   /* ── Render ── */
@@ -613,10 +654,19 @@ export default function ChatBot() {
                 linkClassName="text-[oklch(0.55_0.13_38)] underline underline-offset-2 hover:text-[oklch(0.35_0.01_65)] transition-colors"
                 checkboxClassName="accent-[oklch(0.55_0.13_38)]"
               />
+              {/* Honeypot — off-screen; bots that fill it are dropped by Netlify */}
+              <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
+                <label>Company<input ref={leadHoneypotRef} type="text" name="bot-field" tabIndex={-1} autoComplete="off" defaultValue="" /></label>
+              </div>
+              {leadError && (
+                <p role="alert" className="text-[10px] leading-relaxed text-red-600 border border-red-300 bg-red-50 px-2.5 py-2">
+                  {leadError}
+                </p>
+              )}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-2.5 text-xs text-white font-semibold tracking-widest uppercase transition-opacity hover:opacity-90 disabled:opacity-60 flex items-center justify-center gap-2"
+                className="w-full py-2.5 text-xs text-white font-semibold tracking-widest uppercase transition-opacity hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 style={{ background: "oklch(0.55 0.13 38)", fontFamily: "'Space Mono', monospace" }}
               >
                 {isSubmitting ? <><Loader2 size={12} className="animate-spin" /> Sending...</> : t.sendInquiry}
@@ -637,6 +687,11 @@ export default function ChatBot() {
                 <p className="text-xs text-[oklch(0.50_0.01_65)] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {t.thankYou}, {form.firstName}. {t.teamInTouch}
                 </p>
+                {leadRef && (
+                  <p className="text-[10px] text-[oklch(0.55_0.01_65)] mt-1.5" style={{ fontFamily: "'Space Mono', monospace", letterSpacing: "0.06em" }}>
+                    Reference: {leadRef}
+                  </p>
+                )}
               </div>
               <div className="w-full space-y-2 text-xs text-[oklch(0.45_0.01_65)]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                 <div className="flex items-center gap-2 justify-center"><Phone size={11} /> (862) 333-1681</div>

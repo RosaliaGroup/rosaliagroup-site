@@ -10,10 +10,11 @@ import { useEffect, useRef, useState } from "react";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SmsConsent from "@/components/SmsConsent";
+import { submitToNetlifyForms, genReferenceId } from "@/lib/netlifyForms";
 
 export default function ContactSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -59,31 +60,25 @@ export default function ContactSection() {
     inFlightRef.current = true;
     setSubmitting(true);
     setError(null);
+    const referenceId = genReferenceId();
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          phone: formData.phone,
-          interest: formData.interest,
-          message: formData.message,
-          smsConsent: formData.smsConsent,
-          company: honeypotRef.current?.value || "", // honeypot (must stay empty)
-          pageUrl: typeof window !== "undefined" ? window.location.href : "",
-        }),
+      const { ok } = await submitToNetlifyForms("contact", {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        interest: formData.interest,
+        message: formData.message,
+        smsConsent: formData.smsConsent ? "Yes" : "No",
+        referenceId,
+        pageUrl: typeof window !== "undefined" ? window.location.href : "",
+        submittedAt: new Date().toISOString(),
+        language: lang,
+        "bot-field": honeypotRef.current?.value || "", // honeypot (must stay empty)
       });
-      let data: { ok?: boolean; id?: string } = {};
-      try {
-        data = await res.json();
-      } catch {
-        /* non-JSON / empty body → treated as failure below */
-      }
-      // Only show success on a confirmed 2xx + ok response from the server.
-      if (res.ok && data.ok) {
-        setSubmissionId(data.id ?? null);
+      // Only show success on a confirmed 2xx from Netlify Forms.
+      if (ok) {
+        setSubmissionId(referenceId);
         setSubmitted(true);
       } else {
         setError(ERROR_MESSAGE);
@@ -385,11 +380,11 @@ export default function ContactSection() {
                   style={{ position: "absolute", left: "-9999px", top: "auto", width: 1, height: 1, overflow: "hidden" }}
                 >
                   <label>
-                    Company
+                    Do not fill this out if you are human
                     <input
                       ref={honeypotRef}
                       type="text"
-                      name="company"
+                      name="bot-field"
                       tabIndex={-1}
                       autoComplete="off"
                       defaultValue=""
