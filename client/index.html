@@ -13,6 +13,46 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!--
+      Netlify Forms detection (hidden, non-interactive). This is a client-rendered
+      SPA, so Netlify's build parser can't see the real forms in the app bundle.
+      These static forms live in index.html (always parsed at build) so Netlify
+      registers "contact" and "chatbot-lead"; the React components submit to them
+      by name via AJAX. Every field the app sends is declared here or Netlify
+      drops it. "bot-field" is the honeypot.
+    -->
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" style="display:none" aria-hidden="true">
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="interest" />
+      <textarea name="message"></textarea>
+      <input type="text" name="smsConsent" />
+      <input type="text" name="referenceId" />
+      <input type="text" name="pageUrl" />
+      <input type="text" name="submittedAt" />
+      <input type="text" name="language" />
+      <input type="text" name="bot-field" />
+    </form>
+    <form name="chatbot-lead" data-netlify="true" netlify-honeypot="bot-field" style="display:none" aria-hidden="true">
+      <input type="hidden" name="form-name" value="chatbot-lead" />
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <textarea name="message"></textarea>
+      <input type="text" name="smsConsent" />
+      <input type="text" name="service" />
+      <input type="text" name="referenceId" />
+      <input type="text" name="pageUrl" />
+      <input type="text" name="submittedAt" />
+      <input type="text" name="language" />
+      <input type="text" name="bot-field" />
+    </form>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

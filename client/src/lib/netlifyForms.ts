@@ -2,12 +2,12 @@
  * Netlify Forms client helper.
  *
  * The site is a client-rendered SPA, so Netlify cannot detect the real forms in
- * the built app HTML. Hidden static forms are declared in
- * client/public/__forms.html (parsed by Netlify at build time to register the
- * "contact" and "chatbot-lead" forms). The React forms submit to them here via
- * a urlencoded AJAX POST to that static path — which is a real file, so it is
- * not swallowed by the SPA catch-all rewrite. Callers gate success on `ok`
- * (a confirmed 2xx from Netlify's form handler).
+ * the app bundle. Hidden static forms are declared in client/index.html (parsed
+ * by Netlify at build time to register the "contact" and "chatbot-lead" forms).
+ * The React forms submit to them here via a urlencoded AJAX POST to "/", which
+ * Netlify's form handler intercepts by matching `form-name` (it returns 404 for
+ * an unregistered form, so an un-detected form can never show a false success).
+ * Callers gate success on `ok` (a confirmed 2xx from Netlify's form handler).
  *
  * Note: a 2xx means Netlify accepted and stored the submission. It does NOT by
  * itself mean an email notification was delivered — notifications are configured
@@ -27,7 +27,7 @@ export async function submitToNetlifyForms(
   fields: Record<string, string>,
 ): Promise<{ ok: boolean; status: number }> {
   const body = new URLSearchParams({ "form-name": formName, ...fields }).toString();
-  const res = await fetch("/__forms.html", {
+  const res = await fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body,
