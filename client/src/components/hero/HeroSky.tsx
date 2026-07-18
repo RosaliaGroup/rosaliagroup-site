@@ -22,8 +22,8 @@
 
 import { useEffect, useState } from "react";
 import { sunPosition, moonPosition, maxSunAltitude } from "@/lib/solar";
+import { getHeroNow, NEWARK } from "@/lib/heroTime";
 
-const NEWARK = { lat: 40.7357, lng: -74.1724 };
 const DEG = Math.PI / 180;
 
 type RGB = [number, number, number];
@@ -55,15 +55,7 @@ interface SkyState {
   starOpacity: number;
 }
 
-function getNow(): Date {
-  try {
-    const p = new URLSearchParams(window.location.search).get("skyTime");
-    if (p) { const d = new Date(p); if (!isNaN(d.valueOf())) return d; }
-  } catch { /* ignore */ }
-  return new Date();
-}
-
-function computeSky(date: Date): SkyState {
+function computeSky(date: Date, isMobile: boolean): SkyState {
   const sun = sunPosition(date, NEWARK.lat, NEWARK.lng);
   const altDeg = sun.altitude / DEG;
   const morning = sun.azimuth < 0; // eastern half of the sky
@@ -106,8 +98,17 @@ function computeSky(date: Date): SkyState {
   const moonAltDeg = moon.altitude / DEG;
   const moonUp = moonAltDeg > 0.5;
   const moonVisible = altDeg < 0; // sun below the horizon
-  const moonXFrac = moonUp ? clamp(0.5 + clamp(moon.azimuth, -Math.PI / 2, Math.PI / 2) / Math.PI, 0.12, 0.88) : 0.76;
-  const moonYFrac = clamp(moonUp ? 0.44 - clamp(moon.altitude / (58 * DEG), 0, 1) * 0.30 : 0.20, 0.13, 0.42);
+  // Safe SKY band: strictly above the skyline (buildings sit lower in the frame) and
+  // below the navigation. The moon's preferred position is computed from its real
+  // altitude/azimuth, then clamped INTO this band so the disc never lands on a building.
+  // The mobile crop frames the skyline tighter, so the buildings rise higher in the
+  // viewport — keep the mobile band shallower so the moon stays in the clear sky above
+  // the rooftops (desktop has more open sky and can sit a little lower).
+  const skyTop = isMobile ? 0.10 : 0.09;
+  const skyBot = isMobile ? 0.19 : 0.25;
+  const moonXFrac = moonUp ? clamp(0.5 + clamp(moon.azimuth, -Math.PI / 2, Math.PI / 2) / Math.PI, 0.14, 0.86) : (isMobile ? 0.72 : 0.76);
+  const preferredMoonY = moonUp ? skyBot - clamp(moon.altitude / (58 * DEG), 0, 1) * (skyBot - skyTop) : (skyTop + skyBot) / 2;
+  const moonYFrac = clamp(preferredMoonY, skyTop, skyBot);
 
   const phase: SkyState["phase"] =
     dayness < 0.15 ? "night"
@@ -134,20 +135,27 @@ function computeSky(date: Date): SkyState {
   };
 }
 
+const isMobileView = () => {
+  try { return window.matchMedia("(max-width: 640px)").matches; } catch { return false; }
+};
+
 export default function HeroSky() {
-  const [sky, setSky] = useState<SkyState>(() => computeSky(getNow()));
+  const [sky, setSky] = useState<SkyState>(() => computeSky(getHeroNow(), isMobileView()));
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => setReduced(mq.matches);
+    const rm = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mob = window.matchMedia("(max-width: 640px)");
+    const apply = () => setReduced(rm.matches);
     apply();
-    mq.addEventListener("change", apply);
-    // recompute every minute so the sun drifts across the day
-    const tick = () => setSky(computeSky(getNow()));
+    rm.addEventListener("change", apply);
+    // recompute every minute (sun/moon drift) and whenever the viewport crosses the
+    // mobile breakpoint (the moon safe-zone is responsive).
+    const tick = () => setSky(computeSky(getHeroNow(), mob.matches));
     tick();
+    mob.addEventListener("change", tick);
     const id = window.setInterval(tick, 60_000);
-    return () => { window.clearInterval(id); mq.removeEventListener("change", apply); };
+    return () => { window.clearInterval(id); rm.removeEventListener("change", apply); mob.removeEventListener("change", tick); };
   }, []);
 
   const move = reduced ? "none" : "left 4s ease, top 4s ease, opacity 4s ease";
@@ -171,14 +179,17 @@ export default function HeroSky() {
         }}
       />
 
-      {/* stars (subtle, night only) */}
+      {/* stars — subtle, night only, confined to the OPEN SKY above the skyline (the
+          gradient mask fades them out before the building line so none sit on a building) */}
       {sky.starOpacity > 0.02 && (
         <div
           className="absolute inset-x-0 top-0"
           style={{
-            zIndex: 3, height: "55%", opacity: sky.starOpacity, transition: fade,
+            zIndex: 3, height: "30%", opacity: sky.starOpacity, transition: fade,
+            WebkitMaskImage: "linear-gradient(to bottom, #000 0%, #000 60%, rgba(0,0,0,0) 100%)",
+            maskImage: "linear-gradient(to bottom, #000 0%, #000 60%, rgba(0,0,0,0) 100%)",
             backgroundImage:
-              "radial-gradient(1.2px 1.2px at 18% 22%, #fff, transparent), radial-gradient(1px 1px at 62% 15%, #fff, transparent), radial-gradient(1.4px 1.4px at 82% 30%, #fff, transparent), radial-gradient(1px 1px at 40% 38%, #fff, transparent), radial-gradient(1px 1px at 73% 44%, #fff, transparent), radial-gradient(1.2px 1.2px at 30% 12%, #fff, transparent)",
+              "radial-gradient(1.2px 1.2px at 12% 30%, #fff, transparent), radial-gradient(1px 1px at 28% 62%, #fff, transparent), radial-gradient(1.3px 1.3px at 46% 22%, #fff, transparent), radial-gradient(1px 1px at 63% 48%, #fff, transparent), radial-gradient(1.4px 1.4px at 78% 34%, #fff, transparent), radial-gradient(1px 1px at 90% 56%, #fff, transparent), radial-gradient(1px 1px at 55% 70%, #fff, transparent), radial-gradient(1.1px 1.1px at 36% 44%, #fff, transparent)",
           }}
         />
       )}
@@ -218,7 +229,7 @@ export default function HeroSky() {
             className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{
               zIndex: 3, left: `${sky.moonX}%`, top: `${sky.moonY}%`,
-              width: "22vmin", height: "22vmin", mixBlendMode: "screen",
+              width: "18vmin", height: "18vmin", mixBlendMode: "screen",
               background: "radial-gradient(circle, rgba(210,224,255,0.5) 0%, rgba(0,0,0,0) 62%)",
               transition: move,
             }}
