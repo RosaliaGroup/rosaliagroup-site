@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Form endpoint</title>
+  </head>
+  <body>
+    <!--
+      Dedicated Netlify Forms submission endpoint. This is a REAL static file, so
+      a POST to /__forms.html is served/handled directly by Netlify and is NOT
+      subject to the SPA catch-all rewrite ("/*" -> "/index.html") that races with
+      form handling on a POST to "/". The React app AJAX-POSTs here by form name.
+      These forms also serve as a detection source (in addition to index.html).
+      Every field the app submits is declared here or Netlify drops it.
+      "bot-field" is the honeypot.
+    -->
+    <form name="contact" action="/__forms.html" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="interest" />
+      <textarea name="message"></textarea>
+      <input type="text" name="smsConsent" />
+      <input type="text" name="referenceId" />
+      <input type="text" name="pageUrl" />
+      <input type="text" name="submittedAt" />
+      <input type="text" name="language" />
+      <input type="text" name="bot-field" />
+    </form>
+    <form name="chatbot-lead" action="/__forms.html" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="chatbot-lead" />
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <textarea name="message"></textarea>
+      <input type="text" name="smsConsent" />
+      <input type="text" name="service" />
+      <input type="text" name="referenceId" />
+      <input type="text" name="pageUrl" />
+      <input type="text" name="submittedAt" />
+      <input type="text" name="language" />
+      <input type="text" name="bot-field" />
+    </form>
+  </body>
+</html>

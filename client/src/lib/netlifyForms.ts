@@ -2,17 +2,25 @@
  * Netlify Forms client helper.
  *
  * The site is a client-rendered SPA, so Netlify cannot detect the real forms in
- * the app bundle. Hidden static forms are declared in client/index.html (parsed
- * by Netlify at build time to register the "contact" and "chatbot-lead" forms).
- * The React forms submit to them here via a urlencoded AJAX POST to "/". In the
- * browser Netlify's form handler intercepts a same-origin POST to "/" by
- * matching `form-name` and returns 200 when the form is registered, or 404 when
- * it is not (so an un-detected form can never show a false success). Callers
- * gate success on `ok` (a confirmed 2xx).
+ * the app bundle. Hidden static forms are declared in client/index.html and in
+ * the dedicated endpoint file client/public/__forms.html (both parsed by Netlify
+ * at build time to register the "contact" and "chatbot-lead" forms).
  *
- * Note: a 2xx means Netlify accepted and stored the submission. It does NOT by
- * itself mean an email notification was delivered — notifications are configured
- * separately in the Netlify dashboard.
+ * The React forms submit via a urlencoded AJAX POST to "/". This is the only
+ * endpoint a *browser* can post a Netlify form to on this site: Netlify returns
+ * 404 for browser POSTs to real static files (e.g. /__forms.html) — those only
+ * work from non-browser clients like curl — so "/" is required. The __forms.html
+ * file exists as a second detection source and a clean form-success page.
+ *
+ * Reliability note: right after a deploy, form registration takes a short time
+ * to propagate across Netlify's edge; POSTs during that window can 404 and be
+ * silently dropped. Once propagated, "/" is reliable.
+ *
+ * IMPORTANT: a 2xx here means Netlify accepted the POST — it is NOT on its own
+ * proof that the submission was stored. The source of truth is the entry
+ * appearing in the Netlify Forms dashboard. Callers still gate the success UI on
+ * `ok`, but final verification must be dashboard-confirmed. Email notifications
+ * are configured separately in the dashboard.
  */
 
 // Client-side reference ID shown to the visitor and stored with the submission.
