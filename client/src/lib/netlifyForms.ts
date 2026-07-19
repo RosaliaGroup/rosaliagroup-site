@@ -2,15 +2,16 @@
  * Netlify Forms client helper.
  *
  * The site is a client-rendered SPA, so Netlify cannot detect the real forms in
- * the app bundle. Hidden static forms are declared in client/index.html and in
- * the dedicated endpoint file client/public/__forms.html (both parsed by Netlify
- * at build time to register the "contact" and "chatbot-lead" forms).
+ * the app bundle. Hidden static forms are declared ONCE, in client/index.html
+ * (served at "/"), and Netlify parses them at build time to register the
+ * "contact" and "chatbot-lead" forms — both with the submission endpoint "/".
  *
  * The React forms submit via a urlencoded AJAX POST to "/". This is the only
- * endpoint a *browser* can post a Netlify form to on this site: Netlify returns
- * 404 for browser POSTs to real static files (e.g. /__forms.html) — those only
- * work from non-browser clients like curl — so "/" is required. The __forms.html
- * file exists as a second detection source and a clean form-success page.
+ * endpoint a *browser* can post a Netlify form to on this site (Netlify returns
+ * 404 for browser POSTs to real static files). Declaring the forms in a SECOND
+ * file with a different action (e.g. a dedicated /__forms.html) must be avoided:
+ * Netlify then registers a form's endpoint nondeterministically, and a form that
+ * lands on the other path becomes unreachable from the browser (404, dropped).
  *
  * Reliability note: right after a deploy, form registration takes a short time
  * to propagate across Netlify's edge; POSTs during that window can 404 and be
